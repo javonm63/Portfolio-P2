@@ -1,31 +1,36 @@
 import { useState, useEffect } from 'react'
 import './searchbar.css'
 import SideNavBar from './sideNav.jsx'
-function Searchbar({sideNavBar}) {
-    const [showDisplay, setShowDisplay] = useState(false)
-    const [screenWidth, setScreenWidth] = useState(window.innerWidth)
-    const [sideNav, setSideNav] = useState(false)
 
+function Searchbar({setShowWebNav}) {
+    const [sideNav, setSideNav] = useState(false)
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth)
+    const [showDisplay, setShowDisplay] = useState(false)
+    
     useEffect(() => {
         const resizeScreen = () => {setScreenWidth(window.innerWidth)}
         window.addEventListener('resize', resizeScreen)
         return () => window.removeEventListener('resize', resizeScreen)
     })
-        
+    useEffect(() => {
+        if (screenWidth > 1030) {
+            setShowDisplay(true)
+            setShowWebNav(true)
+        } else {
+            setShowDisplay(false)
+            setShowWebNav(false)
+        }
+    })
     const showSearchbar = () => {
         if (screenWidth < 1030 && showDisplay === false) {
             setShowDisplay(true)
         } else if (screenWidth < 1030 && showDisplay === true) {
             setShowDisplay(false)
         }
-    }
-    useEffect(() => {
-        if (screenWidth > 1030) {
-            setShowDisplay(true)
-        }
-    })
+    }    
+    
    
-    return (
+    return ( 
         <nav className="searchbar-container">
             <div>
             <h2 id="web-logo">FLInnvoices.com</h2>
@@ -39,7 +44,7 @@ function Searchbar({sideNavBar}) {
             </div>
 
             <SideNavBar sideNav={sideNav} setSideNav={setSideNav} />
-        </nav>
+        </nav> 
 
     )
 }

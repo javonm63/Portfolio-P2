@@ -16,20 +16,24 @@ function Searchbar({setShowWebNav}) {
         if (screenWidth > 1030) {
             setShowDisplay(true)
             setShowWebNav(true)
+            return
         } else {
-            setShowDisplay(false)
             setShowWebNav(false)
-        }
+            return
+        } 
     })
     const showSearchbar = () => {
         if (screenWidth < 1030 && showDisplay === false) {
             setShowDisplay(true)
+            return
         } else if (screenWidth < 1030 && showDisplay === true) {
             setShowDisplay(false)
+            return
         }
-    }    
+    }
     
-   
+    
+    
     return ( 
         <nav className="searchbar-container">
             <div>

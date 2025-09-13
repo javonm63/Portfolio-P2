@@ -80,5 +80,7 @@ div {
     }
 }
 @media screen and (max-width: 420px) {
-   
+   .searchbar-container {
+        margin-left: 2.1vw;
+   }
 }

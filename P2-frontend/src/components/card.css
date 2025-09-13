@@ -1,0 +1,29 @@
+.earning-cards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    width: 47.5%;
+    background-color: rgba(211, 255, 17, 0.519);
+    backdrop-filter: blur(5px);
+    padding: 5px;
+}
+.home-cards-titles {
+    margin: 0;
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.487);
+}
+.home-cards-text {
+    margin: 0;
+    font-size: 25px;
+    color: rgba(0, 0, 0, 0.523);
+}
+
+@media screen and (max-width: 420px) {
+    .earning-cards-container {
+        width: 45%;
+    }
+}

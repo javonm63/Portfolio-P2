@@ -3,3 +3,28 @@
     flex-direction: column;
     align-items: center;
 }
+.page-title-container {
+    width: 90.5vw;
+    display: flex;
+    align-items: center;
+    margin-right: 0.7vw;
+}
+.page-titles {
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 0;
+    color: rgba(0, 0, 0, 0.404);
+}
+.cards-container {
+    width : 90.5vw;
+    margin-right: 0.7vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+
+@media screen and (max-width: 1030px) {
+    
+}

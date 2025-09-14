@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import './searchbar.css'
 import SideNavBar from './sideNav.jsx'
 
-function Searchbar({setShowWebNav}) {
-    const [sideNav, setSideNav] = useState(false)
+function Searchbar({ setShowWebNav, setSideNav, sideNav, }) {
     const [screenWidth, setScreenWidth] = useState(window.innerWidth)
     const [showDisplay, setShowDisplay] = useState(false)
     
@@ -36,7 +35,7 @@ function Searchbar({setShowWebNav}) {
     
     return ( 
         <nav className="searchbar-container">
-            <div>
+            <div className='logo-container'>
             <h2 id="web-logo">FLInnvoices.com</h2>
             <h2 id="mobile-logo">FLI.com</h2>
             </div>

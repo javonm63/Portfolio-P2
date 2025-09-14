@@ -1,15 +1,19 @@
-import { useEffect, useState } from "react";
-import Searchbar from "../components/searchbar.jsx";
+import navbarHooks from "../hooks/fl-dashboardHooks.jsx";
+import Searchbar from "../components/searchbar";
 import './fl-dashboard.css'
 import WebNavbar from "../components/webNav.jsx";
 import Card from "../components/card.jsx";
 
 function FlDashboard() {
-    const [showWebNav, setShowWebNav] = useState(false)
+    const navbarHook = navbarHooks() 
+    const showWebNav = navbarHook.showWebNav
+    const setShowWebNav = navbarHook.setShowWebNav
+    const sideNav = navbarHook.sideNav
+    const setSideNav = navbarHook.setSideNav
 
     return (
         <div className="dashboard-page-container">
-            <Searchbar setShowWebNav={setShowWebNav} />
+            <Searchbar sideNav={sideNav} setSideNav={setSideNav} setShowWebNav={setShowWebNav} />
             <div className="page-title-container">
                 <h1 className="page-titles">DASHBOARD</h1>
             </div>

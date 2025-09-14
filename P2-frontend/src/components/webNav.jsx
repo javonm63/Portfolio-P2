@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react"
 import './webNav.css'
 
 function WebNavbar({showWebNav}) {

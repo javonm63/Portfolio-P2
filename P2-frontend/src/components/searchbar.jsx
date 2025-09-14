@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react'
-import './searchbar.css'
+import '../styles/searchbar.css'
 import SideNavBar from './sideNav.jsx'
+import { searhbarHooks } from '../hooks/fl-dashboardHooks.jsx'
 
 function Searchbar({ setShowWebNav, setSideNav, sideNav, }) {
-    const [screenWidth, setScreenWidth] = useState(window.innerWidth)
-    const [showDisplay, setShowDisplay] = useState(false)
+    const searchbarHook = searhbarHooks()
+    const screenWidth = searchbarHook.screenWidth
+    const setScreenWidth = searchbarHook.setScreenWidth
+    const showDisplay = searchbarHook.showDisplay
+    const setShowDisplay = searchbarHook.setShowDisplay
     
     useEffect(() => {
         const resizeScreen = () => {setScreenWidth(window.innerWidth)}

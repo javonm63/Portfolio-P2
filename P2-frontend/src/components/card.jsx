@@ -1,4 +1,4 @@
-import './card.css'
+import '../styles/card.css'
 function Card({cardTitle, cardText}) {
     return (
         <aside className="earning-cards-container">

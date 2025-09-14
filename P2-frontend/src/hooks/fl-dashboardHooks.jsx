@@ -4,5 +4,10 @@ function navbarHooks() {
     const [sideNav, setSideNav] = useState(false)
     return {showWebNav, setShowWebNav, sideNav, setSideNav}
 }
+function searhbarHooks() { 
+    const [screenWidth, setScreenWidth] = useState(window.innerWidth)
+    const [showDisplay, setShowDisplay] = useState(false)
+    return {screenWidth, setScreenWidth, showDisplay, setShowDisplay}
+}
 
-export default navbarHooks
+export {navbarHooks, searhbarHooks}

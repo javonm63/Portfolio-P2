@@ -1,4 +1,4 @@
-import './sideNav.css'
+import '../styles/sideNav.css'
 function SideNavBar({sideNav, setSideNav}) {
     return (
         <div className="sideNav" style={{display: sideNav ? 'flex' : 'none'}}>

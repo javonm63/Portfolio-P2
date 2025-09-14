@@ -1,8 +1,9 @@
-import navbarHooks from "../hooks/fl-dashboardHooks.jsx";
+import {navbarHooks} from "../hooks/fl-dashboardHooks.jsx";
 import Searchbar from "../components/searchbar";
-import './fl-dashboard.css'
+import '../styles/fl-dashboard.css'
 import WebNavbar from "../components/webNav.jsx";
 import Card from "../components/card.jsx";
+import TableCard from "../components/tableCard.jsx";
 
 function FlDashboard() {
     const navbarHook = navbarHooks() 
@@ -22,6 +23,7 @@ function FlDashboard() {
                 <Card cardTitle={"EARNINGS"} cardText={'$0'}/>
                 <Card cardTitle={"OUTSTANDING"} cardText={'0'}/>
             </div>
+            <TableCard tableID={"home-table-body"}/>
         </div>
     )
 }

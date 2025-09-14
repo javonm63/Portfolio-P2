@@ -1,4 +1,4 @@
-import './webNav.css'
+import '../styles/webNav.css'
 
 function WebNavbar({showWebNav}) {
 return (

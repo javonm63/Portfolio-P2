@@ -25,7 +25,7 @@ function FlDashboard() {
                 <Card cardTitle={"EARNINGS"} cardText={'$0'}/>
                 <Card cardTitle={"OUTSTANDING"} cardText={'0'}/>
             </div>
-            <TableCard tableID={"home-table-body"}/>
+            <TableCard pageSubTitle={"INVOICE STATUS"} tableID={"home-table-body"} statusText={'STATUS'}/>
             <div className="quick-actions-container">
                 <QaCard qaCardTitle={'CLIENTS'} qaBtnText={'ADD CLIENT'} qaCardHref={'/clients'} qaLinkText={'EDIT CLIENT'} />
                 <QaCard qaCardTitle={'INVOICES'} qaBtnText={'INVOICES'} qaCardHref={'/invoices'} qaLinkText={'ADD INVOICE'} />
@@ -34,6 +34,7 @@ function FlDashboard() {
                 <h3 className="page-sub-titles">EARNINGS</h3>
             </div>
             <BarGraphCard />
+            <TableCard pageSubTitle={"DRAFTED INVOICES"} tableID={'home'} statusText={'MADE'} />
         </div>
     )
 }

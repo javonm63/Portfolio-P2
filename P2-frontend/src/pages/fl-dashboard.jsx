@@ -4,6 +4,7 @@ import '../styles/fl-dashboard.css'
 import WebNavbar from "../components/webNav.jsx";
 import Card from "../components/card.jsx";
 import TableCard from "../components/tableCard.jsx";
+import QaCard from "../components/qaCard.jsx";
 
 function FlDashboard() {
     const navbarHook = navbarHooks() 
@@ -24,6 +25,10 @@ function FlDashboard() {
                 <Card cardTitle={"OUTSTANDING"} cardText={'0'}/>
             </div>
             <TableCard tableID={"home-table-body"}/>
+            <div className="quick-actions-container">
+                <QaCard qaCardTitle={'CLIENTS'} qaBtnText={'ADD CLIENT'} qaCardHref={'/clients'} qaLinkText={'EDIT CLIENT'} />
+                <QaCard qaCardTitle={'INVOICES'} qaBtnText={'INVOICES'} qaCardHref={'/invoices'} qaLinkText={'ADD INVOICE'} />
+            </div>
         </div>
     )
 }

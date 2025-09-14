@@ -1,0 +1,69 @@
+.quick-action-card-cont {
+    border-radius: 5px;
+    width: 46.8%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background-color: rgba(211, 255, 17, 0.519);
+    backdrop-filter: blur(5px);
+}
+.quick-action-titles {
+    margin: 0;
+    margin-bottom: 5px;
+    color: rgba(0, 0, 0, 0.465);
+}
+.quick-action-btns {
+    width: 100%;
+    height: 80px;
+    border-radius: 5px;
+    border: none;
+    font-size: 17.5px;
+    color: rgba(0, 0, 0, 0.404);
+    background-color: rgb(194, 237, 0);
+}
+.quick-action-btns:hover {
+    cursor: pointer;
+    font-weight: bold;
+    scale: 1.01;
+    background-color: yellow;
+}
+.quick-action-links {
+    margin-top: 10px;
+    width: 100%;
+    height: 80px;
+    border-radius: 5px;
+    border: none;
+    text-decoration: none;
+    font-size: 17.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(0, 0, 0, 0.404);
+    background-color: rgb(194, 237, 0);
+}
+.quick-action-links:hover {
+    cursor: pointer;
+    font-weight: bold;
+    scale: 1.01;
+    background-color: yellow;
+}
+
+@media screen and (max-width: 1030px) {
+    .quick-action-card-cont {
+        width: 45.3%;
+    }
+    .quick-action-btns:hover {
+        cursor: pointer;
+        font-weight: bold;
+        scale: 1.025;
+        background-color: yellow;
+    }
+    .quick-action-links:hover {
+        cursor: pointer;
+        font-weight: bold;
+        scale: 1.025;
+        background-color: yellow;
+    }
+}

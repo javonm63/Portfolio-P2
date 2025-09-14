@@ -5,6 +5,7 @@ import WebNavbar from "../components/webNav.jsx";
 import Card from "../components/card.jsx";
 import TableCard from "../components/tableCard.jsx";
 import QaCard from "../components/qaCard.jsx";
+import BarGraphCard from "../components/barGraphCard.jsx";
 
 function FlDashboard() {
     const navbarHook = navbarHooks() 
@@ -29,6 +30,10 @@ function FlDashboard() {
                 <QaCard qaCardTitle={'CLIENTS'} qaBtnText={'ADD CLIENT'} qaCardHref={'/clients'} qaLinkText={'EDIT CLIENT'} />
                 <QaCard qaCardTitle={'INVOICES'} qaBtnText={'INVOICES'} qaCardHref={'/invoices'} qaLinkText={'ADD INVOICE'} />
             </div>
+            <div className="page-sub-title-cont">
+                <h3 className="page-sub-titles">EARNINGS</h3>
+            </div>
+            <BarGraphCard />
         </div>
     )
 }

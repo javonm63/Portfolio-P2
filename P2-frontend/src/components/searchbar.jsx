@@ -3,7 +3,7 @@ import '../styles/searchbar.css'
 import SideNavBar from './sideNav.jsx'
 import { searhbarHooks } from '../hooks/fl-dashboardHooks.jsx'
 
-function Searchbar({ setShowWebNav, setSideNav, sideNav, }) {
+function Searchbar({ setShowWebNav, setSideNav, sideNav}) {
     const searchbarHook = searhbarHooks()
     const screenWidth = searchbarHook.screenWidth
     const setScreenWidth = searchbarHook.setScreenWidth

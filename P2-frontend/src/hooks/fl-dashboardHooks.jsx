@@ -10,4 +10,9 @@ function searhbarHooks() {
     return {screenWidth, setScreenWidth, showDisplay, setShowDisplay}
 }
 
-export {navbarHooks, searhbarHooks}
+function showGraph() {
+    const [showLineGraph, setShowLineGraph] = useState(true)
+    return {showLineGraph, setShowLineGraph}
+}
+
+export {navbarHooks, searhbarHooks, showGraph}

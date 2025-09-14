@@ -10,7 +10,7 @@
     align-items: center;
 }
 .page-sub-titles {
-    color: rgba(0, 0, 0, 0.404);
+    color: rgba(253, 253, 28, 0.69);
     margin-bottom: 0;
     font-size: 22.5px;
     font-weight: bold;
@@ -48,4 +48,6 @@ tr {
     align-items: center;
     justify-content: center;
     color: rgba(255, 255, 106, 0.696);
+    background-color: rgba(100, 127, 1, 0.608);;
 }
+ 

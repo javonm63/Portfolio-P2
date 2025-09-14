@@ -20,8 +20,8 @@ function BarGraphCard() {
             {
                 label: 'Monthly Earnings',
                 data: [12, 19, 3, 5, 2, 8, 12, 19, 3, 5, 2, 8],
-                borderColor: "rgba(193, 237, 0, 0.43)",
-                backgroundColor: ["rgb(194, 237, 0)", "rgba(248, 236, 8, 1)"],
+                borderColor: "rgba(45, 55, 0, 0.47)",
+                backgroundColor: ["rgba(54, 66, 0, 0.67)", "rgba(248, 236, 8, 1)"],
                 tension: 0.3,
             },
         ],

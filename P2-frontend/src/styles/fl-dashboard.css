@@ -1,9 +1,13 @@
 .dashboard-page-container {
-    
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: fit-content;
+    width: 100vw;
+    height: fit-content;
+    background-image: url('background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 .page-title-container {
     width: 90vw;
@@ -15,7 +19,7 @@
     margin-right: auto;
     margin-top: 10px;
     margin-bottom: 0;
-    color: rgba(0, 0, 0, 0.404);
+    color: rgba(253, 253, 28, 0.69);
 }
 .cards-container { 
     width : 90.5vw;

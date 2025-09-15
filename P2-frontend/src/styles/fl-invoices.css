@@ -32,6 +32,7 @@
     width: 60%;
     height: 20px;
     border: none;
+    margin-bottom: 15px;
     border-radius: 5px;
     color: rgba(0, 0, 0, 0.514);
     background-color: rgb(227, 252, 62);
@@ -43,4 +44,41 @@
     background-color: yellow;
     cursor: pointer;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.231);
+}
+.invoiceExtras-inputs {
+    width: 94.5%;
+    height: 20px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    font-size: 13.5px;
+    margin: 5px;
+    color: rgb(0, 41, 0);
+    background-color: rgba(122, 135, 1, 0.551);
+}
+.invoiceExtras-inputs::placeholder {
+    color: rgb(0, 41, 0);
+}
+.invoices-main-buttons {
+    width: 60%;
+    height: 27.5px;
+    margin: 3px;
+    border: none;
+    border-radius: 5px;
+    color: rgba(0, 0, 0, 0.514);
+    background-color: rgb(227, 252, 62);
+}
+.invoices-main-buttons:hover {
+    scale: 1.025;
+    font-weight: bold;
+    color: rgba(22, 85, 1, 0.688);
+    background-color: yellow;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.231);
+}
+@media screen and (max-width: 1030px) {
+    .invoiceExtras-inputs {
+        width: 93%;
+    }
 }

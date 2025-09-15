@@ -4,6 +4,7 @@ import WebNavbar from "../components/webNav.jsx";
 import InvoiceInfoCard from '../components/invoiceInfoCard'
 import TableCard from '../components/tableCard.jsx'
 import '../styles/fl-invoices.css'
+import InvoiceExtras from "../components/invoiceExtras.jsx";
 
 function FlInvoices() {
     const navbarHook = navbarHooks() 
@@ -30,6 +31,14 @@ function FlInvoices() {
                     <input className="add-item-inputs" type='number' placeholder="Enter price" required></input>
                 </div>
                 <button className="add-item-button" type='button'>Add Item</button>
+                {/* <InvoiceExtras /> */}
+                <input className='invoiceExtras-inputs' type='text' placeholder='NOTES'></input>
+                <input className='invoiceExtras-inputs' type='text' placeholder='FEES'></input>
+                <input className='invoiceExtras-inputs' type='text' placeholder='DISCOUNTS'></input>
+                <input className='invoiceExtras-inputs' type='text' placeholder='COUPONS'></input>
+                
+                <button className="invoices-main-buttons" type='button'>SAVE INVOICE</button>
+                <button className="invoices-main-buttons" type='submit'>CREATE INVOICE</button>
             </div>
         </form>
     )

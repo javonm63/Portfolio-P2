@@ -21,6 +21,10 @@ function showNewPage() {
     const [showNew, setShowNew] = useState(true)
     return {showNew, setShowNew}
 }
+function showDraftsPage() {
+    const [showDraft, setShowDraft] = useState(false)
+    return {showDraft, setShowDraft}
+}
 
 
-export {showMoreHook, pageBodyHeight, showSendPage, showAllPage, showNewPage}
+export {showMoreHook, pageBodyHeight, showSendPage, showAllPage, showNewPage, showDraftsPage}

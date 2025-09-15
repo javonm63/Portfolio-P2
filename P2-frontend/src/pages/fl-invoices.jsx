@@ -6,7 +6,7 @@ import TableCard from '../components/tableCard.jsx'
 import '../styles/fl-invoices.css'
 import InvPgMenuCard from "../components/invoicePageMenu.jsx";
 import InvSubPages from "../components/invoicesSubPages.jsx";
-import { pageBodyHeight, showSendPage, showAllPage, showNewPage } from "../hooks/fi-invoicesHooks.jsx";
+import { pageBodyHeight, showSendPage, showAllPage, showNewPage, showDraftsPage } from "../hooks/fi-invoicesHooks.jsx";
 
 function FlInvoices() {
     const navbarHook = navbarHooks() 
@@ -31,19 +31,30 @@ function FlInvoices() {
     const showAll = allpageHook.showAll
     const setShowAll = allpageHook.setShowAll
 
-    // let bodyHeight = 'fit-content'
+    const draftspageHook = showDraftsPage()
+    const showDraft = draftspageHook.showDraft
+    const setShowDraft = draftspageHook.setShowDraft
 
     const showSendPg = () => {
         setShowNew(false)
         setShowSend(true)
         setShowAll(false)
         setBodyHeight(true)
+        setShowDraft(false)
     }
     const showAllPg = () => {
         setShowAll(true)
         setShowNew(false)
         setShowSend(false)
         setBodyHeight(true)
+        setShowDraft(false)
+    }
+    const showDraftPg = () => {
+        setShowAll(false)
+        setShowNew(false)
+        setShowSend(false)
+        setBodyHeight(true)
+        setShowDraft(true)
     }
 
     return (
@@ -53,7 +64,7 @@ function FlInvoices() {
                 <h1 className="page-titles">INVOICES</h1>
             </div>
             <WebNavbar showWebNav={showWebNav} />
-            <InvPgMenuCard showSend={showSendPg} setShowSend={setShowSend} showAll={showAllPg} setShowAll={setShowAll} showNew={showNew} setShowNew={setShowNew} setBodyHeight={setBodyHeight}/>
+            <InvPgMenuCard showSend={showSendPg} setShowSend={setShowSend} showAll={showAllPg} setShowAll={setShowAll} showNew={showNew} setShowNew={setShowNew} setBodyHeight={setBodyHeight} showDraft={showDraftPg} setShowDraft={setShowDraft}/>
             <h2 className='page-sub-titles'style={{visibility: showNew ? 'visible' : 'hidden'}}>CREATE INVOICE</h2>
             <div className="invoice-main-container" style={{display: showNew ? 'flex' : 'none'}}>
                 <InvoiceInfoCard />
@@ -78,7 +89,9 @@ function FlInvoices() {
             <h2 className='page-sub-titles' style={{display: showSend ? 'flex' : 'none'}}>SEND INVOICE</h2>
             <InvSubPages showSend={showSend} subPageInfo={'See send invoice instructions'} subPageInfoText={'Sending invoice instructions'} infoText={"If an invoice is ready to send you can click the 'waiting' status on that invoice then follow the pop instructions."}/>
             <h2 className='page-sub-titles' style={{display: showAll ? 'flex' : 'none'}}>ALL INVOICES</h2>
-            <InvSubPages showSend={showAll} subPageInfo={'See more all invoices page info'} subPageInfoText={'All invoices page info.'} infoText={"On this page you can view, delete or print created invoices. To view an invoice click the invoice's 'invoice ID', to print an invoice click the client's name and to delete an invoice click the 'status' of that invoice. "}/>
+            <InvSubPages showSend={showAll} subPageInfo={'See more info'} subPageInfoText={'All invoices page info.'} infoText={"On this page you can view, delete or print created invoices. To view an invoice click the invoice ID, to print an invoice click the client's name and to delete an invoice click the 'status' of that invoice."}/>
+            <h2 className='page-sub-titles' style={{display: showDraft ? 'flex' : 'none'}}>DRAFTED INVOICES</h2>
+            <InvSubPages showSend={showDraft} subPageInfo={'See more info about drafted invoices'} subPageInfoText={'Drafted invoices info.'} infoText={"Here you can view all the incompleted invoices you have saved. To continue working on a draft click the invoice ID, once an invoice is loaded it's removed from the drafts page so re-save if necessary. You can also delete invoices by clicking their statuses."}/>
         </form>
     )
 }

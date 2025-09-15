@@ -1,11 +1,12 @@
 import '../styles/invoicePageMenu.css'
 
-function InvPgMenuCard({showSend, setShowSend, showAll, setShowAll, showNew, setShowNew, setBodyHeight}) {
+function InvPgMenuCard({showSend, setShowSend, showAll, setShowAll, setShowNew, setBodyHeight, showDraft, setShowDraft}) {
     const unshowSend = () => {
         setShowSend(false)
         setShowAll(false)
         setShowNew(true)
         setBodyHeight(false)
+        setShowDraft(false)
     }
     
     return (
@@ -13,7 +14,7 @@ function InvPgMenuCard({showSend, setShowSend, showAll, setShowAll, showNew, set
             <button className='invPage-menu-btns' type='button' onClick={unshowSend}>NEW</button>        
             <button className='invPage-menu-btns' type='button' onClick={showSend}>SEND</button>        
             <button className='invPage-menu-btns' type='button' onClick={showAll}>ALL</button>        
-            <button className='invPage-menu-btns' type='button'>DRAFTS</button>        
+            <button className='invPage-menu-btns' type='button' onClick={showDraft}>DRAFTS</button>        
         </div>
     )
 }

@@ -40,8 +40,8 @@ function Searchbar({ setShowWebNav, setSideNav, sideNav}) {
     return ( 
         <nav className="searchbar-container">
             <div className='logo-container'>
-            <h2 id="web-logo">FLInnvoices.com</h2>
-            <h2 id="mobile-logo">FLI.com</h2>
+            <p id="web-logo">FLInnvoices.com</p>
+            <p id="mobile-logo">FLI.com</p>
             </div>
             <input id="searchBar" className="search-input" type="type" placeholder='Search' style={{display: showDisplay ? 'flex' : 'none'}}></input>
             <div className='icon-div'>

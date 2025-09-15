@@ -1,6 +1,6 @@
 .webNav-container {
-    border-top: 3px solid rgb(100, 127, 1);
-    border-bottom: 4px solid rgb(100, 127, 1);
+    border-top: 3px solid rgb(197, 251, 1);
+    border-bottom: 4px solid rgb(197, 251, 1);
     width: 90vw;
     height: 5vh;
     display: flex;
@@ -12,9 +12,9 @@
 .webNav-options {
     text-decoration: none;
     font-size: 18px;
-    color: rgb(100, 127, 1);
+    color: rgb(197, 251, 1);
 }
 .webNav-options:hover {
-    color: greenyellow;
+    color: rgb(242, 254, 113);
     scale: 1.05;
 } 

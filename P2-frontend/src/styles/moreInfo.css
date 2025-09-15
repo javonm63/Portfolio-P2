@@ -1,0 +1,42 @@
+.moreInfoCard-container {
+    flex-direction: column;
+    border: 2px solid rgb(105, 128, 0);
+    border-radius: 5px;
+    width: 30vw;
+    z-index: 9999;
+    position: fixed;
+    padding: 5px;
+    top: 30vh;
+    left: 35vw;
+    background-color: rgba(255, 255, 0, 0.718);
+    backdrop-filter: blur(5px);
+}
+.exit-moreInfoCard-btn {
+    margin-left: 95%;
+    padding: 0;
+    font-size: 16px;
+    border: none;
+    color: black;
+    background-color: rgba(0, 0, 0, 0);
+}
+.exit-moreInfoCard-btn:hover {
+    cursor: pointer;
+    color: red;
+}
+.moreInfoCard-title {
+    text-align: center;
+    margin: 0;
+    color: rgba(44, 44, 0, 0.873);
+}
+.moreInfoCard-text {
+    text-align: center;
+    margin: 0;
+    margin-top: 5px;
+    color: rgba(44, 44, 0, 0.873);
+}
+@media screen and (max-width: 1030px) {
+    .moreInfoCard-container {
+        width: 50vw;
+        left: 25vw;
+    }
+}

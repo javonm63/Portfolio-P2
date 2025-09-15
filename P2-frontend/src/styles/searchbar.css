@@ -9,6 +9,7 @@
     padding-right: 7.5px;
     background-color: rgb(211, 255, 17);
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.797);
+    margin-left: 2vw;
 }
 .logo-container {
     display: flex;
@@ -24,9 +25,11 @@
 }
 #mobile-logo {
     display: none;
+    font-weight: bold;
 }
 #web-logo {
     font-size: 30px;
+    font-weight: bold;
 }
 .search-input {
     width: 25vw;
@@ -84,6 +87,6 @@
 }
 @media screen and (max-width: 420px) {
    .searchbar-container {
-        margin-left: 2.1vw;
+        margin-left: 1.5vw;
    }
 }

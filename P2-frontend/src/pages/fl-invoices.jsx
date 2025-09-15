@@ -6,7 +6,7 @@ import TableCard from '../components/tableCard.jsx'
 import '../styles/fl-invoices.css'
 import InvPgMenuCard from "../components/invoicePageMenu.jsx";
 import InvSubPages from "../components/invoicesSubPages.jsx";
-import { showSendPage } from "../hooks/fi-invoicesHooks.jsx";
+import { pageBodyHeight, showSendPage, showAllPage, showNewPage } from "../hooks/fi-invoicesHooks.jsx";
 
 function FlInvoices() {
     const navbarHook = navbarHooks() 
@@ -15,24 +15,47 @@ function FlInvoices() {
     const sideNav = navbarHook.sideNav
     const setSideNav = navbarHook.setSideNav
 
+    const pageBodyHook = pageBodyHeight()
+    const bodyHeight = pageBodyHook.bodyHeight
+    const setBodyHeight = pageBodyHook.setBodyHeight
+
+    const newpageHook = showNewPage()
+    const showNew = newpageHook.showNew
+    const setShowNew = newpageHook.setShowNew
+
     const sendpageHook = showSendPage()
     const showSend = sendpageHook.showSend
     const setShowSend = sendpageHook.setShowSend
 
+    const allpageHook = showAllPage()
+    const showAll = allpageHook.showAll
+    const setShowAll = allpageHook.setShowAll
+
+    // let bodyHeight = 'fit-content'
+
     const showSendPg = () => {
+        setShowNew(false)
         setShowSend(true)
+        setShowAll(false)
+        setBodyHeight(true)
+    }
+    const showAllPg = () => {
+        setShowAll(true)
+        setShowNew(false)
+        setShowSend(false)
+        setBodyHeight(true)
     }
 
     return (
-        <form className="invoice-page-body" style={{height: showSend ? '100vh' : 'fit-content'}}>
+        <form className="invoice-page-body" style={{height: bodyHeight ? '100vh' : 'fit-content'}}>
             <Searchbar sideNav={sideNav} setSideNav={setSideNav} setShowWebNav={setShowWebNav} />
             <div className="page-title-container">
                 <h1 className="page-titles">INVOICES</h1>
             </div>
             <WebNavbar showWebNav={showWebNav} />
-            <InvPgMenuCard showSend={showSendPg} setShowSend={setShowSend}/>
-            <h2 className='page-sub-titles'style={{visibility: showSend ? 'hidden' : 'visible'}}>CREATE INVOICE</h2>
-            <div className="invoice-main-container" style={{display: showSend ? 'none' : 'flex'}}>
+            <InvPgMenuCard showSend={showSendPg} setShowSend={setShowSend} showAll={showAllPg} setShowAll={setShowAll} showNew={showNew} setShowNew={setShowNew} setBodyHeight={setBodyHeight}/>
+            <h2 className='page-sub-titles'style={{visibility: showNew ? 'visible' : 'hidden'}}>CREATE INVOICE</h2>
+            <div className="invoice-main-container" style={{display: showNew ? 'flex' : 'none'}}>
                 <InvoiceInfoCard />
                 <TableCard tableWidth={'95%'} tableID={"item-table-body"} invNumText={'ITEM'} clientText={'DESCRIPTION'} amountText={'QUANTITY'} statusText={'PRICE'}/>
                 <h3 className="page-section-subtitles">Add Items To Invoice</h3>
@@ -52,8 +75,10 @@ function FlInvoices() {
                 <button className="invoices-main-buttons" type='button'>SAVE INVOICE</button>
                 <button className="invoices-main-buttons" type='submit'>CREATE INVOICE</button>
             </div>
-            <h2 className='page-sub-titles' style={{visibility: showSend ? 'visible' : 'hidden'}}>SEND INVOICE</h2>
-            <InvSubPages showSend={showSend} subPageInfo={'See send invoice instructions'}/>
+            <h2 className='page-sub-titles' style={{display: showSend ? 'flex' : 'none'}}>SEND INVOICE</h2>
+            <InvSubPages showSend={showSend} subPageInfo={'See send invoice instructions'} subPageInfoText={'Sending invoice instructions'} infoText={"If an invoice is ready to send you can click the 'waiting' status on that invoice then follow the pop instructions."}/>
+            <h2 className='page-sub-titles' style={{display: showAll ? 'flex' : 'none'}}>ALL INVOICES</h2>
+            <InvSubPages showSend={showAll} subPageInfo={'See more all invoices page info'} subPageInfoText={'All invoices page info.'} infoText={"On this page you can view, delete or print created invoices. To view an invoice click the invoice's 'invoice ID', to print an invoice click the client's name and to delete an invoice click the 'status' of that invoice. "}/>
         </form>
     )
 }

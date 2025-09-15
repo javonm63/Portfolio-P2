@@ -89,6 +89,11 @@
     margin-top: 5px;
     margin-bottom: 7.5px;
 }
+.page-sub-titles {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 @media screen and (max-width: 1030px) {
     .invoiceExtras-inputs {
         width: 93%;

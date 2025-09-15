@@ -1,9 +1,9 @@
 import '../styles/invoiceInfoCard.css'
-import {showMore} from '../hooks/fi-invoicesHooks.jsx'
+import {showMoreHook} from '../hooks/fi-invoicesHooks.jsx'
 import MoreInfo from '../utils/moreInfo.jsx'
 
 function InvoiceInfoCard() {
-    const moreInfo = showMore()
+    const moreInfo = showMoreHook()
     const setShowMoreInfo = moreInfo.setShowMoreInfo
     const showMoreInfo = moreInfo.showMoreInfo
     const showInfo = () => {

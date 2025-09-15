@@ -1,3 +1,6 @@
+.invoice-page-body {
+    height: 100vh;
+}
 .invoice-main-container {
     height: fit-content;
     border-radius: 5px;

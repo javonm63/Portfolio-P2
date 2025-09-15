@@ -1,0 +1,24 @@
+.inv-sub-page-container {
+    height: 50vh;
+    border-radius: 5px;
+    border: 2px solid rgba(140, 175, 0, 0.625);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    overflow-y: auto;
+    background-color: rgb(48, 60, 1);
+}
+.inv-sub-page-text {
+    margin: 0;
+    font-weight: bold;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    color: rgba(216, 251, 16, 0.65);
+}
+.inv-sub-page-text:hover {
+    cursor: pointer;
+    scale: 1.025;
+    color: yellow;
+}

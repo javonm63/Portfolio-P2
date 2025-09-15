@@ -1,8 +1,13 @@
 import {  useState } from 'react'
 
-function showMore() {
+function showMoreHook() {
     const [showMoreInfo, setShowMoreInfo] = useState(false)
     return {showMoreInfo, setShowMoreInfo}
 }
 
-export {showMore}
+function showSendPage() {
+    const [showSend, setShowSend] = useState(false)
+    return {showSend, setShowSend}
+}
+
+export {showMoreHook, showSendPage}

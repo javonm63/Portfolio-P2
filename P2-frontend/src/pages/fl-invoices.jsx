@@ -2,6 +2,7 @@ import {navbarHooks} from "../hooks/fl-dashboardHooks.jsx";
 import Searchbar from "../components/searchbar";
 import WebNavbar from "../components/webNav.jsx";
 import InvoiceInfoCard from '../components/invoiceInfoCard'
+import TableCard from '../components/tableCard.jsx'
 import '../styles/fl-invoices.css'
 
 function FlInvoices() {
@@ -11,7 +12,7 @@ function FlInvoices() {
     const sideNav = navbarHook.sideNav
     const setSideNav = navbarHook.setSideNav
     return (
-        <div>
+        <form>
             <Searchbar sideNav={sideNav} setSideNav={setSideNav} setShowWebNav={setShowWebNav} />
             <div className="page-title-container">
                 <h1 className="page-titles">INVOICES</h1>
@@ -20,8 +21,17 @@ function FlInvoices() {
             <h2 className='page-sub-titles'>CREATE INVOICE</h2>
             <div className="invoice-main-container">
                 <InvoiceInfoCard />
+                <TableCard tableWidth={'95%'} tableID={"item-table-body"} invNumText={'ITEM'} clientText={'DESCRIPTION'} amountText={'QUANTITY'} statusText={'PRICE'}/>
+                <h3 className="page-section-titles">Add Items To Invoice</h3>
+                <div className="add-items-input-cont">
+                    <input className="add-item-inputs" type='text' placeholder="Enter item" required></input>
+                    <input className="add-item-inputs" type='text' placeholder="Enter description" required></input>
+                    <input className="add-item-inputs" type='number' placeholder="Enter quanitity" required></input>
+                    <input className="add-item-inputs" type='number' placeholder="Enter price" required></input>
+                </div>
+                <button className="add-item-button" type='button'>Add Item</button>
             </div>
-        </div>
+        </form>
     )
 }
 

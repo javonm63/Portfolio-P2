@@ -8,3 +8,39 @@
     padding-bottom: 15px;
     background-color: rgba(168, 214, 0, 0.896);
 }
+.add-items-input-cont {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 5px;
+    width: 95%;
+    margin-bottom: 7.5px;
+}
+.add-item-inputs {
+    height: 25px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    text-align: center;
+    color: rgb(0, 41, 0);
+    background-color: rgba(122, 135, 1, 0.551);
+}
+.add-item-inputs::placeholder {
+    color: rgb(0, 41, 0);
+}
+.add-item-button {
+    width: 60%;
+    height: 20px;
+    border: none;
+    border-radius: 5px;
+    color: rgba(0, 0, 0, 0.514);
+    background-color: rgb(227, 252, 62);
+}
+.add-item-button:hover {
+    scale: 1.025;
+    font-weight: bold;
+    color: rgba(22, 85, 1, 0.688);
+    background-color: yellow;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.231);
+}

@@ -1,8 +1,8 @@
 import '../styles/tableCard.css'
 
-function TableCard({tableID, statusText, pageSubTitle}) {
+function TableCard({tableWidth, tableID, invNumText, clientText, amountText, statusText, pageSubTitle}) {
     return (
-        <div className='tableCard-container'>
+        <div className='tableCard-container' style={{width: tableWidth}}>
             <table className='table-container'>
                 <thead className='page-sub-titles'>
                     <tr>
@@ -11,9 +11,9 @@ function TableCard({tableID, statusText, pageSubTitle}) {
                 </thead>
                 <tbody id={tableID} className='tbody'>
                     <tr className='table-titles-cont'>
-                        <th className='table-titles'>INVOICE</th>
-                        <th className='table-titles'>CLIENT</th>
-                        <th className='table-titles'>AMOUNT</th>
+                        <th className='table-titles'>{invNumText}</th>
+                        <th className='table-titles'>{clientText}</th>
+                        <th className='table-titles'>{amountText}</th>
                         <th className='table-titles'>{statusText}</th>
                     </tr>
                     <tr className='table-row'>

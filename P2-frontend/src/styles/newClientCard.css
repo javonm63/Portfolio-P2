@@ -1,0 +1,34 @@
+.add-new-client-main-cont {
+    border: 2px solid rgba(149, 179, 1, 0.754);
+    border-radius: 5px;
+    width: 98%;
+    height: fit-content;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+    background-color: rgb(48, 60, 1);
+}
+.add-new-client-inputs {
+    height: 25px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 15px;
+    color: rgb(3, 39, 0);
+    background-color: rgba(203, 255, 48, 0.685);
+}
+.add-new-client-inputs::placeholder {
+    color: rgb(3, 39, 0);
+}
+.add-new-client-inputs:hover {
+    background-color: rgba(249, 252, 79, 0.85);
+}
+
+@media screen and (max-width: 1030px) {
+    .add-new-client-main-cont {
+        width: 94.5%;
+    }
+}

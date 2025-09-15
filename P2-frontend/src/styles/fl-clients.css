@@ -1,0 +1,29 @@
+.clients-sub-page-container {
+    height: 50vh;
+    border-radius: 5px;
+    border: 2px solid rgba(140, 175, 0, 0.625);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    overflow-y: auto;
+    background-color: rgb(48, 60, 1);
+}
+.addNewClient-button {
+    width: 50%;
+    margin-left: 25%;
+    margin-top: 7.5px;
+    height: 25px;
+    border: none;
+    border-radius: 5px;
+    color: rgb(255, 255, 255);
+    background-color: rgba(0, 200, 0, 0.802);
+}
+.addNewClient-button:hover {
+    font-weight: bold;
+    scale: 1.025;
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.737);
+    background-color: yellow;
+}

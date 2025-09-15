@@ -4,7 +4,7 @@ import WebNavbar from "../components/webNav.jsx";
 import InvoiceInfoCard from '../components/invoiceInfoCard'
 import TableCard from '../components/tableCard.jsx'
 import '../styles/fl-invoices.css'
-import InvoiceExtras from "../components/invoiceExtras.jsx";
+import InvPgMenuCard from "../components/invoicePageMenu.jsx";
 
 function FlInvoices() {
     const navbarHook = navbarHooks() 
@@ -19,11 +19,12 @@ function FlInvoices() {
                 <h1 className="page-titles">INVOICES</h1>
             </div>
             <WebNavbar showWebNav={showWebNav} />
+            <InvPgMenuCard />
             <h2 className='page-sub-titles'>CREATE INVOICE</h2>
             <div className="invoice-main-container">
                 <InvoiceInfoCard />
                 <TableCard tableWidth={'95%'} tableID={"item-table-body"} invNumText={'ITEM'} clientText={'DESCRIPTION'} amountText={'QUANTITY'} statusText={'PRICE'}/>
-                <h3 className="page-section-titles">Add Items To Invoice</h3>
+                <h3 className="page-section-subtitles">Add Items To Invoice</h3>
                 <div className="add-items-input-cont">
                     <input className="add-item-inputs" type='text' placeholder="Enter item" required></input>
                     <input className="add-item-inputs" type='text' placeholder="Enter description" required></input>

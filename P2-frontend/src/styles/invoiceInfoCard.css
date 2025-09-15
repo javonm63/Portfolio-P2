@@ -8,7 +8,7 @@
     height: fit-content;
     padding-left: 2.5vw;
     padding-right: 2.5vw;
-    background-color: rgba(59, 75, 0, 0.522);
+    background-color: rgba(59, 75, 0, 0.848);
 }
 .invoice-info-container {
     display: flex;
@@ -19,7 +19,7 @@
 .page-section-titles {
     margin: 5px;
     font-size: 19px;
-    color: rgb(0, 43, 0);
+    color: rgb(156, 187, 1);
 }
 .invoiceInfoCard-input-cont {
     width: 98%;
@@ -37,6 +37,7 @@
 .bill-to-info-text {
     margin: 0;
     margin-bottom: 2.5px;
+    color: rgba(216, 251, 16, 0.65);
 }
 .MoreInfo-button {
     font-weight: bold;
@@ -60,7 +61,7 @@
     text-align: center;
     font-size: 15px;
     outline: none;
-    color: rgba(0, 0, 0, 0.469);
+    color: rgba(0, 0, 0, 0.786);
     background-color: rgba(201, 255, 119, 0.771);
 }
 .invoiceInfoCard-inputs::placeholder {

@@ -19,16 +19,16 @@ function InvoiceInfoCard() {
                         <p className='bill-to-info-text'>Enter Invoice ID:<button type='button' className='MoreInfo-button' onClick={showInfo}>i</button></p>
                     </div>
                     <div style={{display: 'flex', alignItems: 'center', width: '100%' }}>
-                        <input className='invoiceInfoCard-inputs' type="text" placeholder="Enter Client's Name" required></input>
-                        <input className='invoiceInfoCard-inputs' type="number" placeholder="Enter Invoice Number" required></input>
+                        <input className='invoiceInfoCard-inputs' type="text" placeholder="Name" required></input>
+                        <input className='invoiceInfoCard-inputs' type="number" placeholder="Invoice ID" required></input>
                     </div>
                     <div className='bill-to-info-text-conts'>
                         <p className='bill-to-info-text'>Enter Today's Date:</p>
                         <p className='bill-to-info-text'>Enter Due Date:</p>
                     </div>
                     <div style={{display: 'flex', alignItems: 'center', width: '100%' }}>
-                        <input className='invoiceInfoCard-inputs' type="date" placeholder="Enter Today's Date" required></input>
-                        <input className='invoiceInfoCard-inputs' type="date" placeholder="Enter Due Date" required></input>
+                        <input className='invoiceInfoCard-inputs' type="date" placeholder="Today's Date" required></input>
+                        <input className='invoiceInfoCard-inputs' type="date" placeholder="Due Date" required></input>
                     </div>
                 </div>
             </div>

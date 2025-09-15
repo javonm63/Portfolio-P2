@@ -77,7 +77,6 @@ function FlInvoices() {
                     <input className="add-item-inputs" type='number' placeholder="Enter price" required></input>
                 </div>
                 <button className="add-item-button" type='button'>Add Item</button>
-                {/* <InvoiceExtras /> */}
                 <input className='invoiceExtras-inputs' type='text' placeholder='NOTES'></input>
                 <input className='invoiceExtras-inputs' type='text' placeholder='FEES'></input>
                 <input className='invoiceExtras-inputs' type='text' placeholder='DISCOUNTS'></input>

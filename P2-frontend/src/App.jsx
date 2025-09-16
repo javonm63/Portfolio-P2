@@ -5,6 +5,7 @@ import FlDashboard from './pages/fl-dashboard.jsx'
 import FlInvoices from './pages/fl-invoices.jsx'
 import FlClients from './pages/fl-clients.jsx'
 import FlReports from './pages/fl-reports.jsx'
+import FlSettings from './pages/fl-settings.jsx'
 
 function App() {
   return (
@@ -14,12 +15,14 @@ function App() {
         <Link to="/fl/invoices"></Link>
         <Link to="/fl/clients"></Link>
         <Link to="/fl/reports"></Link>
+        <Link to="/fl/settings"></Link>
       </nav>
       <Routes>
         <Route path="/fl/dashboard" element={<FlDashboard />}></Route>
         <Route path="/fl/invoices" element={<FlInvoices />}></Route>
         <Route path="/fl/clients" element={<FlClients />}></Route>
         <Route path="/fl/reports" element={<FlReports />}></Route>
+        <Route path="/fl/settings" element={<FlSettings />}></Route>
       </Routes>
     </div>
   )

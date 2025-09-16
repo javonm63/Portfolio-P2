@@ -31,9 +31,33 @@
 }
 .notif-page-title {
     margin: 0;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     font-size: 22.5px;
     color: rgb(70, 79, 0);
+}
+.notifs-list {
+    width: 92.5%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.notif-object {
+    border-bottom: 2px solid rgba(0, 41, 0, 0.59);
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.notif-text {
+    text-align: center;
+    margin: 0;
+    margin-top: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(74, 96, 1);
+}
+.notif-time {
+    margin: 0;
+    margin-bottom: 5px;
+    text-align: center;
 }
 
 @media screen and (max-width: 1030px) {
@@ -44,7 +68,8 @@
 }
 @media screen and (max-width: 420px) {
     .notif-page-main-cont{
-        width: 50vw;
-        left: 49vw;
+        width: 100vw;
+        left: 0;
+        top: 15px;
     }
 }

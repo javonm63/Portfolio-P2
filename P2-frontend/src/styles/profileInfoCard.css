@@ -1,0 +1,57 @@
+.companyInfo-main-container {
+    height: 21vh;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.companyLogo-container {
+    width: 35%;
+    height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(249, 255, 76, 0.687);
+}
+.companyLogo-placeholder {
+    font-size: 20px;
+}
+.companyInfo-Info-container {
+    height: 130px;
+    width: 60%;
+}
+.companyInfo-top-container {
+    border-radius: 5px;
+    padding: 5px;
+    height: fit-content;
+    margin-bottom: 2.5%;
+    background-color: rgba(249, 255, 76, 0.687);
+}
+.addressTitle {
+    margin: 0;
+    font-weight: bold;
+    margin-bottom: 2.5px;
+    color: rgb(41, 55, 0);
+}
+.addressText {
+    margin: 0;
+    color: rgb(41, 55, 0);
+}
+.companyInfo-bottom-container {
+    border-radius: 5px;
+    padding: 5px;
+    height: fit-content;
+    background-color: rgba(249, 255, 76, 0.687);
+}
+.paymentTitle {
+    margin: 0;
+    font-weight: bold;
+    margin-bottom: 2.5px;
+    color: rgb(41, 55, 0);
+}
+.paymentText {
+    margin: 0;
+    margin-top: 10.5px;
+    color: rgb(41, 55, 0);
+}

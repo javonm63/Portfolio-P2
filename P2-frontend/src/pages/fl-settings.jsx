@@ -30,12 +30,13 @@ function FlSettings() {
                 </div>
                 <h3 className='settings-page-subTitles'>Company Info</h3>
                 <div className='companyInfo-container'>
-                    <ProfileInfoCard />
+                    <ProfileInfoCard placeHolderText={'LOGO'}/>
                 </div>
                 <button className='edit-profile-button' type='button'>Edit Company</button>
                 <h3 className='settings-page-subTitles'>Invoice Settings</h3>
                 <div className='appSettings-container'>
                     <InvoiceSetCard />
+                    {/* ADD APP SETTINGS FOR FREELANCER SIDE */}
                 </div>
             </div>
         </div>

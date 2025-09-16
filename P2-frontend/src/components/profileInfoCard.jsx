@@ -1,10 +1,10 @@
 import '../styles/profileInfoCard.css'
 
-function ProfileInfoCard() {
+function ProfileInfoCard({placeHolderText}) {
     return (
         <div className='companyInfo-main-container'>
             <div className='companyLogo-container'>
-                <p className='companyLogo-placeholder'>LOGO</p>
+                <p className='companyLogo-placeholder'>{placeHolderText}</p>
             </div>
             <div className='companyInfo-Info-container'>
                 <div className='companyInfo-top-container'>

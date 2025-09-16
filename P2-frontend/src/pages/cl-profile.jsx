@@ -2,6 +2,7 @@ import '../styles/cl-profile.css'
 import {navbarHooks} from "../hooks/fl-dashboardHooks.jsx";
 import Searchbar from "../components/searchbar.jsx";
 import ClWebNavbar from "../components/clWebNav.jsx";
+import ProfileInfoCard from '../components/profileInfoCard.jsx';
 
 function ClProfile() {
     const navbarHook = navbarHooks() 
@@ -24,6 +25,15 @@ function ClProfile() {
                     <input className='settingsProfile-inputs' type='number' placeholder='347-123-4567' readOnly></input>
                     <input className='settingsProfile-inputs' type='text' placeholder='**********' readOnly></input>
                     <button className='edit-profile-button' type='button'>Edit Profile</button>
+                </div>
+                <h3 className='settings-page-subTitles'>Personal Info</h3>
+                <div className='companyInfo-container'>
+                    <ProfileInfoCard placeHolderText={'IMAGE'}/>
+                </div>
+                <button className='edit-profile-button' type='button'>Edit Company</button>
+                <h3 className='settings-page-subTitles'>Invoice Settings</h3>
+                <div className='appSettings-container'>
+                   
                 </div>
             </div>
         </div>

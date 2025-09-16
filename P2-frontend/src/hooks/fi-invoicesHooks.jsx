@@ -25,6 +25,10 @@ function showDraftsPage() {
     const [showDraft, setShowDraft] = useState(false)
     return {showDraft, setShowDraft}
 }
+function showSendPage2() {
+    const [showSend2, setShowSend2] = useState(true)
+    return {showSend2, setShowSend2}
+}
 
 
-export {showMoreHook, pageBodyHeight, showSendPage, showAllPage, showNewPage, showDraftsPage}
+export {showMoreHook, pageBodyHeight, showSendPage, showAllPage, showNewPage, showDraftsPage, showSendPage2}

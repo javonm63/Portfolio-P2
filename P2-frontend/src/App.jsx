@@ -7,17 +7,19 @@ import FlClients from './pages/fl-clients.jsx'
 import FlReports from './pages/fl-reports.jsx'
 import FlSettings from './pages/fl-settings.jsx'
 import ClDashboard from './pages/cl-dashboard.jsx'
+import ClInvoices from './pages/cl-invoices.jsx'
 
 function App() {
   return (
     <div className='body'>
       <nav>
         <Link to="/fl/dashboard"></Link>
-        <Link to="/fl/invoices"></Link>
+        <Link to="/fl/invoices"></Link> 
         <Link to="/fl/clients"></Link>
         <Link to="/fl/reports"></Link>
         <Link to="/fl/settings"></Link>
         <Link to="/cl/dashboard"></Link>
+        <Link to="/cl/invoices"></Link> 
       </nav>
       <Routes>
         <Route path="/fl/dashboard" element={<FlDashboard />}></Route>
@@ -26,6 +28,8 @@ function App() {
         <Route path="/fl/reports" element={<FlReports />}></Route>
         <Route path="/fl/settings" element={<FlSettings />}></Route>
         <Route path="/cl/dashboard" element={<ClDashboard />}></Route>
+        <Route path="/cl/invoices" element={<ClInvoices />}></Route>
+        
       </Routes>
     </div>
   )

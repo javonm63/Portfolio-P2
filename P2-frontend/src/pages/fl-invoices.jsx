@@ -4,7 +4,7 @@ import WebNavbar from "../components/webNav.jsx";
 import InvoiceInfoCard from '../components/invoiceInfoCard'
 import TableCard from '../components/tableCard.jsx'
 import '../styles/fl-invoices.css'
-import InvPgMenuCard from "../components/invoicePageMenu.jsx";
+import InvPgMenuCard from "../components/CLinvoicePageMenu.jsx";
 import InvSubPages from "../components/invoicesSubPages.jsx";
 import { pageBodyHeight, showSendPage, showAllPage, showNewPage, showDraftsPage } from "../hooks/fi-invoicesHooks.jsx";
 

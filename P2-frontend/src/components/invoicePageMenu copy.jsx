@@ -12,9 +12,8 @@ function InvPgMenuCard({showSend, setShowSend, showAll, setShowAll, setShowNew, 
     return (
         <div className="invoice-page-menu-cont">
             <button className='invPage-menu-btns' type='button' onClick={unshowSend}>NEW</button>        
-            <button className='invPage-menu-btns' type='button' onClick={showSend}>SEND</button>        
-            <button className='invPage-menu-btns' type='button' onClick={showAll}>ALL</button>        
-            <button className='invPage-menu-btns' type='button' onClick={showDraft}>DRAFTS</button>        
+            <button className='invPage-menu-btns' type='button' onClick={showSend}>SAVED</button>        
+            <button className='invPage-menu-btns' type='button' onClick={showAll}>ALL</button>       
         </div>
     )
 }

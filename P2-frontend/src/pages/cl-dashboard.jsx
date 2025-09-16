@@ -1,7 +1,7 @@
 import '../styles/cl-dashboard.css'
 import {navbarHooks} from "../hooks/fl-dashboardHooks.jsx";
 import Searchbar from "../components/searchbar";
-import WebNavbar from "../components/webNav.jsx";
+import ClWebNavbar from "../components/clWebNav.jsx";
 import Card from "../components/card.jsx";
 import TableCard from "../components/tableCard.jsx";
 import QaCard from "../components/qaCard.jsx";
@@ -22,7 +22,7 @@ function ClDashboard() {
             <div className="page-title-container">
                 <h1 className="page-titles">DASHBOARD</h1>
             </div>
-            <WebNavbar showWebNav={showWebNav} />
+            <ClWebNavbar showWebNav={showWebNav} />
             <div className="cards-container">
                 <Card cardTitle={"UNPAID"} cardText={'0'}/>
                 <Card cardTitle={"OUTSTANDING"} cardText={'0'}/>

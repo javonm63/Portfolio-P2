@@ -26,7 +26,7 @@ function FlReports() {
             </div>
             <div className='reports-main-container'>
                 <div className='reports-left-container'>
-                    <ReportsGraphCard />
+                    <ReportsGraphCard gaphLabel={"Monthly Earnings"}/>
                 </div>
                 <div className='reports-right-container'>
                     <PieGraphCard />

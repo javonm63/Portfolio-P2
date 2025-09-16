@@ -13,12 +13,12 @@ ChartJs.register(
     Tooltip,
     Legend
 )
-function ReportsGraphCard() {
+function ReportsGraphCard({graphLabel}) {
     const data = {
         labels: ['Jan', 'Feb', 'Mar','Apr', 'May', 'Jun','Jul', 'Aug', 'Sep','Oct', 'Nov', 'Dec'],
         datasets: [
             {
-                label: 'Monthly Earnings',
+                label: graphLabel,
                 data: [12, 19, 3, 5, 2, 8, 12, 19, 3, 5, 2, 8],
                 borderColor: "rgba(45, 55, 0, 0.47)",
                 backgroundColor: ["rgba(54, 66, 0, 0.67)", "rgba(248, 236, 8, 1)"],

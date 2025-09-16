@@ -8,7 +8,7 @@ function ClSideNavBar({sideNav, setSideNav, openNotifPg}) {
             <a className='sideNav-options' href='/cl/invoices'>INVOICES</a>
             <a className='sideNav-options' href='/cl/reports'>REPORTS</a>
             <button id="sideNav-notif-btn" className='sideNav-options' type="button" onClick={openNotifPg}>NOTIFICATIONS</button>
-            <a className='sideNav-options' href='/cl/settings'>SETTINGS</a>
+            <a className='sideNav-options' href='/cl/profile'>SETTINGS</a>
             <a className='sideNav-options' href='/'>LOGOUT</a>
         </div>
     )

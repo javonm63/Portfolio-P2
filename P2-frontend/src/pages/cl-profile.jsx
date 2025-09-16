@@ -1,4 +1,3 @@
-import '../styles/cl-profile.css'
 import {navbarHooks} from "../hooks/fl-dashboardHooks.jsx";
 import Searchbar from "../components/searchbar.jsx";
 import ClWebNavbar from "../components/clWebNav.jsx";
@@ -33,7 +32,7 @@ function ClProfile() {
                 <button className='edit-profile-button' type='button'>Edit Company</button>
                 <h3 className='settings-page-subTitles'>Invoice Settings</h3>
                 <div className='appSettings-container'>
-                   
+                   {/* ADD THE APP SETTINGS FOR CLIENT SIDE  */}
                 </div>
             </div>
         </div>

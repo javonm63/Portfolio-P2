@@ -48,16 +48,16 @@ function ClInvoices() {
                 <h1 className="page-titles">INVOICES</h1>
             </div>
             <ClWebNavbar showWebNav={showWebNav} />
-            <ClInvPgMenuCard showSend={showNewInvPg} showNew={showSendInvPg} showAll={showAllInvPg}/>
+            <ClInvPgMenuCard showSend={showSendInvPg} showNewPg={showNewInvPg} showAll={showAllInvPg}/>
             <h3 className='page-sub-titles' style={{display: showNew ? 'flex' : 'none'}}>NEW INVOICES</h3>
             <h3 className='page-sub-titles' style={{display: showSend ? 'flex' : 'none'}}>SEND INVOICE</h3>
             <h3 className='page-sub-titles' style={{display: showAll ? 'flex' : 'none'}}>ALL INVOICES</h3>
             <div className="clInvs-page-container">
-                <InvSubPages showSend={showNew} subPageInfo={'See more info'} subPageInfoText={'New invoices info.'} infoText={"This page allows you to pay for invoices by clicking the invoice ID."}/>
-                <InvSubPages showSend={showSend} subPageInfo={'See more info'} subPageInfoText={'Sending invoices info.'} infoText={"Here you can view or print paid/saved invoices, to view click the invoice ID or to print click the invoice status."}/>
-                <InvSubPages showSend={showAll} subPageInfo={'See more info'} subPageInfoText={'All invoices info.'} infoText={"All the invoices that comes to your account is saved here regardless if the invoice is paid or unpaid."}/>
+                <InvSubPages showPage={showNew} subPageInfo={'See more info'} subPageInfoText={'New invoices info.'} infoText={"This page allows you to pay for invoices by clicking the invoice ID."}/>
+                <InvSubPages showPage={showSend} subPageInfo={'See more info'} subPageInfoText={'Saving invoices info.'} infoText={"Here you can view or print paid/saved invoices, to view click the invoice ID or to print click the invoice status."}/>
+                <InvSubPages showPage={showAll} subPageInfo={'See more info'} subPageInfoText={'All invoices info.'} infoText={"All the invoices that comes to your account is saved here regardless if the invoice is paid or unpaid."}/>
             </div>
-        </div>
+        </div> 
     )
 }
 

@@ -1,0 +1,68 @@
+.sideNav {
+    border: 2px solid greenyellow;
+    width: 45vw;
+    height: 98.2vh;
+    z-index: 9999;
+    position: fixed;
+    top: 10px;
+    left: 54vw;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(211, 255, 17, 0.683);
+    backdrop-filter: blur(5px);
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.779);
+}
+.sidenav-exit-btn {
+    margin-left: auto;
+    font-size: 18px;
+    border: none;
+    color: rgb(0, 96, 0);
+    background-color: rgba(0, 0, 0, 0);
+}
+.sidenav-exit-btn:hover {
+    scale: 1.1;
+    cursor: pointer;
+}
+.sidenav-title {
+    text-align: center;
+    margin: 0;
+    margin-bottom: 10px;
+    font-size: 25px;
+    color: rgba(0, 41, 0, 0.59);
+}
+.sideNav-options {
+    border-bottom: 2px solid rgba(0, 41, 0, 0.59);
+    text-decoration: none;
+    width: 97%;
+    height: 7%;
+    text-align: center;
+    font-size: larger;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(0, 41, 0, 0.59);
+}
+.sideNav-options:hover {
+    scale: 1.03;
+    font-weight: bold;
+    color: rgba(247, 250, 84, 0.88);
+    background-color: rgba(90, 128, 0, 0.207);
+}
+#sideNav-notif-btn {
+    border: none;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-bottom: 2px solid rgba(0, 41, 0, 0.59);
+    background-color: rgba(0, 0, 0, 0);
+}
+#sideNav-notif-btn:hover {
+    cursor: pointer;
+}
+@media screen and (max-width: 420px) {
+    .sideNav {
+        width: 95vw;
+        top: 10vh;
+        left: 2vw;
+        right: 0;
+    }
+}

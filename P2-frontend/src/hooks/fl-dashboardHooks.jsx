@@ -1,4 +1,13 @@
 import { useState } from "react"
+
+function showMenuHook() {
+    const [showMenu, setShowMenu] = useState(false)
+    return {showMenu, setShowMenu}
+}
+function showClMenuHook() {
+    const [showClMenu, setShowClMenu] = useState(false)
+    return {showClMenu, setShowClMenu}
+}
 function navbarHooks() { 
     const [showWebNav, setShowWebNav] = useState(true)
     const [sideNav, setSideNav] = useState(false)
@@ -18,4 +27,4 @@ function showGraph() {
     return {showLineGraph, setShowLineGraph}
 }
 
-export {navbarHooks, searhbarHooks, showNotifHook, showGraph}
+export {showMenuHook, showClMenuHook, navbarHooks, searhbarHooks, showNotifHook, showGraph}

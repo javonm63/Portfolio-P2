@@ -27,8 +27,8 @@ function FlDashboard() {
             </div>
             <TableCard tableWidth={'90vw'} pageSubTitle={"INVOICE STATUS"} tableID={"home-table-body"} invNumText={'INVOICE'} clientText={'CLIENT'} amountText={'AMOUNT'} statusText={'STATUS'}/>
             <div className="quick-actions-container">
-                <QaCard qaCardTitle={'CLIENTS'} qaBtnText={'ADD CLIENT'} qaCardHref={'/clients'} qaLinkText={'EDIT CLIENT'} />
-                <QaCard qaCardTitle={'INVOICES'} qaBtnText={'INVOICES'} qaCardHref={'/invoices'} qaLinkText={'ADD INVOICE'} />
+                <QaCard qaCardTitle={'CLIENTS'} qaBtnText={'ADD CLIENT'} qaCardHref={'/fl/clients'} qaLinkText={'EDIT CLIENT'} />
+                <QaCard qaCardTitle={'INVOICES'} qaBtnText={'INVOICES'} qaCardHref={'/fl/invoices'} qaLinkText={'ADD INVOICE'} />
             </div>
             <div className="page-sub-title-cont">
                 <h3 className="page-sub-titles">EARNINGS</h3>

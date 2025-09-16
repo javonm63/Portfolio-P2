@@ -7,7 +7,7 @@ return (
         <a className="webNav-options" href="/fl/invoices">INVOICES</a>
         <a className="webNav-options" href="/fl/clients">CLIENTS</a>
         <a className="webNav-options" href="/fl/reports">REPORTS</a>
-        <a className="webNav-options" href="/fl/profile">PROFILE</a>
+        <a className="webNav-options" href="/fl/settings">PROFILE</a>
     </nav>
 )
 }

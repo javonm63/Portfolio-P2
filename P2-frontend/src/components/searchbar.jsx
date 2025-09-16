@@ -1,9 +1,18 @@
 import { useEffect, useState } from 'react'
 import '../styles/searchbar.css'
 import SideNavBar from './sideNav.jsx'
-import { searhbarHooks } from '../hooks/fl-dashboardHooks.jsx'
+import { searhbarHooks, showNotifHook } from '../hooks/fl-dashboardHooks.jsx'
+import NotifsPage from './notifsCard'
 
 function Searchbar({ setShowWebNav, setSideNav, sideNav}) {
+    const notifHook = showNotifHook()
+    const showNotifs = notifHook.showNotif
+    const setShowNotifs = notifHook.setShowNotif
+
+    const openNotifPg = () => {
+        setShowNotifs(true)
+        setSideNav(false)
+    }
     const searchbarHook = searhbarHooks()
     const screenWidth = searchbarHook.screenWidth
     const setScreenWidth = searchbarHook.setScreenWidth
@@ -47,10 +56,11 @@ function Searchbar({ setShowWebNav, setSideNav, sideNav}) {
             <div className='icon-div'>
                 <img id="search-icon" className="searchbar-icons" src="/search-icon.png" alt="search icon" onClick={showSearchbar}></img>
                 <img id="menu-icon" className="searchbar-icons" src="/sidenav-icon.png" alt="menu icon" onClick={() => setSideNav(true)}></img>
-                <img id="notif-icon" className="searchbar-icons" src="/notif-icon.png" alt="menu icon"></img>
+                <img id="notif-icon" className="searchbar-icons" src="/notif-icon.png" alt="menu icon" onClick={openNotifPg}></img>
             </div>
 
-            <SideNavBar sideNav={sideNav} setSideNav={setSideNav} />
+            <SideNavBar sideNav={sideNav} setSideNav={setSideNav} openNotifPg={openNotifPg}/>
+            <NotifsPage showNotifs={showNotifs} setShowNotifs={setShowNotifs}/>
         </nav> 
 
     )

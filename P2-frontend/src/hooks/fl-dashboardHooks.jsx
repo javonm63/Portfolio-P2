@@ -9,10 +9,13 @@ function searhbarHooks() {
     const [showDisplay, setShowDisplay] = useState(false)
     return {screenWidth, setScreenWidth, showDisplay, setShowDisplay}
 }
-
+function showNotifHook() {
+    const [showNotif, setShowNotif] = useState(false)
+    return {showNotif, setShowNotif}
+}
 function showGraph() {
     const [showLineGraph, setShowLineGraph] = useState(true)
     return {showLineGraph, setShowLineGraph}
 }
 
-export {navbarHooks, searhbarHooks, showGraph}
+export {navbarHooks, searhbarHooks, showNotifHook, showGraph}

@@ -4,6 +4,7 @@ import Searchbar from "../components/searchbar.jsx";
 import WebNavbar from "../components/webNav.jsx";
 import ReportsGraphCard from '../components/reportsGraphCard.jsx';
 import PieGraphCard from '../components/pieGraph.jsx';
+import TotalsCard from '../components/reportsTotalsCard.jsx';
 
 function FlReports() {
     const navbarHook = navbarHooks() 
@@ -31,6 +32,7 @@ function FlReports() {
                     <PieGraphCard />
                 </div>
             </div>
+            <TotalsCard />
         </div>
     )
 }

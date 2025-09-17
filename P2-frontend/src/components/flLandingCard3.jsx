@@ -1,14 +1,15 @@
 import '../styles/flLandingCard3.css'
 import BarGraphCard from './barGraphCard'
+import ReportsGraphCard from './reportsGraphCard'
 
-function LandingCard3({openSignup}) {
+function LandingCard3({openSignup, landingCard3Text, graphLabel}) {
     return (
         <div className='landingCard3-main-cont'>
             <h3 className='landingCard-titles'>View your invoice stats</h3>
             <div className='landingGraph-container'>
-                <BarGraphCard />
+                <ReportsGraphCard graphLabel={graphLabel}/>
             </div>
-            <p className='landingCard3-texts'><i>You can also view insights about your invoices and clients such as paid vs unpaid invoices, monthly earnings, outstanding balances etc.</i></p>
+            <p className='landingCard3-texts'><i>{landingCard3Text}</i></p>
             <h3 className='landingCard-titles'>Get started for free</h3>
             <p className='landingCard3-texts'><i>Create an account to start centralizing your invoice management tasks today.</i></p>
             <button className='landing-cards-buttons' type='button' onClick={openSignup}>Sign Up</button>

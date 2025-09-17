@@ -5,7 +5,7 @@ function LandingSideNavBar({sideNav, setSideNav, openNotifPg}) {
             <button className='sidenav-exit-btn' onClick={() => setSideNav(false)}>X</button>
             <h3 className='sidenav-title'>MENU</h3>
             <a className='sideNav-options' href='/'>FREELANCER</a>
-            <a className='sideNav-options' href='/cl/'>CLIENT</a>
+            <a className='sideNav-options' href='/cl'>CLIENT</a>
             <button className='sideNav-login-option' type='button'>LOGIN</button>
         </div>
     )

@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
 import '../styles/fl-landing-page.css'
 import {navbarHooks, searhbarHooks} from "../hooks/fl-dashboardHooks.jsx";
-import { showSignUpHook } from '../hooks/landingPageHooks.jsx'
+import { showSignUpHook, showLoginHook } from '../hooks/landingPageHooks.jsx'
 import Landingbar from "../components/landingBar.jsx";
 import ClInvPgMenuCard from "../components/CLinvoicePageMenu.jsx";
 import LandingCard1 from '../components/flLandingCard1.jsx';
 import LandingCard2 from '../components/flLandingCard2.jsx';
 import LandingCard3 from '../components/flLandingCard3.jsx';
 import ClSignUp from '../components/cl-signupCard.jsx'
+import LoginCard from '../components/loginCard.jsx';
 
 function ClLandingPage() {
     const navbarHook = navbarHooks() 
@@ -24,6 +25,10 @@ function ClLandingPage() {
     const showSignup = signupHooks.showSignup
     const setShowSignup = signupHooks.setShowSignup
 
+    const loginHooks = showLoginHook()
+    const showLogin = loginHooks.showLogin
+    const setShowLogin = loginHooks.setShowLogin
+
     const showSendInvPg = () => {
         window.location.href = '/cl'
     }
@@ -31,14 +36,19 @@ function ClLandingPage() {
         window.location.href = '/'
     }
     const showAllInvPg = () => {
-        console.log('add login popup')
+        setShowLogin(true)
     }
 
     const closeSignup = () => {
         setShowSignup(false)
+        setShowLogin(false)
     }
     const openSignupPg = () => {
         setShowSignup(true)
+    }
+    const openLoginPg = () => {
+        setShowLogin(true)
+        setSideNav(false)
     }
     useEffect(() => {
             const resizeScreen = () => {setScreenWidth(window.innerWidth)}
@@ -57,7 +67,7 @@ function ClLandingPage() {
 
     return (
         <div className='landing-page-main-cont'>
-            <Landingbar sideNav={sideNav} setSideNav={setSideNav} setShowWebNav={setShowWebNav} />
+            <Landingbar openSignup={openLoginPg} sideNav={sideNav} setSideNav={setSideNav} setShowWebNav={setShowWebNav} />
             <div className="page-title-container">
                 <h1 className="page-titles">CLIENT</h1>
             </div>
@@ -67,6 +77,7 @@ function ClLandingPage() {
             <LandingCard3 graphLabel={'Paid vs Unpaid'} openSignup={openSignupPg} landingCard3Text={'You can view insights about your invoices, payments and merchants. Some of these insights are: paid vs unpaid invoices, recently paid invoice, overdue or outstanding invoices etc.'}/> 
 
             <ClSignUp openSignup={showSignup} closeSignup={closeSignup}/>
+            <LoginCard showSignup={showLogin} closeSignup={closeSignup}/>
         </div>
     )
 }

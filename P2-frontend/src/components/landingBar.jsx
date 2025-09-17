@@ -3,7 +3,7 @@ import '../styles/searchbar.css'
 import LandingSideNavBar from './landingSideNav.jsx'
 import { searhbarHooks, navbarHooks } from '../hooks/fl-dashboardHooks.jsx'
 
-function Landingbar({ setShowWebNav, setSideNav, sideNav}) {
+function Landingbar({ setShowWebNav, setSideNav, sideNav,openSignup}) {
     const searchbarHook = searhbarHooks()
     const screenWidth = searchbarHook.screenWidth
     const setScreenWidth = searchbarHook.setScreenWidth
@@ -36,7 +36,7 @@ function Landingbar({ setShowWebNav, setSideNav, sideNav}) {
                 <img id="menu-icon" className="searchbar-icons" src="/sidenav-icon.png" alt="menu icon" onClick={openMenu}></img>
             </div>
 
-            <LandingSideNavBar sideNav={sideNav} setSideNav={setSideNav}/>
+            <LandingSideNavBar openSignup={openSignup} sideNav={sideNav} setSideNav={setSideNav}/>
         </nav> 
 
     )

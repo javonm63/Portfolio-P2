@@ -4,8 +4,9 @@ function FlSignUp({openSignup, closeSignup}) {
     return (
         <form className='fl-signupCard-container' style={{display: openSignup ? 'flex' : 'none'}}>
             <button className='exit-button' type='button' onClick={closeSignup} >X</button>
-            <h3 className='signup-titles'>Create an account</h3>
+            <h3 className='signup-titles'>Freelancer account</h3>
             <input className='signup-inputs' type='text' placeholder='Enter Your Name'required></input>
+            <input className='signup-inputs' type='text' placeholder='Company'required></input>
             <input className='signup-inputs' type='email' placeholder='Enter Your Email'required></input>
             <input className='signup-inputs' type='tel' placeholder='Enter Your Phone'required></input>
             <input className='signup-inputs' type='text' placeholder='Create Passwaord'required></input>

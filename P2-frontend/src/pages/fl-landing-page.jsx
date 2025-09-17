@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
 import '../styles/fl-landing-page.css'
 import {navbarHooks, searhbarHooks, showNotifHook} from "../hooks/fl-dashboardHooks.jsx";
-import { showSignUpHook } from '../hooks/landingPageHooks.jsx'
+import { showSignUpHook, showLoginHook } from '../hooks/landingPageHooks.jsx'
 import Landingbar from "../components/landingBar.jsx";
 import ClInvPgMenuCard from "../components/CLinvoicePageMenu.jsx";
 import LandingCard1 from '../components/flLandingCard1.jsx';
 import LandingCard2 from '../components/flLandingCard2.jsx';
 import LandingCard3 from '../components/flLandingCard3.jsx';
 import FlSignUp from '../components/fl-signupCard.jsx'
+import LoginCard from '../components/loginCard.jsx';
 
 function FlLandingPage() {
     const navbarHook = navbarHooks() 
@@ -28,6 +29,10 @@ function FlLandingPage() {
     const showSignup = signupHooks.showSignup
     const setShowSignup = signupHooks.setShowSignup
 
+    const loginHooks = showLoginHook()
+    const showLogin = loginHooks.showLogin
+    const setShowLogin = loginHooks.setShowLogin
+
     const showSendInvPg = () => {
         window.location.href = '/cl'
     }
@@ -35,7 +40,7 @@ function FlLandingPage() {
         window.location.href = '/'
     }
     const showAllInvPg = () => {
-        console.log('add login popup')
+        setShowLogin(true)
     }
 
     useEffect(() => {
@@ -57,14 +62,19 @@ function FlLandingPage() {
 
         const closeSignup = () => {
             setShowSignup(false)
+            setShowLogin(false)
         }
         const openSignupPg = () => {
             setShowSignup(true)
         }
+        const openLoginPg = () => {
+            setShowLogin(true)
+            setSideNav(false)
+        }
 
     return (
         <div className='landing-page-main-cont'>
-            <Landingbar sideNav={sideNav} setSideNav={setSideNav} setShowWebNav={setShowWebNav} />
+            <Landingbar openSignup={openLoginPg} sideNav={sideNav} setSideNav={setSideNav} setShowWebNav={setShowWebNav} />
             <div className="page-title-container">
                 <h1 className="page-titles">FREELANCER</h1>
             </div>
@@ -74,6 +84,7 @@ function FlLandingPage() {
             <LandingCard3 graphLabel={'Monthly Earnings'} openSignup={openSignupPg} landingCard3Text={'You can also view insights about your invoices and clients such as paid vs unpaid invoices, monthly earnings, outstanding balances etc.'}/>
 
             <FlSignUp openSignup={showSignup} closeSignup={closeSignup}/>
+            <LoginCard showSignup={showLogin} closeSignup={closeSignup} />
         </div>
     )
 }

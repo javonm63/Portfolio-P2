@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Routes, Route, Link } from 'react-router-dom'
 import './App.css'
+import FlLandingPage from './pages/fl-landing-page.jsx'
 import FlDashboard from './pages/fl-dashboard.jsx'
 import FlInvoices from './pages/fl-invoices.jsx'
 import FlClients from './pages/fl-clients.jsx'
@@ -15,6 +16,7 @@ function App() {
   return (
     <div className='body'>
       <nav>
+        <Link to="/"></Link>
         <Link to="/fl/dashboard"></Link>
         <Link to="/fl/invoices"></Link> 
         <Link to="/fl/clients"></Link>
@@ -27,6 +29,7 @@ function App() {
 
       </nav>
       <Routes>
+        <Route path="/" element={<FlLandingPage />}></Route>
         <Route path="/fl/dashboard" element={<FlDashboard />}></Route>
         <Route path="/fl/invoices" element={<FlInvoices />}></Route>
         <Route path="/fl/clients" element={<FlClients />}></Route>

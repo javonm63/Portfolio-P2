@@ -9,13 +9,16 @@
     padding-right: 7.5px;
     background-color: rgb(211, 255, 17);
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.797);
-    margin-left: 2vw;
+    margin-left: 1vw;
 }
 .logo-container {
     display: flex;
     align-items: center;
     width: fit-content;
     margin-left: 7.5px;
+}
+.landing-logo-container {
+    margin-left: 42.5%;
 }
 .icon-div {
     margin-left: 0px;
@@ -83,6 +86,9 @@
     }
     #menu-icon {
         display: flex;
+    }
+    .landing-logo-container {
+        margin-left: 0.5%;
     }
 }
 @media screen and (max-width: 420px) {

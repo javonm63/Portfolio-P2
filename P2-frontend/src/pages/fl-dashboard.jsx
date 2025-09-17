@@ -33,7 +33,9 @@ function FlDashboard() {
             <div className="page-sub-title-cont">
                 <h3 className="page-sub-titles">EARNINGS</h3>
             </div>
-            <BarGraphCard />
+            <div className="barGraph-container2">
+                <BarGraphCard />
+            </div>
             <div className="drafted-div">
                 <TableCard pageSubTitle={"DRAFTED INVOICES"} tableID={'home-draft-table'} invNumText={'INVOICE'} clientText={'CLIENT'} amountText={'AMOUNT'} statusText={'MADE'} />
             </div>

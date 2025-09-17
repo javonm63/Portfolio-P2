@@ -48,7 +48,7 @@ function ClInvoices() {
                 <h1 className="page-titles">INVOICES</h1>
             </div>
             <ClWebNavbar showWebNav={showWebNav} />
-            <ClInvPgMenuCard showSend={showSendInvPg} showNewPg={showNewInvPg} showAll={showAllInvPg}/>
+            <ClInvPgMenuCard showSend={showSendInvPg} showNewPg={showNewInvPg} showAll={showAllInvPg} submenuText1={'NEW'} submenuText2={'SAVED'} submenuText3={'ALL'}/>
             <h3 className='page-sub-titles' style={{display: showNew ? 'flex' : 'none'}}>NEW INVOICES</h3>
             <h3 className='page-sub-titles' style={{display: showSend ? 'flex' : 'none'}}>SEND INVOICE</h3>
             <h3 className='page-sub-titles' style={{display: showAll ? 'flex' : 'none'}}>ALL INVOICES</h3>

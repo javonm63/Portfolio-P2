@@ -1,0 +1,34 @@
+.landingCard3-main-cont {
+    border-radius: 5px;
+    margin-top: 20px;
+    width: 95.5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: rgba(193, 237, 0, 0.918);
+}
+.landingCard-titles {
+    font-size: 25px;
+    margin-bottom: 5px;
+    color: rgb(47, 56, 0);
+}
+.landingGraph-container {
+    width: 70%;
+    margin-bottom: 5px;
+}
+.landingCard3-texts {
+    margin: 0;
+    margin-bottom: 7.5px;
+    text-align: center;
+}
+
+@media screen and (max-width: 1030px) {
+    .landingCard3-main-cont {
+        width: 85%;
+    }
+    .landingGraph-container {
+        width: 90%;
+    }
+}

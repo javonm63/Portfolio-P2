@@ -14,6 +14,7 @@ function Searchbar({ setShowWebNav, setSideNav, sideNav}) {
         setShowNotifs(true)
         setSideNav(false)
     }
+
     const menuHook = showMenuHook()
     const showMenu = menuHook.showMenu
     const setShowMenu = menuHook.setShowMenu
@@ -83,6 +84,7 @@ function Searchbar({ setShowWebNav, setSideNav, sideNav}) {
                 setShowMenu(false)
                 break;
             }
+           
     }, [0])
     const openMenu = () => {
         if (showMenu === true) {
@@ -105,8 +107,8 @@ function Searchbar({ setShowWebNav, setSideNav, sideNav}) {
             <input id="searchBar" className="search-input" type="type" placeholder='Search' style={{display: showDisplay ? 'flex' : 'none'}}></input>
             <div className='icon-div'>
                 <img id="search-icon" className="searchbar-icons" src="/search-icon.png" alt="search icon" onClick={showSearchbar}></img>
-                <img id="menu-icon" className="searchbar-icons" src="/sidenav-icon.png" alt="menu icon" onClick={openMenu}></img>
                 <img id="notif-icon" className="searchbar-icons" src="/notif-icon.png" alt="menu icon" onClick={openNotifPg}></img>
+                <img id="menu-icon" className="searchbar-icons" src="/sidenav-icon.png" alt="menu icon" onClick={openMenu}></img>
             </div>
 
             <SideNavBar sideNav={sideNav} setSideNav={setSideNav} openNotifPg={openNotifPg}/>

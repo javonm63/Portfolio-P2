@@ -1,6 +1,6 @@
 .barGraph-container {
     border-radius: 5px;
-    width: 100%;
+    width: 99%;
     height: 30vh;
     background-color: rgba(193, 237, 0, 0.792);
     margin-bottom: 20px;
@@ -12,5 +12,5 @@
     background-color: rgba(193, 237, 0, 0.792);
 }
 .barGraphCard-cont {
-    width: 91vw;
+    width: 99%;
 } 

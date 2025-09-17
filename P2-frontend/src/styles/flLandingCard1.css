@@ -1,0 +1,37 @@
+.landing-card1-main-cont {
+    border-radius: 5px;
+    width: 90vw;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(220, 255, 47, 0.752);
+}
+.landing-cards-titles {
+    margin: 0;
+    margin-top: 20px;
+    font-size: 30px;
+    color: rgba(0, 0, 0, 0.654);
+}
+.landing-cards-texts {
+    margin: 0;
+    text-align: center;
+    margin-bottom: 15px;
+}
+.landing-cards-buttons {
+    width: 40%;
+    height: 30px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.681);
+    background-color: yellow;
+}
+.landing-cards-buttons:hover {
+    scale: 1.025;
+    color: rgb(80, 91, 0);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.365);
+    cursor: pointer;
+}

@@ -39,7 +39,14 @@
     width: 91%;
 }
 
-
+.barGraph-container2 {
+    width: 90vw;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(193, 237, 0);
+}
 
 
 @media screen and (max-width: 1030px) {

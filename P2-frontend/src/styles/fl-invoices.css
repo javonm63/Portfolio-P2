@@ -33,6 +33,10 @@
 }
 .add-item-inputs:hover {
     color: rgba(39, 46, 0, 0.862);
+    background-color: rgb(122, 167, 0);
+}
+.add-item-inputs.dark:hover {
+    color: rgba(39, 46, 0, 0.862);
     background-color: rgb(214, 255, 102);
 }
 .add-item-button {

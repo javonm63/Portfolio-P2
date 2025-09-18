@@ -7,6 +7,8 @@ import '../styles/fl-invoices.css'
 import InvPgMenuCard from "../components/invoicePageMenu.jsx";
 import InvSubPages from "../components/invoicesSubPages.jsx";
 import { pageBodyHeight, showSendPage, showAllPage, showNewPage, showDraftsPage } from "../hooks/fi-invoicesHooks.jsx";
+import { useEffect } from "react";
+import { showDarkModeHook } from "../hooks/landingPageHooks.jsx";
 
 function FlInvoices() {
     const navbarHook = navbarHooks() 
@@ -35,6 +37,16 @@ function FlInvoices() {
     const showDraft = draftspageHook.showDraft
     const setShowDraft = draftspageHook.setShowDraft
 
+    const darkModeHook = showDarkModeHook()
+    const darkMode = darkModeHook.darkMode
+    const setDarkMode = darkModeHook.setDarkMode
+
+    useEffect(() => {
+        if (window.matchMedia('(prefers-color-scheme : dark)').matches) {
+            setDarkMode(true)
+        }
+    })
+
     const showSendPg = () => {
         setShowNew(false)
         setShowSend(true)
@@ -61,7 +73,7 @@ function FlInvoices() {
         <form className="invoice-page-body" style={{height: bodyHeight ? '100vh' : 'fit-content'}}>
             <Searchbar sideNav={sideNav} setSideNav={setSideNav} setShowWebNav={setShowWebNav} />
             <div className="page-title-container">
-                <h1 className="page-titles">INVOICES</h1>
+                <h1 className={darkMode ? "page-titles" : "page-titles dark"}>INVOICES</h1>
             </div>
             <WebNavbar showWebNav={showWebNav} />
             <InvPgMenuCard showSend={showSendPg} setShowSend={setShowSend} showAll={showAllPg} setShowAll={setShowAll} showNew={showNew} setShowNew={setShowNew} setBodyHeight={setBodyHeight} showDraft={showDraftPg} setShowDraft={setShowDraft}/>
@@ -71,10 +83,10 @@ function FlInvoices() {
                 <TableCard tableWidth={'95%'} tableID={"item-table-body"} invNumText={'ITEM'} clientText={'DESCRIPTION'} amountText={'QUANTITY'} statusText={'PRICE'}/>
                 <h3 className="page-section-subtitles">Add Items To Invoice</h3>
                 <div className="add-items-input-cont">
-                    <input className="add-item-inputs" type='text' placeholder="Enter item" required></input>
-                    <input className="add-item-inputs" type='text' placeholder="Enter description" required></input>
-                    <input className="add-item-inputs" type='number' placeholder="Enter quanitity" required></input>
-                    <input className="add-item-inputs" type='number' placeholder="Enter price" required></input>
+                    <input className={darkMode ? "add-item-inputs dark" : "add-item-inputs"} type='text' placeholder="Enter item" required></input>
+                    <input className={darkMode ? "add-item-inputs dark" : "add-item-inputs"} type='text' placeholder="Enter description" required></input>
+                    <input className={darkMode ? "add-item-inputs dark" : "add-item-inputs"} type='number' placeholder="Enter quanitity" required></input>
+                    <input className={darkMode ? "add-item-inputs dark" : "add-item-inputs"} type='number' placeholder="Enter price" required></input>
                 </div>
                 <button className="add-item-button" type='button'>Add Item</button>
                 <input className='invoiceExtras-inputs' type='text' placeholder='NOTES'></input>

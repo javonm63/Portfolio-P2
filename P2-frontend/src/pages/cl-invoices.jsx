@@ -76,21 +76,25 @@ function ClInvoices() {
     return (
         <div className='cl-invoices-page-container'>
             <Searchbar sideNav={sideNav} setSideNav={setSideNav} setShowWebNav={setShowWebNav} />
-            <div className="page-title-container">
+            <header className="page-title-container">
                 <h1 className={darkMode ? "page-titles" : "page-titles dark"}>INVOICES</h1>
-            </div>
+            </header>
             <ClWebNavbar showWebNav={showWebNav} />
             <LandingPgMenuCard showSend={showSendInvPg} showNewPg={showNewInvPg} showAll={showAllInvPg} showMerch={showMerchPg} submenuText1={'NEW'} submenuText2={'SAVED'} submenuText3={'ALL'} submenuText4={'MERCHANTS'}/>
-            <h3 className={darkMode ? "page-sub-titles dark" : "page-sub-titles"} style={{display: showNew ? 'flex' : 'none'}}>NEW INVOICES</h3>
-            <h3 className={darkMode ? "page-sub-titles dark" : "page-sub-titles"} style={{display: showSend ? 'flex' : 'none'}}>SEND INVOICE</h3>
-            <h3 className={darkMode ? "page-sub-titles dark" : "page-sub-titles"} style={{display: showAll ? 'flex' : 'none'}}>ALL INVOICES</h3>
-            <h3 className={darkMode ? "page-sub-titles dark" : "page-sub-titles"} style={{display: showMerch ? 'flex' : 'none'}}>MERCHANTS</h3>
+            <article>
+                <header>
+                    <h3 className={darkMode ? "page-sub-titles dark" : "page-sub-titles"} style={{display: showNew ? 'flex' : 'none'}}>NEW INVOICES</h3>
+                    <h3 className={darkMode ? "page-sub-titles dark" : "page-sub-titles"} style={{display: showSend ? 'flex' : 'none'}}>SEND INVOICE</h3>
+                    <h3 className={darkMode ? "page-sub-titles dark" : "page-sub-titles"} style={{display: showAll ? 'flex' : 'none'}}>ALL INVOICES</h3>
+                    <h3 className={darkMode ? "page-sub-titles dark" : "page-sub-titles"} style={{display: showMerch ? 'flex' : 'none'}}>MERCHANTS</h3>
+                </header>
             <div className="clInvs-page-container">
                 <InvSubPages darkMode={darkMode} showPage={showNew} subPageInfo={'See more info'} subPageInfoText={'New invoices info.'} infoText={"This page allows you to pay for invoices by clicking the invoice ID."}/>
                 <InvSubPages darkMode={darkMode} showPage={showSend} subPageInfo={'See more info'} subPageInfoText={'Saving invoices info.'} infoText={"Here you can view or print paid/saved invoices, to view click the invoice ID or to print click the invoice status."}/>
                 <InvSubPages darkMode={darkMode} showPage={showAll} subPageInfo={'See more info'} subPageInfoText={'All invoices info.'} infoText={"All the invoices that comes to your account is saved here regardless if the invoice is paid or unpaid."}/>
                 <InvSubPages darkMode={darkMode} showPage={showMerch} subPageInfo={'See more info'} subPageInfoText={'Merchants info.'} infoText={"All the freelancers that have sent you invoices contact information are saved here To view a freelancer's info click their name."}/>
             </div>
+            </article>
         </div> 
     )
 }

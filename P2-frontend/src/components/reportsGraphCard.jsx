@@ -80,14 +80,14 @@ function ReportsGraphCard({graphLabel}) {
     })
     
     return (
-        <div className='reportsGraphCard-cont'>
+        <section className='reportsGraphCard-cont'>
             <div className='reportGraph-container' style={{display: showLineGraph ? 'none' : 'flex'}}>
                 <Bar data={data} options={options} />
             </div>
             <div className='report2Graph-container' style={{display: showLineGraph ? 'flex' : 'none'}}>
                 <Line data={data} options={options} />
             </div>
-        </div>
+        </section>
     )
 }
 

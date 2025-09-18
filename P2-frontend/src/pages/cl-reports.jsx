@@ -35,22 +35,22 @@ function ClReports() {
     return (
         <div className='flReports-page-container'>
             <Searchbar sideNav={sideNav} setSideNav={setSideNav} setShowWebNav={setShowWebNav} />
-            <div className="page-title-container">
+            <header className="page-title-container">
                 <h1 className={darkMode ? "page-titles" : "page-titles dark"}>REPORTS</h1>
-            </div>
+            </header>
             <ClWebNavbar showWebNav={showWebNav} />
-            <div className='reports-subtitles-container'>
+            <span className='reports-subtitles-container'>
                 <h2 id="monthly-title" className={darkMode ? "reports-page-sub-titleL dark" : "reports-page-sub-titleL"}>OVERDUE PER MONTH</h2>
                 <h2 id="PvsUP-title" className={darkMode ? "reports-page-sub-titleR dark" : "reports-page-sub-titleR"}>PAID VS. UNPAID</h2>
-            </div>
-            <div className='reports-main-container'>
+            </span>
+            <main className='reports-main-container'>
                 <div className={darkMode ? 'reports-left-container dark' : 'reports-left-container'}>
                     <ReportsGraphCard graphLabel={"Monthly Earnings"}/>
                 </div>
                 <div className={darkMode ? 'reports-right-container dark' : 'reports-right-container'}>
                     <PieGraphCard />
                 </div>
-            </div>
+            </main>
             <TotalsCard darkMode={darkMode} totalTitle={"Total Spent"}/>
         </div>
     )

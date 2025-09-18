@@ -10,10 +10,10 @@ function InvoiceInfoCard() {
         setShowMoreInfo(true)
     }
     return (
-        <div className='invoice-page-container'>
+        <form className='invoice-page-container'>
             <div className='invoice-info-container'>
                 <h3 className='page-section-titles'>Enter bill to information</h3>
-                <div className='invoiceInfoCard-input-cont'>
+                <section className='invoiceInfoCard-input-cont'>
                     <div className='bill-to-info-text-conts'>
                         <p className='bill-to-info-text'>Enter Client's Name:</p>
                         <p className='bill-to-info-text'>Enter Invoice ID:<button type='button' className='MoreInfo-button' onClick={showInfo}>i</button></p>
@@ -30,10 +30,10 @@ function InvoiceInfoCard() {
                         <input className='invoiceInfoCard-inputs' type="date" placeholder="Today's Date" required></input>
                         <input className='invoiceInfoCard-inputs' type="date" placeholder="Due Date" required></input>
                     </div>
-                </div>
+                </section>
             </div>
             <MoreInfo showMore={showMoreInfo} setShowMore={setShowMoreInfo} MoreInfoTitle={"Invoice Number Info."} MoreInfoText={"Invoice number is a unique ID given to each invoice created; if the invoice number text field is left empty an invoice ID will be automatically generated once you've pressed the 'Create Invoice' or the 'Save Invoice' button."} />
-        </div>
+        </form>
     )
 }
 

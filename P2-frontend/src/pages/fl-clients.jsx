@@ -42,19 +42,19 @@ function FlClients() {
     return ( 
         <div className="clients-page-container">
             <Searchbar sideNav={sideNav} setSideNav={setSideNav} setShowWebNav={setShowWebNav} />
-            <div className="page-title-container">
+            <header className="page-title-container">
                 <h1 className={darkMode ? "page-titles" : "page-titles dark"}>CLIENTS</h1>
-            </div>
+            </header>
             <WebNavbar showWebNav={showWebNav} />
             <h2 className="page-sub-titles">ADD NEW CLIENT</h2>
             <NewClientInfo />
             <button className="addNewClient-button">Add Client</button>
             <h2 className="page-sub-titles">YOUR CLIENTS</h2>
-            <div className='clients-sub-page-container'>
+            <section className='clients-sub-page-container'>
                 <MoreInfo showMore={showMore} setShowMore={setShowMore} MoreInfoTitle={'Clients page info.'} MoreInfoText={"On the clients page you can add new clients, remove clients and edit clients' information. To remove clients click their ID numbers, to edit a client's information click the client's name."} />
                 <button className='inv-sub-page-text' type="button" onClick={showSendInfo}>See clients page info.</button>
                 <TableCard tableWidth={'95%'} tableID={"add-client-table-body"} invNumText={'INVOICE'} clientText={'CLIENT'} amountText={'AMOUNT'} statusText={'STATUS'} />
-            </div>
+            </section>
         </div>
     )
 }

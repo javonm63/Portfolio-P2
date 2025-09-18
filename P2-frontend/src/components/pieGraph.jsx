@@ -65,9 +65,9 @@ function PieGraphCard() {
     }) 
 
     return (
-        <div className='pie-chart-container'>
+        <section className='pie-chart-container'>
             <Pie data={data2} options={options} />
-        </div>
+        </section>
     )
 }
 

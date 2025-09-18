@@ -2,7 +2,7 @@ import '../styles/invoiceSettingsCard.css'
 
 function InvoiceSetCard() {
     return (
-        <div className='invSettings-page-container'>
+        <section className='invSettings-page-container'>
             <p className='invSettingsCurrTitle'>Default Currency:</p>
             <select className='invSettingsCurrDropDn'>
                 <option className='invSettingsDropDnOptions' defaultValue={'USD'}>USD</option>
@@ -21,7 +21,7 @@ function InvoiceSetCard() {
                 <option className='invSettingsDropDnOptions' value="20%">20%</option>
                 <option className='invSettingsDropDnOptions' value="25%">25%</option>
             </select>
-        </div>
+        </section>
     )
 }
 

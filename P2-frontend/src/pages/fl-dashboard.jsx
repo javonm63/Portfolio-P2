@@ -36,28 +36,28 @@ function FlDashboard() {
     return (
         <div className="dashboard-page-container">
             <Searchbar sideNav={sideNav} setSideNav={setSideNav} setShowWebNav={setShowWebNav} />
-            <div className="page-title-container">
+            <header className="page-title-container">
                 <h1 className={darkMode ? "page-titles" : "page-titles dark"}>DASHBOARD</h1>
-            </div>
+            </header>
             <WebNavbar showWebNav={showWebNav} />
-            <div className="cards-container">
+            <article className="cards-container">
                 <Card cardTitle={"EARNINGS"} cardText={'$0'}/>
                 <Card cardTitle={"OUTSTANDING"} cardText={'0'}/>
-            </div>
+            </article>
             <TableCard tableWidth={'90vw'} pageSubTitle={"INVOICE STATUS"} tableID={"home-table-body"} invNumText={'INVOICE'} clientText={'CLIENT'} amountText={'AMOUNT'} statusText={'STATUS'}/>
-            <div className="quick-actions-container">
+            <article className="quick-actions-container">
                 <QaCard qaCardTitle={'CLIENTS'} qaBtnText={'ADD CLIENT'} qaCardHref={'/fl/clients'} qaLinkText={'EDIT CLIENT'} />
                 <QaCard qaCardTitle={'INVOICES'} qaBtnText={'INVOICES'} qaCardHref={'/fl/invoices'} qaLinkText={'ADD INVOICE'} />
-            </div>
-            <div className="page-sub-title-cont">
+            </article>
+            <span className="page-sub-title-cont">
                 <h3 className="page-sub-titles">EARNINGS</h3>
-            </div>
-            <div className="barGraph-container2">
+            </span>
+            <article className="barGraph-container2">
                 <BarGraphCard />
-            </div>
-            <div className="drafted-div">
+            </article>
+            <article className="drafted-div">
                 <TableCard pageSubTitle={"DRAFTED INVOICES"} tableID={'home-draft-table'} invNumText={'INVOICE'} clientText={'CLIENT'} amountText={'AMOUNT'} statusText={'MADE'} />
-            </div>
+            </article>
         </div>
     )
 }

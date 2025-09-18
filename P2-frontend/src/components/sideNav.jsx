@@ -1,7 +1,7 @@
 import '../styles/sideNav.css'
 function SideNavBar({sideNav, setSideNav, openNotifPg}) {
     return (
-        <div className="sideNav" style={{display: sideNav ? 'flex' : 'none'}}>
+        <nav className="sideNav" style={{display: sideNav ? 'flex' : 'none'}}>
             <button className='sidenav-exit-btn' onClick={() => setSideNav(false)}>X</button>
             <h3 className='sidenav-title'>MENU</h3>
             <a className='sideNav-options' href='/fl/dashboard'>DASHBOARD</a>
@@ -11,7 +11,7 @@ function SideNavBar({sideNav, setSideNav, openNotifPg}) {
             <button id="sideNav-notif-btn" className='sideNav-options' type="button" onClick={openNotifPg}>NOTIFICATIONS</button>
             <a className='sideNav-options' href='/fl/settings'>SETTINGS</a>
             <a className='sideNav-options' href='/'>LOGOUT</a>
-        </div>
+        </nav>
     )
 }
 

@@ -2,7 +2,7 @@ import '../styles/tableCard.css'
 
 function TableCard({darkMode, tableWidth, tableID, invNumText, clientText, amountText, statusText, pageSubTitle}) {
     return (
-        <div className='tableCard-container' style={{width: tableWidth}}>
+        <article className='tableCard-container' style={{width: tableWidth}}>
             <table className='table-container'>
                 <thead className= {darkMode ? 'page-sub-titles dark' : 'page-sub-titles'}>
                     <tr>
@@ -24,7 +24,7 @@ function TableCard({darkMode, tableWidth, tableID, invNumText, clientText, amoun
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </article>
     )
 }
 

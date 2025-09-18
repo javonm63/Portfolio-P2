@@ -56,6 +56,7 @@ function FlSettings() {
                 <div className='appSettings-container'>
                     <InvoiceSetCard />
                     {/* ADD APP SETTINGS FOR FREELANCER SIDE */}
+                    {/* ADD TOGGLE SETTING FOR LIGHT AND DARK MODE */}
                 </div>
             </div>
         </div>

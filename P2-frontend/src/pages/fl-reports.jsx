@@ -35,22 +35,22 @@ function FlReports() {
     return (
         <div className='flReports-page-container'>
             <Searchbar sideNav={sideNav} setSideNav={setSideNav} setShowWebNav={setShowWebNav} />
-            <div className="page-title-container">
+            <header className="page-title-container">
                 <h1 className={darkMode ? "page-titles" : "page-titles dark"}>REPORTS</h1>
-            </div>
+            </header>
             <WebNavbar showWebNav={showWebNav} />
-            <div className='reports-subtitles-container'>
+            <span className='reports-subtitles-container'>
                 <h2 id="monthly-title" className="reports-page-sub-titleL">MONTHLY EARNINGS</h2>
                 <h2 id="PvsUP-title" className="reports-page-sub-titleR">PAID VS. UNPAID</h2>
-            </div>
-            <div className='reports-main-container'>
+            </span>
+            <article className='reports-main-container'>
                 <div className='reports-left-container'>
                     <ReportsGraphCard gaphLabel={"Monthly Earnings"}/>
                 </div>
                 <div className='reports-right-container'>
                     <PieGraphCard />
                 </div>
-            </div>
+            </article>
             <TotalsCard totalTitle={'Total Earned'}/>
         </div>
     )

@@ -5,7 +5,7 @@ function NotifsPage({showNotifs, setShowNotifs}) {
         setShowNotifs(false)
     }
     return (
-        <div className='notif-page-main-cont' style={{display: showNotifs ? 'flex' : 'none'}}>
+        <article className='notif-page-main-cont' style={{display: showNotifs ? 'flex' : 'none'}}>
             <button className='exit-notif-page-button' type='button' onClick={closeNotifPg}>X</button>
             <h3 className='notif-page-title'>NOTIFICATIONS</h3>
             <ul className='notifs-list'>
@@ -18,7 +18,7 @@ function NotifsPage({showNotifs, setShowNotifs}) {
                     <p className='notif-time'>-30 mins ago.</p>
                 </li>
             </ul>
-        </div>
+        </article>
     )
 }
 

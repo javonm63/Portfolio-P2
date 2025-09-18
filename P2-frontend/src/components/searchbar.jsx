@@ -100,10 +100,10 @@ function Searchbar({ setShowWebNav, setSideNav, sideNav}) {
     
     return ( 
         <nav className="searchbar-container">
-            <div className='logo-container'>
-            <p id="web-logo">FLInnvoices.com</p>
-            <p id="mobile-logo">FLI.com</p>
-            </div>
+            <span className='logo-container'>
+            <h2 id="web-logo">FLInnvoices.com</h2>
+            <h2 id="mobile-logo">FLI.com</h2>
+            </span>
             <input id="searchBar" className="search-input" type="type" placeholder='Search' style={{display: showDisplay ? 'flex' : 'none'}}></input>
             <div className='icon-div'>
                 <img id="search-icon" className="searchbar-icons" src="/search-icon.png" alt="search icon" onClick={showSearchbar}></img>

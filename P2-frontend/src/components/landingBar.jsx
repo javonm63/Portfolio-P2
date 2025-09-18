@@ -27,7 +27,7 @@ function Landingbar({ setShowWebNav, setSideNav, sideNav,openSignup}) {
     }
     
     return (
-        <nav className="searchbar-container">
+        <header className="searchbar-container">
             <div className='landing-logo-container'>
             <p id="web-logo">FLInnvoices.com</p>
             <p id="mobile-logo">FLI.com</p>
@@ -37,7 +37,7 @@ function Landingbar({ setShowWebNav, setSideNav, sideNav,openSignup}) {
             </div>
 
             <LandingSideNavBar openSignup={openSignup} sideNav={sideNav} setSideNav={setSideNav}/>
-        </nav> 
+        </header> 
 
     )
 }

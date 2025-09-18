@@ -18,6 +18,7 @@
     gap: 5px;
     width: 95%;
     margin-bottom: 7.5px;
+    border: none;
 }
 .add-item-inputs {
     height: 25px;

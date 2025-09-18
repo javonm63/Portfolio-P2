@@ -86,9 +86,9 @@ function ClLandingPage() {
     return (
         <div className='landing-page-main-cont'>
             <Landingbar openSignup={openLoginPg} sideNav={sideNav} setSideNav={setSideNav} setShowWebNav={setShowWebNav} />
-            <div className="page-title-container">
+            <header className="page-title-container">
                 <h1 className={darkMode ? "page-titles" : "page-titles dark"}>CLIENT</h1>
-            </div>
+            </header>
             <ClInvPgMenuCard showSend={showSendInvPg} showNewPg={showNewInvPg} showAll={showAllInvPg} submenuText1={'FREELANCER'} submenuText2={'CLIENT'} submenuText3={'LOGIN'}/>
             <LandingCard1 darkMode={darkMode} openSignup={openSignupPg} card1Title={'Invoice and manage payments.'} card1Text={'The simple way to recieve, pay and organize invoices.'} card1Btn={'Get Started'}/>
             <LandingCard2 darkMode={darkMode} card2Title={'Recieve invoices'} card2Text={'Recieve electronic invoices from freelancers via email or directly through the freelancerInnvoice.com website.'} card2Title2={'Pay Invoices'} card2Text2={'You can pay an invoice once it has been recieved either from your FLI.com account, email or in person.'} card2Title3={'Save Invoices'} card2Text3={'Invoices can also be saved to, or deleted from your account; making managing invoices way more organized.'} card2Title4={'Manage Freelancers'} card2Text4={'The previous freelancers page in where all the freelancers that have sent you invoices will be stored.'}/>

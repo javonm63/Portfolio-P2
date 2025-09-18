@@ -79,31 +79,31 @@ function FlInvoices() {
     return ( 
         <form className="invoice-page-body" style={{height: bodyHeight ? '100vh' : 'fit-content'}}>
             <Searchbar sideNav={sideNav} setSideNav={setSideNav} setShowWebNav={setShowWebNav} />
-            <div className="page-title-container">
+            <header className="page-title-container">
                 <h1 className={darkMode ? "page-titles" : "page-titles dark"}>INVOICES</h1>
-            </div>
+            </header>
             <WebNavbar showWebNav={showWebNav} />
             <InvPgMenuCard showSend={showSendPg} setShowSend={setShowSend} showAll={showAllPg} setShowAll={setShowAll} showNew={showNew} setShowNew={setShowNew} setBodyHeight={setBodyHeight} showDraft={showDraftPg} setShowDraft={setShowDraft}/>
             <h2 className='page-sub-titles'style={{visibility: showNew ? 'visible' : 'hidden'}}>CREATE INVOICE</h2>
-            <div className="invoice-main-container" style={{display: showNew ? 'flex' : 'none'}}>
+            <main className="invoice-main-container" style={{display: showNew ? 'flex' : 'none'}}>
                 <InvoiceInfoCard />
                 <TableCard tableWidth={'95%'} tableID={"item-table-body"} invNumText={'ITEM'} clientText={'DESCRIPTION'} amountText={'QUANTITY'} statusText={'PRICE'}/>
                 <h3 className="page-section-subtitles">Add Items To Invoice</h3>
-                <div className="add-items-input-cont">
+                <fieldset className="add-items-input-cont">
                     <input className={darkMode ? "add-item-inputs dark" : "add-item-inputs"} type='text' placeholder="Enter item" required></input>
                     <input className={darkMode ? "add-item-inputs dark" : "add-item-inputs"} type='text' placeholder="Enter description" required></input>
                     <input className={darkMode ? "add-item-inputs dark" : "add-item-inputs"} type='number' placeholder="Enter quanitity" required></input>
                     <input className={darkMode ? "add-item-inputs dark" : "add-item-inputs"} type='number' placeholder="Enter price" required></input>
-                </div>
+                </fieldset>
                 <button className="add-item-button" type='button'>Add Item</button>
-                <input className='invoiceExtras-inputs' type='text' placeholder='NOTES'></input>
-                <input className='invoiceExtras-inputs' type='text' placeholder='FEES'></input>
-                <input className='invoiceExtras-inputs' type='text' placeholder='DISCOUNTS'></input>
-                <input className='invoiceExtras-inputs' type='text' placeholder='COUPONS'></input>
-                
-                <button className="invoices-main-buttons" type='button'>SAVE INVOICE</button>
-                <button className="invoices-main-buttons" type='submit'>CREATE INVOICE</button>
-            </div>
+                    <input className='invoiceExtras-inputs' type='text' placeholder='NOTES'></input>
+                    <input className='invoiceExtras-inputs' type='text' placeholder='FEES'></input>
+                    <input className='invoiceExtras-inputs' type='text' placeholder='DISCOUNTS'></input>
+                    <input className='invoiceExtras-inputs' type='text' placeholder='COUPONS'></input>
+                    
+                    <button className="invoices-main-buttons" type='button'>SAVE INVOICE</button>
+                    <button className="invoices-main-buttons" type='submit'>CREATE INVOICE</button>
+            </main>
             <h2 className='page-sub-titles' style={{display: showSend ? 'flex' : 'none'}}>SEND INVOICE</h2>
             <InvSubPages showPage={showSend} subPageInfo={'See send invoice instructions'} subPageInfoText={'Sending invoice instructions'} infoText={"If an invoice is ready to send you can click the 'waiting' status on that invoice then follow the pop instructions."}/>
             <h2 className='page-sub-titles' style={{display: showAll ? 'flex' : 'none'}}>ALL INVOICES</h2>

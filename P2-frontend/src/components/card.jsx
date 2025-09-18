@@ -1,9 +1,9 @@
 import '../styles/card.css'
-function Card({cardTitle, cardText}) {
+function Card({cardTitle, cardText, darkMode}) {
     return (
-        <aside className="earning-cards-container">
-            <p className="home-cards-titles">{cardTitle}</p>
-            <p className="home-cards-text">{cardText}</p>
+        <aside className={darkMode ? "earning-cards-container dark" : "earning-cards-container"}>
+            <p className={darkMode ? "home-cards-titles dark" : "home-cards-titles"}>{cardTitle}</p>
+            <p className={darkMode ? "home-cards-text dark" : "home-cards-text"}>{cardText}</p>
         </aside>
     )
 }

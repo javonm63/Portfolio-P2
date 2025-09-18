@@ -1,11 +1,22 @@
+body.dark {
+    background-color: rgb(1, 103, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background-image: url('/background-dark.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+} 
 body {
     background-color: rgb(1, 103, 1);
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0;
-    background-image: url('/background.jpg');
+    background-image: url('/background-light.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-} 
+}

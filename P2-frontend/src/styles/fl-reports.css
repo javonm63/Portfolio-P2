@@ -32,9 +32,24 @@
     border-radius: 5px;
     width: 52.5%;
     height: 100%;
+    background-color:rgba(140, 168, 1, 0.896);
+}
+.reports-left-container.dark {
+    border-radius: 5px;
+    width: 52.5%;
+    height: 100%;
     background-color: rgba(220, 255, 47, 0.752);
 }
 .reports-right-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    width: 42.5%;
+    height: 100%;
+    background-color: rgba(140, 168, 1, 0.896);
+}
+.reports-right-container.dark {
     display: flex;
     align-items: center;
     justify-content: center;

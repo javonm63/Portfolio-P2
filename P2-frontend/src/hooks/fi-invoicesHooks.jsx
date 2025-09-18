@@ -29,6 +29,10 @@ function showSendPage2() {
     const [showSend2, setShowSend2] = useState(true)
     return {showSend2, setShowSend2}
 }
+function showMerchHook() {
+    const [showMerch, setShowMerch] = useState(false)
+    return {showMerch, setShowMerch}
+}
 
 
-export {showMoreHook, pageBodyHeight, showSendPage, showAllPage, showNewPage, showDraftsPage, showSendPage2}
+export {showMoreHook, pageBodyHeight, showSendPage, showAllPage, showNewPage, showDraftsPage, showSendPage2, showMerchHook}

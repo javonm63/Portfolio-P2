@@ -15,34 +15,34 @@ import ClProfile from './pages/cl-profile.jsx'
 
 function App() {
   return (
-    <div className='body'>
+    <div className='app-body'>
       <nav>
-        <Link to="/"></Link>
-        <Link to="/cl"></Link>
-        <Link to="/fl/dashboard"></Link>
-        <Link to="/fl/invoices"></Link> 
-        <Link to="/fl/clients"></Link>
-        <Link to="/fl/reports"></Link>
-        <Link to="/fl/settings"></Link>
-        <Link to="/cl/dashboard"></Link>
-        <Link to="/cl/invoices"></Link> 
-        <Link to="/Cl/reports"></Link>
-        <Link to="/cl/profile"></Link>
+      <Link to="/"></Link>
+      <Link to="/cl"></Link>
+      <Link to="/fl/dashboard"></Link>
+      <Link to="/fl/invoices"></Link> 
+      <Link to="/fl/clients"></Link>
+      <Link to="/fl/reports"></Link>
+      <Link to="/fl/settings"></Link>
+      <Link to="/cl/dashboard"></Link>
+      <Link to="/cl/invoices"></Link> 
+      <Link to="/Cl/reports"></Link>
+      <Link to="/cl/profile"></Link>
 
-      </nav>
-      <Routes>
-        <Route path="/" element={<FlLandingPage />}></Route>
-        <Route path="/cl" element={<ClLandingPage />}></Route>
-        <Route path="/fl/dashboard" element={<FlDashboard />}></Route>
-        <Route path="/fl/invoices" element={<FlInvoices />}></Route>
-        <Route path="/fl/clients" element={<FlClients />}></Route>
-        <Route path="/fl/reports" element={<FlReports />}></Route>
-        <Route path="/fl/settings" element={<FlSettings />}></Route>
-        <Route path="/cl/dashboard" element={<ClDashboard />}></Route>
-        <Route path="/cl/invoices" element={<ClInvoices />}></Route>
-        <Route path="/Cl/reports" element={<ClReports />}></Route>
-        <Route path="/Cl/profile" element={<ClProfile />}></Route>
-      </Routes>
+    </nav>
+    <Routes>
+      <Route path="/" element={<FlLandingPage />}></Route>
+      <Route path="/cl" element={<ClLandingPage />}></Route>
+      <Route path="/fl/dashboard" element={<FlDashboard />}></Route>
+      <Route path="/fl/invoices" element={<FlInvoices />}></Route>
+      <Route path="/fl/clients" element={<FlClients />}></Route>
+      <Route path="/fl/reports" element={<FlReports />}></Route>
+      <Route path="/fl/settings" element={<FlSettings />}></Route>
+      <Route path="/cl/dashboard" element={<ClDashboard />}></Route>
+      <Route path="/cl/invoices" element={<ClInvoices />}></Route>
+      <Route path="/Cl/reports" element={<ClReports />}></Route>
+      <Route path="/Cl/profile" element={<ClProfile />}></Route>
+    </Routes>
     </div>
   )
 }

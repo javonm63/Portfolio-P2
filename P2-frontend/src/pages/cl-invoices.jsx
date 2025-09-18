@@ -3,8 +3,8 @@ import {navbarHooks} from "../hooks/fl-dashboardHooks.jsx";
 import Searchbar from "../components/searchbar";
 import ClWebNavbar from "../components/clWebNav.jsx";
 import InvSubPages from "../components/invoicesSubPages.jsx";
-import { showSendPage2, showSendPage, showAllPage } from "../hooks/fi-invoicesHooks.jsx";
-import ClInvPgMenuCard from '../components/CLinvoicePageMenu.jsx';
+import { showSendPage2, showSendPage, showAllPage, showMerchHook } from "../hooks/fi-invoicesHooks.jsx";
+import LandingPgMenuCard from '../components/LandingPageMenu.jsx';
 
 function ClInvoices() {
     const navbarHook = navbarHooks() 
@@ -25,18 +25,31 @@ function ClInvoices() {
     const showAll = allpageHook.showAll
     const setShowAll = allpageHook.setShowAll
 
+    const merchPageHook = showMerchHook()
+    const showMerch = merchPageHook.showMerch
+    const setShowMerch = merchPageHook.setShowMerch
+
     const showNewInvPg = () => {
         setShowNew(true)
         setShowSend(false)
         setShowAll(false)
+        setShowMerch(false)
     }
     const showSendInvPg = () => {
         setShowSend(true)
         setShowNew(false)
         setShowAll(false)
+        setShowMerch(false)
     }
     const showAllInvPg = () => {
         setShowAll(true)
+        setShowNew(false)
+        setShowSend(false)
+        setShowMerch(false)
+    }
+    const showMerchPg = () => {
+        setShowMerch(true)
+        setShowAll(false)
         setShowNew(false)
         setShowSend(false)
     }
@@ -48,14 +61,16 @@ function ClInvoices() {
                 <h1 className="page-titles">INVOICES</h1>
             </div>
             <ClWebNavbar showWebNav={showWebNav} />
-            <ClInvPgMenuCard showSend={showSendInvPg} showNewPg={showNewInvPg} showAll={showAllInvPg} submenuText1={'NEW'} submenuText2={'SAVED'} submenuText3={'ALL'}/>
+            <LandingPgMenuCard showSend={showSendInvPg} showNewPg={showNewInvPg} showAll={showAllInvPg} showMerch={showMerchPg} submenuText1={'NEW'} submenuText2={'SAVED'} submenuText3={'ALL'} submenuText4={'MERCHANTS'}/>
             <h3 className='page-sub-titles' style={{display: showNew ? 'flex' : 'none'}}>NEW INVOICES</h3>
             <h3 className='page-sub-titles' style={{display: showSend ? 'flex' : 'none'}}>SEND INVOICE</h3>
             <h3 className='page-sub-titles' style={{display: showAll ? 'flex' : 'none'}}>ALL INVOICES</h3>
+            <h3 className='page-sub-titles' style={{display: showMerch ? 'flex' : 'none'}}>MERCHANTS</h3>
             <div className="clInvs-page-container">
                 <InvSubPages showPage={showNew} subPageInfo={'See more info'} subPageInfoText={'New invoices info.'} infoText={"This page allows you to pay for invoices by clicking the invoice ID."}/>
                 <InvSubPages showPage={showSend} subPageInfo={'See more info'} subPageInfoText={'Saving invoices info.'} infoText={"Here you can view or print paid/saved invoices, to view click the invoice ID or to print click the invoice status."}/>
                 <InvSubPages showPage={showAll} subPageInfo={'See more info'} subPageInfoText={'All invoices info.'} infoText={"All the invoices that comes to your account is saved here regardless if the invoice is paid or unpaid."}/>
+                <InvSubPages showPage={showMerch} subPageInfo={'See more info'} subPageInfoText={'Merchants info.'} infoText={"All the freelancers that have sent you invoices contact information are saved here To view a freelancer's info click their name."}/>
             </div>
         </div> 
     )

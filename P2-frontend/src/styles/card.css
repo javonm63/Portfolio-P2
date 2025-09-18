@@ -1,4 +1,4 @@
-.earning-cards-container {
+.earning-cards-container.dark {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -7,6 +7,18 @@
     width: 47.5%;
     background-color: rgba(211, 255, 17, 0.519);
     backdrop-filter: blur(5px);
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.earning-cards-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    width: 47.5%;
+    background-color: rgba(96, 117, 0, 0.725);
+    backdrop-filter: blur(5px);
     padding: 5px;
 }
 .home-cards-titles {
@@ -14,9 +26,21 @@
     margin-bottom: 10px;
     font-size: 20px;
     font-weight: bold;
+    color: rgb(244, 255, 30);
+}
+.home-cards-titles.dark {
+    margin: 0;
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
     color: rgba(0, 0, 0, 0.487);
 }
 .home-cards-text {
+    margin: 0;
+    font-size: 30px;
+    color: rgb(244, 255, 30);
+}
+.home-cards-text.dark {
     margin: 0;
     font-size: 30px;
     color: rgba(0, 0, 0, 0.523);

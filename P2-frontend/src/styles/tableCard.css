@@ -9,6 +9,14 @@
     align-items: center;
 }
 .page-sub-titles {
+    color:rgba(92, 92, 0, 0.891);
+    margin-bottom: 0;
+    font-size: 22.5px;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+}
+.page-sub-titles.dark {
     color: rgba(253, 253, 28, 0.69);
     margin-bottom: 0;
     font-size: 22.5px;

@@ -1,10 +1,10 @@
 import '../styles/tableCard.css'
 
-function TableCard({tableWidth, tableID, invNumText, clientText, amountText, statusText, pageSubTitle}) {
+function TableCard({darkMode, tableWidth, tableID, invNumText, clientText, amountText, statusText, pageSubTitle}) {
     return (
         <div className='tableCard-container' style={{width: tableWidth}}>
             <table className='table-container'>
-                <thead className='page-sub-titles'>
+                <thead className= {darkMode ? 'page-sub-titles dark' : 'page-sub-titles'}>
                     <tr>
                         <th>{pageSubTitle}</th>
                     </tr>

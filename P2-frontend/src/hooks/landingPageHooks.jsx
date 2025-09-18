@@ -12,5 +12,13 @@ function showLoginHook() {
     const [showLogin, setShowLogin] = useState(false)
     return {showLogin, setShowLogin}
 }
+function showLandingMenuHook() {
+    const [showLMenu, setShowLMenu] = useState(false)
+    return {showLMenu, setShowLMenu}
+}
+function showDarkModeHook() {
+    const [darkMode, setDarkMode] = useState(false)
+    return {darkMode, setDarkMode}
+}
 
-export { showLandingBarHook, showSignUpHook, showLoginHook }
+export { showLandingBarHook, showSignUpHook, showLoginHook, showLandingMenuHook, showDarkModeHook }

@@ -11,7 +11,7 @@
       if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
         document.body.classList.add('dark');
       }
-      window.matchMedia('(prefers-color-scheme: )').addEventListener('change', e => {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
         if (e.matches) {
           document.body.classList.add('dark')
         } else {

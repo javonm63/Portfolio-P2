@@ -45,6 +45,13 @@ function FlInvoices() {
         if (window.matchMedia('(prefers-color-scheme : dark)').matches) {
             setDarkMode(true)
         }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        if (e.matches) {
+          setDarkMode(true)
+        } else {
+          setDarkMode(false)
+        }
+        })
     })
 
     const showSendPg = () => {

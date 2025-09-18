@@ -2,6 +2,8 @@ import {navbarHooks} from "../hooks/fl-dashboardHooks.jsx";
 import Searchbar from "../components/searchbar.jsx";
 import ClWebNavbar from "../components/clWebNav.jsx";
 import ProfileInfoCard from '../components/profileInfoCard.jsx';
+import { showDarkModeHook } from '../hooks/landingPageHooks.jsx'
+import { useEffect } from "react";
 
 function ClProfile() {
     const navbarHook = navbarHooks() 
@@ -9,11 +11,21 @@ function ClProfile() {
     const setShowWebNav = navbarHook.setShowWebNav
     const sideNav = navbarHook.sideNav
     const setSideNav = navbarHook.setSideNav
+
+    const darkModeHook = showDarkModeHook()
+    const darkMode = darkModeHook.darkMode
+    const setDarkMode = darkModeHook.setDarkMode
+
+    useEffect(() => {
+        if (window.matchMedia('(prefers-color-scheme : dark)').matches) {
+            setDarkMode(true)
+        }
+    })
     return (
         <div>
             <Searchbar sideNav={sideNav} setSideNav={setSideNav} setShowWebNav={setShowWebNav} />
             <div className="page-title-container">
-                <h1 className="page-titles">PROFILE/SETTINGS</h1>
+                <h1 className={darkMode ? "page-titles" : "page-titles dark"}>PROFILE/SETTINGS</h1>
             </div>
             <ClWebNavbar showWebNav={showWebNav} />
             <div className='settings-page-main-container'>

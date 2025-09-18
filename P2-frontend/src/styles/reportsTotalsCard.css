@@ -7,6 +7,17 @@
     justify-content: space-between;
     padding-left: 10px;
     padding-right: 10px;
+    background-color: rgba(160, 192, 2, 0.808);
+}
+.totalsCard-main-container.dark {
+    border-radius: 5px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
     background-color: rgba(220, 255, 47, 0.752);
 }
 .totals-containers {

@@ -5,6 +5,8 @@ import WebNavbar from "../components/webNav.jsx";
 import ReportsGraphCard from '../components/reportsGraphCard.jsx';
 import PieGraphCard from '../components/pieGraph.jsx';
 import TotalsCard from '../components/reportsTotalsCard.jsx';
+import { useEffect } from 'react';
+import { showDarkModeHook } from '../hooks/landingPageHooks.jsx'
 
 function FlReports() {
     const navbarHook = navbarHooks() 
@@ -13,11 +15,21 @@ function FlReports() {
     const sideNav = navbarHook.sideNav
     const setSideNav = navbarHook.setSideNav
 
+    const darkModeHook = showDarkModeHook()
+    const darkMode = darkModeHook.darkMode
+    const setDarkMode = darkModeHook.setDarkMode
+
+    useEffect(() => {
+        if (window.matchMedia('(prefers-color-scheme : dark)').matches) {
+            setDarkMode(true)
+        }
+    })
+
     return (
         <div className='flReports-page-container'>
             <Searchbar sideNav={sideNav} setSideNav={setSideNav} setShowWebNav={setShowWebNav} />
             <div className="page-title-container">
-                <h1 className="page-titles">REPORTS</h1>
+                <h1 className={darkMode ? "page-titles" : "page-titles dark"}>REPORTS</h1>
             </div>
             <WebNavbar showWebNav={showWebNav} />
             <div className='reports-subtitles-container'>

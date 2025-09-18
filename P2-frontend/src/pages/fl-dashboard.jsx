@@ -6,6 +6,8 @@ import Card from "../components/card.jsx";
 import TableCard from "../components/tableCard.jsx";
 import QaCard from "../components/qaCard.jsx";
 import BarGraphCard from "../components/barGraphCard.jsx";
+import { useEffect } from "react";
+import { showDarkModeHook } from '../hooks/landingPageHooks.jsx'
 
 function FlDashboard() {
     const navbarHook = navbarHooks() 
@@ -14,11 +16,21 @@ function FlDashboard() {
     const sideNav = navbarHook.sideNav
     const setSideNav = navbarHook.setSideNav
 
+    const darkModeHook = showDarkModeHook()
+    const darkMode = darkModeHook.darkMode
+    const setDarkMode = darkModeHook.setDarkMode
+
+    useEffect(() => {
+        if (window.matchMedia('(prefers-color-scheme : dark)').matches) {
+            setDarkMode(true)
+        }
+    })
+
     return (
         <div className="dashboard-page-container">
             <Searchbar sideNav={sideNav} setSideNav={setSideNav} setShowWebNav={setShowWebNav} />
             <div className="page-title-container">
-                <h1 className="page-titles">DASHBOARD</h1>
+                <h1 className={darkMode ? "page-titles" : "page-titles dark"}>DASHBOARD</h1>
             </div>
             <WebNavbar showWebNav={showWebNav} />
             <div className="cards-container">

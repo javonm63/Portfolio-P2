@@ -2,9 +2,9 @@ import '../styles/flLandingCard3.css'
 import BarGraphCard from './barGraphCard'
 import ReportsGraphCard from './reportsGraphCard'
 
-function LandingCard3({openSignup, landingCard3Text, graphLabel}) {
+function LandingCard3({darkMode, openSignup, landingCard3Text, graphLabel}) {
     return (
-        <div className='landingCard3-main-cont'>
+        <div className={darkMode ? 'landingCard3-main-cont dark' : 'landingCard3-main-cont'}>
             <h3 className='landingCard-titles'>View your invoice stats</h3>
             <div className='landingGraph-container'>
                 <ReportsGraphCard graphLabel={graphLabel}/>

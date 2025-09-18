@@ -1,8 +1,8 @@
 import '../styles/flLandingCard2.css'
 
-function LandingCard2({card2Title, card2Text,card2Title2, card2Text2,card2Title3, card2Text3,card2Title4, card2Text4}) {
+function LandingCard2({darkMode, card2Title, card2Text,card2Title2, card2Text2,card2Title3, card2Text3,card2Title4, card2Text4}) {
     return (
-        <div className='landingCard2-main-cont'>
+        <div className={darkMode ? 'landingCard2-main-cont dark' : 'landingCard2-main-cont'}>
             <div className='landingCard2-left-cont'>
                 <img className='card2-icons' src='file-icon.png' alt='file icon'></img>
                 <img id='client-icon' className='card2-icons' src='hands-icon.png' alt='client icon'></img>

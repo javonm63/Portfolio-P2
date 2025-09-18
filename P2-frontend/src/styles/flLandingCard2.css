@@ -9,8 +9,20 @@
     padding-right: 10px;
     padding-top: 2.5%;
     padding-bottom: 2.5%;
+    background-color: rgba(184, 220, 2, 0.879);
+}
+.landingCard2-main-cont.dark {
+    border-radius: 5px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    height: 40vh;
+    width: 88.5vw;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 2.5%;
+    padding-bottom: 2.5%;
     background-color: rgba(199, 239, 2, 0.834);
-
 }
 .landingCard2-left-cont {
     height: 98.5%;

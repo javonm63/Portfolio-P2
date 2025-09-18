@@ -1,3 +1,6 @@
+.clients-page-container {
+    height: 100vh;
+}
 .clients-sub-page-container {
     height: 50vh;
     border-radius: 5px;

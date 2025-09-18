@@ -6,6 +6,8 @@ import NewClientInfo from "../components/newClientCard.jsx";
 import TableCard from "../components/tableCard.jsx";
 import { showMoreHook } from '../hooks/fi-invoicesHooks'
 import MoreInfo from "../utils/moreInfo.jsx";
+import { useEffect } from "react";
+import { showDarkModeHook } from '../hooks/landingPageHooks.jsx'
 
 function FlClients() {
     const navbarHook = navbarHooks() 
@@ -20,12 +22,21 @@ function FlClients() {
     const showSendInfo = () => {
         setShowMore(true)
     }
+    const darkModeHook = showDarkModeHook()
+    const darkMode = darkModeHook.darkMode
+    const setDarkMode = darkModeHook.setDarkMode
+
+    useEffect(() => {
+        if (window.matchMedia('(prefers-color-scheme : dark)').matches) {
+            setDarkMode(true)
+        }
+    })
 
     return ( 
         <div className="clients-page-container">
             <Searchbar sideNav={sideNav} setSideNav={setSideNav} setShowWebNav={setShowWebNav} />
             <div className="page-title-container">
-                <h1 className="page-titles">CLIENTS</h1>
+                <h1 className={darkMode ? "page-titles" : "page-titles dark"}>CLIENTS</h1>
             </div>
             <WebNavbar showWebNav={showWebNav} />
             <h2 className="page-sub-titles">ADD NEW CLIENT</h2>

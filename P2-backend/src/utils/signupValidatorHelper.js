@@ -5,8 +5,9 @@ export function validateHelper(req, res, next) {
     if (!errors.isEmpty()) {
         return res.status(400).json({errors: errors.array()})
     }
-    if (req.body.pass !== req.body.conPass) {
+    if (req.body.conPass && req.body.pass !== req.body.conPass) {
         return res.status(400).json({errors: [{path: 'conPass'}]})
     }
+    
     next()
 }

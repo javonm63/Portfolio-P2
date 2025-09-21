@@ -1,14 +1,16 @@
 import express from 'express'
-import { validateSignup } from '../validators/signupValidator.js'
+import { validateSignup, validateLogin } from '../validators/signupValidator.js'
 import { validateHelper } from '../utils/signupValidatorHelper.js'
 import existingUsr from "../middleware/existingUser.js"
 import authentUser from "../middleware/authenticateUser.js"
 import FlSignup from '../controllers/fl-signup.js'
+import flLogin from '../controllers/fl-login.js'
 
 
 const Server = express()
 // SIGN UP ROUTES 
 Server.post('/signup', validateSignup, validateHelper, existingUsr, FlSignup)
+Server.post('/login', validateLogin, validateHelper, flLogin)
 // INVOICE API ROUTES 
 // Server.post('/invoices')
 // Server.get('/invoices')

@@ -8,3 +8,8 @@ export const validateSignup = [
     body('pass').isString().isLength({min: 6}).notEmpty().withMessage('password must be at least 6 characters long'),
     body('conPass').isString().isLength({min: 6}).notEmpty().withMessage('password must be at least 6 characters long'),
 ]
+
+export const validateLogin = [
+    body('email').isEmail().withMessage('enter valid email'),
+    body('pass').isString().isLength({min: 6}).notEmpty().withMessage('password must be at least 6 characters long'),
+]

@@ -15,10 +15,10 @@ export default async function FlSignup(req, res) {
 
     try {
         const query = `
-        INSERT INTO users (id, name, company, email, phone, pass)
-        VALUES ($1, $2, $3, $4, $5, $6)
+        INSERT INTO users (id, name, company, email, phone, pass, role)
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
         RETURNING *;`
-        const values = [id, name, company, email, phone, hashed]
+        const values = [id, name, company, email, phone, hashed, role]
         const sendToDb = await pool.query(query, values)
     } catch (err) {
         console.error(err)
@@ -28,7 +28,7 @@ export default async function FlSignup(req, res) {
     const token = jwt.sign(
         {id: id, role: role},
         SECRET,
-        {expiresIn: "1hr"}
+        {expiresIn: "1h"}
     )
     return res.cookie('token', token, {
         httpOnly: true,

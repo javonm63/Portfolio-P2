@@ -29,7 +29,8 @@ function FlSignUp({openSignup, closeSignup}) {
             const req = await fetch('https:localhost:6001/api/fl/signup', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({name: name, company: company, email: email, phone: phone, pass: pass, conPass: conPass})
+                body: JSON.stringify({name: name, company: company, email: email, phone: phone, pass: pass, conPass: conPass, role: 'freelancer'}),
+                credentials: 'include'
             })
             if (!req.ok) {
                 const data = await req.json()
@@ -50,11 +51,13 @@ function FlSignUp({openSignup, closeSignup}) {
             const data = await req.json()
             console.log(data)
             if (data.message === 'freelancer account created') {
-                    closeSignup()
-                    window.location.href = '/fl/dashboard'
-                }
+                closeSignup()
+                window.location.href = '/fl/dashboard'
+            } else if (data.message === 'User Already Exist') {
+                setShowAlert(true)
+                setAlertText('Email already registered try logging in.')
+            }
         } catch (err) {
-            console.log(err)
         }
     }
 

@@ -70,3 +70,7 @@
 .invoiceInfoCard-inputs:hover {
     background-color: rgba(235, 253, 136, 0.9);
 }
+
+fieldset {
+    border: none;
+}

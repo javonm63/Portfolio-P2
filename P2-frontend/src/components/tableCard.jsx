@@ -1,6 +1,6 @@
 import '../styles/tableCard.css'
 
-function TableCard({darkMode, tableWidth, tableID, invNumText, clientText, amountText, statusText, pageSubTitle}) {
+function TableCard({darkMode, tableWidth, tableID, invNumText, clientText, amountText, statusText, pageSubTitle, display}) {
     return (
         <article className='tableCard-container' style={{width: tableWidth}}>
             <table className='table-container'>
@@ -16,12 +16,15 @@ function TableCard({darkMode, tableWidth, tableID, invNumText, clientText, amoun
                         <th className='table-titles'>{amountText}</th>
                         <th className='table-titles'>{statusText}</th>
                     </tr>
-                    <tr className='table-row'>
-                        <td className='row-data'>#1287</td>
-                        <td className='row-data'>John Doe</td>
-                        <td className='row-data'>$59.44</td>
-                        <td className='row-data'>Paid</td>
-                    </tr>
+                    {display && display.map((item, i) => (
+                        <tr className='table-row' key={i}>
+                            <td className='row-data'>{item.item}</td>
+                            <td className='row-data'>{item.descript}</td>
+                            <td className='row-data'>{item.quantity}</td>
+                            <td className='row-data'>{`$${item.price}`}</td>
+                        </tr>
+                    ))}
+                        
                 </tbody>
             </table>
         </article>

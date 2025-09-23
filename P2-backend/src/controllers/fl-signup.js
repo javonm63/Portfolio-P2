@@ -35,6 +35,6 @@ export default async function FlSignup(req, res) {
         secure: true,
         sameSite: 'lax',
         maxAge: 1800000
-    }).status(201).json({message: 'freelancer account created'})
+    }).status(201).json({message: 'freelancer account created', role: 'freelancer'})
 } 
 

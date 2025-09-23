@@ -13,11 +13,9 @@ import ClInvoices from './pages/cl-invoices.jsx'
 import ClReports from './pages/cl-reports.jsx'
 import ClProfile from './pages/cl-profile.jsx'
 import FreelancerRole from './utils/routeRoles.jsx'
-import { AuthProvider } from './context/authContext.jsx'
 
 function App() {
   return (
-    <AuthProvider>
       <div className='app-body'>
         <nav>
         <Link to="/"></Link>
@@ -48,7 +46,6 @@ function App() {
         <Route path="/Cl/profile" element={<ClProfile />}></Route>
       </Routes>
       </div>
-    </AuthProvider>
 
   )
 }

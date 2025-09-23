@@ -2,6 +2,7 @@ import '../styles/loginCard.css'
 import { flSignupHooks } from '../hooks/fl-apiHooks'
 import { showAlertHooks } from '../hooks/fl-apiHooks'
 import MoreInfo from '../utils/moreInfo.jsx'
+import { useNavigate } from 'react-router-dom'
 
 function LoginCard({showSignup, closeSignup}) {
     const flLoginHooks = flSignupHooks()
@@ -15,6 +16,8 @@ function LoginCard({showSignup, closeSignup}) {
     const setShowAlert = showAlertHook.setShowAlert
     const alertText = showAlertHook.alertText
     const setAlertText = showAlertHook.setAlertText
+
+    const navigate = useNavigate()
 
     async function login() {
         const res = await fetch('https://localhost:6001/api/fl/login', {
@@ -44,8 +47,10 @@ function LoginCard({showSignup, closeSignup}) {
             setShowAlert(true)
             setAlertText('Email not registered to any accounts')
         } else if (data.message === 'Logged in successfully') {
-            window.location.href = '/fl/dashboard'
+            sessionStorage.setItem('role', JSON.stringify(data.role))
+            navigate('/fl/dashboard')
         }
+        
     }
 
   

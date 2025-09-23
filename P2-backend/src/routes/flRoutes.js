@@ -8,14 +8,12 @@ import flLogin from '../controllers/fl-login.js'
 import createInvoice from '../controllers/fl-invoices.js'
 import { flValidateInvoice } from '../validators/flInvoiceValidator.js'
 import { validateInvHelper } from '../utils/InvoiceValidation.js'
-import authUser from '../controllers/userAuth.js'
 
 
 const Server = express()
 // SIGN UP ROUTES 
 Server.post('/signup', validateSignup, validateHelper, existingUsr, FlSignup)
 Server.post('/login', validateLogin, validateHelper, flLogin)
-Server.get('/user/auth', authUser )
 // INVOICE API ROUTES 
 Server.post('/invoices', flValidateInvoice, validateInvHelper, createInvoice)
 // Server.get('/invoices')

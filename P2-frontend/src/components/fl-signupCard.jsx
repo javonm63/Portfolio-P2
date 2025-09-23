@@ -52,6 +52,7 @@ function FlSignUp({openSignup, closeSignup}) {
             console.log(data)
             if (data.message === 'freelancer account created') {
                 closeSignup()
+                sessionStorage.setItem('role', JSON.stringify(data.role))
                 window.location.href = '/fl/dashboard'
             } else if (data.message === 'User Already Exist') {
                 setShowAlert(true)

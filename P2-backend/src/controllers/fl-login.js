@@ -26,7 +26,7 @@ async function flLogin(req, res) {
             sameSite: 'none',
             maxAge: 1800000
         })
-        res.json({message: 'Logged in successfully'})
+        res.json({role: 'freelancer', message: 'Logged in successfully'})
     } catch (err) {
         console.error(err)
         return res.status(500).json({error: 'Server error'})

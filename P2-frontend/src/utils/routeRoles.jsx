@@ -1,11 +1,9 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../context/authContext";
 
 const FreelancerRole = ({children}) => {
-    const {user, loading} = useAuth()
-
-    if (loading) return <p>LOADING...</p>
-    if (!user) return <Navigate to='/' />
+    const user = {}
+    user.role = JSON.parse(sessionStorage.getItem('role'))
+    if (!user.role) return <Navigate to='/' />
     if (user.role !== 'freelancer') return <Navigate to='/unauthorized' />
 
     return children

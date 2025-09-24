@@ -23,18 +23,24 @@ function LoginCard({showSignup, closeSignup}) {
         const res = await fetch('https://localhost:6001/api/fl/login', {
             method: 'POST', 
             headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({email: email, pass: pass}),
+            body: JSON.stringify({email: email, pass: pass, role: 'freelancer'}),
             credentials: 'include'
         })
         if (!res.ok) {
             const data = await res.json()
-            const dataArr = data.errors 
-            console.log(dataArr)
-            const dataObj = dataArr[0]
-            const path = dataObj.path
-            if (path === 'email') {
+            if (data.errors) {
+                const dataArr = data.errors 
+                console.log(dataArr)
+                const dataObj = dataArr[0]
+                const path = dataObj.path
+                if (path === 'email') {
+                    setShowAlert(true)
+                    setAlertText('Enter a valid email address')
+                }
+            }
+            if (data.message === 'No account') {
                 setShowAlert(true)
-                setAlertText('Enter a valid email address')
+                setAlertText('No account found, create an freelancer account')
             }
         }
         
@@ -52,9 +58,6 @@ function LoginCard({showSignup, closeSignup}) {
         }
         
     }
-
-  
-        
      
     return (
         

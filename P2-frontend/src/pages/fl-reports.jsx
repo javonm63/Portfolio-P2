@@ -7,6 +7,7 @@ import PieGraphCard from '../components/pieGraph.jsx';
 import TotalsCard from '../components/reportsTotalsCard.jsx';
 import { useEffect } from 'react';
 import { showDarkModeHook } from '../hooks/landingPageHooks.jsx'
+import getCookie from '../utils/getCookie.jsx';
 
 function FlReports() {
     const navbarHook = navbarHooks() 
@@ -31,6 +32,25 @@ function FlReports() {
         }
         })
     })
+    useEffect(() => {
+        async function refresh() {
+            const csrfToken = getCookie('csrfToken')
+            const req = await fetch('https://localhost:6001/api/fl/refresh', {
+                method: 'POST',
+                headers: {"x-csrf-token": `Bearer ${csrfToken}`, 'Content-Type': 'application/json'},
+                credentials: 'include',
+            })
+
+            if (!req.ok) {
+                const data = await req.json()
+                console.log(data.message)
+                if (data.message === 'Unauthorized user') {
+                    window.location.href = '/'
+                }
+            }
+        }
+        refresh()
+    }, [])
 
     return (
         <div className='flReports-page-container'>

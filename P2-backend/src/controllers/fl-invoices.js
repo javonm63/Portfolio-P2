@@ -12,6 +12,7 @@ async function createInvoice(req, res) {
         item.quantity = req.body.quantity
         item.price = req.body.price
         items.push(item)
+        console.log(items)
     } else if (comp === 'yes') {
         const name = req.body.name
         const date = req.body.date

@@ -1,11 +1,13 @@
 import pool from "../config/db.js"
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
+import { v4 as uuidv4 } from 'uuid'
 
 async function flLogin(req, res) {
     const SECRET = process.env.JWT_SECRET
+    const REF_SECRET = process.env.JWT_SECRET_REF
 
-    const {email, pass} = req.body
+    const {email, pass, role} = req.body
 
     try {
         const result = await pool.query(
@@ -19,17 +21,41 @@ async function flLogin(req, res) {
         if (!validPass) {
             return res.status(401).json({message: 'Invalid credentials'})
         }
-        const token = jwt.sign({id: user.id, role: user.role}, SECRET, {expiresIn: "1h"})
-        res.cookie('token', token, {
+        const id = user.id
+        const csrfToken = uuidv4()
+
+        const accessToken = jwt.sign(
+            {id: id, role: role},
+            SECRET,
+            {expiresIn: "15m"}
+        )
+        const refreshToken = jwt.sign(
+            {id: id, role: role},
+            REF_SECRET,
+            {expiresIn: "7d"}
+        )
+        return res.cookie('csrfToken', csrfToken, {
+            httpOnly: false,
+            secure: true,
+            sameSite: 'none',
+            maxAge: 7 * 24 * 60 * 60 * 1000,
+        })
+            .cookie('refresh', refreshToken, {
             httpOnly: true,
             secure: true,
             sameSite: 'none',
-            maxAge: 1800000
+            maxAge: 7 * 24 * 60 * 60 * 1000,
         })
-        res.json({role: 'freelancer', message: 'Logged in successfully'})
+            .cookie('accessToken', accessToken, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none',
+            maxAge: 900000,
+        })
+            .status(201).json({role: role, message: 'Logged in successfully'})
     } catch (err) {
         console.error(err)
-        return res.status(500).json({error: 'Server error'})
+        return res.status(500).json({err, error: 'Server error'})
     }
 }
 

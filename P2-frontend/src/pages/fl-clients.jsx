@@ -8,6 +8,8 @@ import { showMoreHook } from '../hooks/fi-invoicesHooks'
 import MoreInfo from "../utils/moreInfo.jsx";
 import { useEffect } from "react";
 import { showDarkModeHook } from '../hooks/landingPageHooks.jsx'
+import getCookie from "../utils/getCookie.jsx";
+import { Navigate } from 'react-router-dom'
 
 function FlClients() {
     const navbarHook = navbarHooks() 
@@ -38,6 +40,25 @@ function FlClients() {
         }
         })
     })
+    useEffect(() => {
+        async function refresh() {
+            const csrfToken = getCookie('csrfToken')
+            const req = await fetch('https://localhost:6001/api/fl/refresh', {
+                method: 'POST',
+                headers: {"x-csrf-token": `Bearer ${csrfToken}`, 'Content-Type': 'application/json'},
+                credentials: 'include',
+            })
+
+            if (!req.ok) {
+                const data = await req.json()
+                console.log(data.message)
+                if (data.message === 'Unauthorized user') {
+                    window.location.href = '/'
+                }
+            }
+        }
+        refresh()
+    }, [])
 
     return ( 
         <div className="clients-page-container">

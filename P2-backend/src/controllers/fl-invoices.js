@@ -58,7 +58,7 @@ export async function createInvoice(req, res) {
         const notes = req.body.notes
         const fees = req.body.fees || 0
         const discounts = req.body.discount || 0
-        const coupons = req.body.coupons || 0
+        const coupons = req.body.coupons 
         const totalObj = item[0]
         const total = Number(totalObj.price) + Number(fees) + Number(discounts)
         let stat = 'Waiting'
@@ -110,7 +110,6 @@ export async function sendInv(req, res) {
 }
 
 export async function deleteInv(req, res) {
-    console.log(req.body)
     const invToDel = req.body.data
     const flInvID = req.cookies.flinvid
     const query = `SELECT * FROM usertables WHERE id = $1`
@@ -126,4 +125,25 @@ export async function deleteInv(req, res) {
     const newValue = [database, flInvID]
     const updateDatabase = await pool.query(newQuery, newValue)
     return res.status(200).json({message: 'invoice deleted'})
+}
+
+export async function draftInv(req, res) {
+    const invId = Math.floor(Math.random() * 2000)
+    const name = req.body.name
+    const date = req.body.date
+    const due = req.body.dueDate
+    const id = req.body.id || uuidv4()
+    const item = [...items]
+    const notes = req.body.notes
+    const fees = req.body.fees || 0
+    const discounts = req.body.discount || 0
+    const coupons = req.body.coupons 
+    if (item.length > 0) {
+        const totalObj = item[0]
+        let total = Number(totalObj.price) + Number(fees) + Number(discounts)
+    } else {
+        let total = 'not yet calculated'
+    }
+    let stat = 'Waiting'
+    return res.status(200).json({message: 'invoice drafted'})
 }

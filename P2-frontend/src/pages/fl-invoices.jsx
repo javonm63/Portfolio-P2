@@ -134,11 +134,15 @@ function FlInvoices() {
                 console.log(data)
             } else {
                 const data = await dataReq.json()
-                const database = data.data  
-                const unsent = database.filter((invoice) => invoice.stat === 'Waiting')
-                const all = database.filter((invoice) => invoice.stat === 'Sent')
-                setDisplayItems(unsent)
-                setDisplayAllInvs(all)
+                const database = data.data 
+                if (database === undefined || database.length === 0) {
+                    console.log('nothing here')
+                } else {
+                    const unsent = database.filter((invoice) => invoice.stat === 'Waiting')
+                    const all = database.filter((invoice) => invoice.stat === 'Sent')
+                    setDisplayItems(unsent)
+                    setDisplayAllInvs(all)
+                }
             }
 
             const clientReq = await fetch('http://localhost:6001/api/fl/clients', {
@@ -266,6 +270,38 @@ function FlInvoices() {
         }
     }
 
+    const draftInvoice = async () => {
+        try {
+            const req = await fetch('http://localhost:6001/api/fl/draft', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({name, date, dueDate, id, notes, fees: Number(fees), discount: Number(discount), coupon}),
+                credentials: 'include',
+            })
+            if (!req.ok) {
+                const error = await req.json()
+                console.log(error)
+            } else {
+                const data = await req.json()
+                console.log(data)
+                if (data.message === 'invoice drafted') {
+                    setShowAlert(true)
+                    setAlertText('Invoice saved, this invoice will now be in the drafts section.')
+                }
+                setName('')
+                setId('')
+                setDate('')
+                setDueDate('')
+                setNotes('')
+                setFees('')
+                setDiscount('')
+                setCoupon('')
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     return ( 
         <form onSubmit={handleSubmit} className="invoice-page-body" style={{height: bodyHeight ? '100vh' : 'fit-content'}}>
             <Searchbar sideNav={sideNav} setSideNav={setSideNav} setShowWebNav={setShowWebNav} />
@@ -291,7 +327,7 @@ function FlInvoices() {
                     <input className='invoiceExtras-inputs' type='number' placeholder='DISCOUNTS' value={discount} onChange={(ev) => {setDiscount(ev.target.value)}}></input>
                     <input className='invoiceExtras-inputs' type='text' placeholder='COUPONS' value={coupon} onChange={(ev) => {setCoupon(ev.target.value)}}></input>
                     
-                    <button className="invoices-main-buttons" type='button'>SAVE INVOICE</button>
+                    <button className="invoices-main-buttons" type='button' onClick={draftInvoice}>SAVE INVOICE</button>
                     <button className="invoices-main-buttons" type='submit' onClick={createInvoice}>CREATE INVOICE</button>
             </main>
             <h2 className='page-sub-titles' style={{display: showSend ? 'flex' : 'none'}}>SEND INVOICE</h2>

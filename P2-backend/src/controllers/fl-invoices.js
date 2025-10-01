@@ -128,6 +128,7 @@ export async function deleteInv(req, res) {
 }
 
 export async function draftInv(req, res) {
+    const flInvID = req.cookies.flinvid
     const invId = Math.floor(Math.random() * 2000)
     const name = req.body.name
     const date = req.body.date
@@ -138,12 +139,21 @@ export async function draftInv(req, res) {
     const fees = req.body.fees || 0
     const discounts = req.body.discount || 0
     const coupons = req.body.coupons 
+    let total;
     if (item.length > 0) {
         const totalObj = item[0]
-        let total = Number(totalObj.price) + Number(fees) + Number(discounts)
+        total = Number(totalObj.price) + Number(fees) + Number(discounts)
     } else {
-        let total = 'not yet calculated'
+        total = 'not yet calculated'
     }
-    let stat = 'Waiting'
+    let stat = 'Draft'
+    const query = `
+    UPDATE usertables 
+    SET database = database || jsonb_build_object($1::text, $2::jsonb)
+    WHERE id = $3
+    RETURNING *;
+    `
+    const value = [invId, JSON.stringify({name, date, due, id, item, notes, fees, discounts, coupons, total, stat, invId}), flInvID]
+    const sendDraft = await pool.query(query, value)
     return res.status(200).json({message: 'invoice drafted'})
 }

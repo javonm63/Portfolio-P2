@@ -1,8 +1,8 @@
 import pool from "../config/db.js"
 
-const side = process.env.FL_SIDE
+const side2 = process.env.CL_SIDE
 
-async function existingUsr(req, res, next) {
+async function existingClUsr(req, res, next) {
     const email = req.body.email
     try {
         const query = 
@@ -15,7 +15,7 @@ async function existingUsr(req, res, next) {
             next()
         } else {
             const user = existingUser.rows[0]
-            if (user.role === String(side)) {
+            if (user.role === String(side2)) {
                 return res.json({message: 'User Already Exist'})
             } else {
                 next()
@@ -27,5 +27,4 @@ async function existingUsr(req, res, next) {
     }
 }
 
-export default existingUsr
-
+export default existingClUsr

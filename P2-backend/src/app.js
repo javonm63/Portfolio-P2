@@ -3,7 +3,7 @@ import pool from './config/db.js'
 import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
-// import clRoutes from './routes/clRoutes.js'
+import clRoutes from './routes/clRoutes.js'
 import flRoutes from './routes/flRoutes.js'
 import logger from './utils/logger.js'
 import cookieParser from 'cookie-parser'
@@ -24,7 +24,7 @@ app.use(morgan('combined', {
 }))
 
 app.use('/api/fl', flRoutes)
-// app.use('/api/cl', clRoutes)
+app.use('/api/cl', clRoutes)
 
 app.use((err, req, res, next) => {
     logger.error('Server Error', {error: err.stack})

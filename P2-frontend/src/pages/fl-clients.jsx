@@ -3,13 +3,14 @@ import Searchbar from "../components/searchbar";
 import WebNavbar from "../components/webNav.jsx";
 import '../styles/fl-clients.css'
 import NewClientInfo from "../components/newClientCard.jsx";
-import TableCard from "../components/tableCard.jsx";
-import { showMoreHook } from '../hooks/fi-invoicesHooks'
+import TableCard2 from "../components/tableCard2.jsx";
+import { showMoreHook, sendToHooks } from '../hooks/fi-invoicesHooks'
 import MoreInfo from "../utils/moreInfo.jsx";
 import { useEffect } from "react";
 import { showDarkModeHook } from '../hooks/landingPageHooks.jsx'
 import getCookie from "../utils/getCookie.jsx";
-import { Navigate } from 'react-router-dom'
+import { flAddClientHooks } from "../hooks/fl-clientsHooks.jsx";
+
 
 function FlClients() {
     const navbarHook = navbarHooks() 
@@ -28,6 +29,16 @@ function FlClients() {
     const darkMode = darkModeHook.darkMode
     const setDarkMode = darkModeHook.setDarkMode
 
+    const sendToHook = sendToHooks()
+    const sendTo = sendToHook.sendTo
+    const setSendTo = sendToHook.setSendTo
+
+    const sendHook = flAddClientHooks()
+    const send = sendHook.send
+    const setSend = sendHook.setSend
+    const dispClient = sendHook.dispClient
+    const setDispClient = sendHook.setDispClient
+
     useEffect(() => {
         if (window.matchMedia('(prefers-color-scheme : dark)').matches) {
             setDarkMode(true)
@@ -43,7 +54,7 @@ function FlClients() {
     useEffect(() => {
         async function refresh() {
             const csrfToken = getCookie('csrfToken')
-            const req = await fetch('https://localhost:6001/api/fl/refresh', {
+            const req = await fetch('http://localhost:6001/api/fl/refresh', {
                 method: 'POST',
                 headers: {"x-csrf-token": `Bearer ${csrfToken}`, 'Content-Type': 'application/json'},
                 credentials: 'include',
@@ -54,6 +65,31 @@ function FlClients() {
                 console.log(data.message)
                 if (data.message === 'Unauthorized user') {
                     window.location.href = '/'
+                }
+            }
+
+            const dataReq = await fetch('http://localhost:6001/api/fl/clients', {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'},
+                credentials: 'include',
+            })
+
+            if (!dataReq.ok) {
+                const data = await dataReq.json()
+            } else {
+                const data = await dataReq.json()
+                if (data.data) {
+                    const dataArr = []
+                    const dataObj = data.data[0]
+                    const database = dataObj.database
+                    console.log(database)
+                    for (const value of Object.values(database)) {
+                        const {name, email, phone, city} = value 
+                        dataArr.push({name, email, phone, city})
+                        setSendTo((prev) => [...prev, {name, email, phone, city}])
+                    }
+                    console.log(dataArr)
+                    setDispClient(dataArr)
                 }
             }
         }
@@ -67,14 +103,14 @@ function FlClients() {
                 <h1 className={darkMode ? "page-titles" : "page-titles dark"}>CLIENTS</h1>
             </header>
             <WebNavbar showWebNav={showWebNav} />
-            <h2 className="page-sub-titles">ADD NEW CLIENT</h2>
-            <NewClientInfo />
-            <button className="addNewClient-button">Add Client</button>
-            <h2 className="page-sub-titles">YOUR CLIENTS</h2>
+            <h2 className={darkMode ? "page-sub-titles dark" : "page-sub-titles"}>ADD NEW CLIENT</h2>
+            <NewClientInfo setSendTo={setSendTo} setSend={setSend} setDisplay={setDispClient} send={send}/>
+            <button className="addNewClient-button" onClick={() => {setSend(true)}}>Add Client</button>
+            <h2 className={darkMode ? "page-sub-titles dark" : "page-sub-titles"}>YOUR CLIENTS</h2>
             <section className='clients-sub-page-container'>
                 <MoreInfo showMore={showMore} setShowMore={setShowMore} MoreInfoTitle={'Clients page info.'} MoreInfoText={"On the clients page you can add new clients, remove clients and edit clients' information. To remove clients click their ID numbers, to edit a client's information click the client's name."} />
                 <button className='inv-sub-page-text' type="button" onClick={showSendInfo}>See clients page info.</button>
-                <TableCard tableWidth={'95%'} tableID={"add-client-table-body"} invNumText={'INVOICE'} clientText={'CLIENT'} amountText={'AMOUNT'} statusText={'STATUS'} />
+                <TableCard2 darkMode={darkMode} display={dispClient} tableWidth={'95%'} tableID={"add-client-table-body"} nameText={'CLIENT'} emailText={'EMAIL'} phoneText={'PHONE'} cityText={'CITY'} />
             </section>
         </div>
     )

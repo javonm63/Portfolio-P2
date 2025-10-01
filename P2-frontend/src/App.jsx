@@ -12,7 +12,7 @@ import ClDashboard from './pages/cl-dashboard.jsx'
 import ClInvoices from './pages/cl-invoices.jsx'
 import ClReports from './pages/cl-reports.jsx'
 import ClProfile from './pages/cl-profile.jsx'
-import FreelancerRole from './utils/routeRoles.jsx'
+import {FreelancerRole, ClientRole }from './utils/routeRoles.jsx' 
 
 function App() {
   return (
@@ -40,10 +40,10 @@ function App() {
         <Route path="/fl/clients" element={<FreelancerRole><FlClients /></FreelancerRole>}></Route>
         <Route path="/fl/reports" element={<FreelancerRole><FlReports /></FreelancerRole>}></Route>
         <Route path="/fl/settings" element={<FreelancerRole><FlSettings /></FreelancerRole>}></Route>
-        <Route path="/cl/dashboard" element={<ClDashboard />}></Route>
-        <Route path="/cl/invoices" element={<ClInvoices />}></Route>
-        <Route path="/Cl/reports" element={<ClReports />}></Route>
-        <Route path="/Cl/profile" element={<ClProfile />}></Route>
+        <Route path="/cl/dashboard" element={<ClientRole><ClDashboard /></ClientRole>}></Route>
+        <Route path="/cl/invoices" element={<ClientRole><ClInvoices /></ClientRole>}></Route>
+        <Route path="/Cl/reports" element={<ClientRole><ClReports /></ClientRole>}></Route>
+        <Route path="/Cl/profile" element={<ClientRole><ClProfile/></ClientRole>}></Route>
       </Routes>
       </div>
 

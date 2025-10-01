@@ -24,9 +24,10 @@ function FlSignUp({openSignup, closeSignup}) {
     const alertText = showAlertHook.alertText
     const setAlertText = showAlertHook.setAlertText
 
-    async function signUp() {
+    async function signUp(e) {
+        e.preventDefault()
         try {
-            const req = await fetch('https:localhost:6001/api/fl/signup', {
+            const req = await fetch('http://localhost:6001/api/fl/signup', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({name: name, company: company, email: email, phone: phone, pass: pass, conPass: conPass, role: 'freelancer'}),
@@ -59,11 +60,9 @@ function FlSignUp({openSignup, closeSignup}) {
                 setAlertText('Email already registered try logging in.')
             }
         } catch (err) {
+            console.log(err)
         }
-    }
 
-    const submitSignup = (e) => {
-        e.preventDefault()
         setName('')
         setCompany('')
         setEmail('')
@@ -71,8 +70,9 @@ function FlSignUp({openSignup, closeSignup}) {
         setPass('')
         setConPass('')
     }
+
     return (
-        <form className='fl-signupCard-container' style={{display: openSignup ? 'flex' : 'none'}} onSubmit={submitSignup}>
+        <form className='fl-signupCard-container' style={{display: openSignup ? 'flex' : 'none'}}>
             <button className='exit-button' type='button' onClick={closeSignup} >X</button>
             <h3 className='signup-titles'>Freelancer account</h3>
             <input className='signup-inputs' type='text' placeholder='Enter Your Name'required value={name} onChange={(e) => setName(e.target.value)}></input>

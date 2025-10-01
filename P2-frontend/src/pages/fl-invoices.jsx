@@ -6,7 +6,7 @@ import TableCard from '../components/tableCard.jsx'
 import '../styles/fl-invoices.css'
 import InvPgMenuCard from "../components/invoicePageMenu.jsx";
 import InvSubPages from "../components/invoicesSubPages.jsx";
-import { pageBodyHeight, showSendPage, showAllPage, showNewPage, showDraftsPage } from "../hooks/fi-invoicesHooks.jsx";
+import { pageBodyHeight, showSendPage, showAllPage, showNewPage, showDraftsPage, sendInvHook, sendToHooks} from "../hooks/fi-invoicesHooks.jsx";
 import { useEffect } from "react";
 import { showDarkModeHook } from "../hooks/landingPageHooks.jsx";
 import { flInvoicesHooks, showAlertHooks } from "../hooks/fl-apiHooks.jsx";
@@ -73,6 +73,10 @@ function FlInvoices() {
     const setDisplayItem = invoiceInputHooks.setDisplayItem
     const isItem = invoiceInputHooks.isItem
     const setIsItem = invoiceInputHooks.setIsItem
+    const displayItems = invoiceInputHooks.displayItems
+    const setDisplayItems = invoiceInputHooks.setDisplayItems
+    const displayAllInvs = invoiceInputHooks.displayAllInvs
+    const setDisplayAllInvs = invoiceInputHooks.setDisplayAllInvs
 
     const alertHooks = showAlertHooks()
     const showAlert = alertHooks.showAlert
@@ -80,6 +84,15 @@ function FlInvoices() {
     const alertText = alertHooks.alertText
     const setAlertText = alertHooks.setAlertText
 
+    const sendPopupHooks = sendInvHook()
+    const inv = sendPopupHooks.inv
+    const setInv = sendPopupHooks.setInv
+    const sendPopup = sendPopupHooks.sendPopup
+    const setSendPopup = sendPopupHooks.setSendPopup
+
+    const sendToHook = sendToHooks()
+    const sendTo = sendToHook.sendTo
+    const setSendTo = sendToHook.setSendTo
 
     useEffect(() => {
         if (window.matchMedia('(prefers-color-scheme : dark)').matches) {
@@ -96,7 +109,7 @@ function FlInvoices() {
     useEffect(() => {
         async function refresh() {
             const csrfToken = getCookie('csrfToken')
-            const req = await fetch('https://localhost:6001/api/fl/refresh', {
+            const req = await fetch('http://localhost:6001/api/fl/refresh', {
                 method: 'POST',
                 headers: {"x-csrf-token": `Bearer ${csrfToken}`, 'Content-Type': 'application/json'},
                 credentials: 'include',
@@ -109,9 +122,49 @@ function FlInvoices() {
                     window.location.href = '/'
                 }
             }
+
+            const dataReq = await fetch('http://localhost:6001/api/fl/invoices', {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'},
+                credentials: 'include',
+            })
+
+            if (!dataReq.ok) {
+                const data = await dataReq.json()
+                console.log(data)
+            } else {
+                const data = await dataReq.json()
+                const database = data.data  
+                const unsent = database.filter((invoice) => invoice.stat === 'Waiting')
+                const all = database.filter((invoice) => invoice.stat === 'Sent')
+                setDisplayItems(unsent)
+                setDisplayAllInvs(all)
+            }
+
+            const clientReq = await fetch('http://localhost:6001/api/fl/clients', {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'},
+                credentials: 'include',
+            })
+
+            if (!clientReq.ok) {
+                const data = await clientReq.json()
+            } else {
+                const data = await clientReq.json()
+                if (data.data) {
+                    const dataArr = []
+                    const dataObj = data.data[0]
+                    const database = dataObj.database
+                    for (const value of Object.values(database)) {
+                        const {name, email, phone, city} = value 
+                        dataArr.push({name, email, phone, city})
+                    }
+                    setSendTo(dataArr)
+                }
+            }
         }
         refresh()
-    }, [])
+    }, [0]) 
 
     const showSendPg = () => {
         setShowNew(false)
@@ -142,15 +195,15 @@ function FlInvoices() {
         } else {
             console.log(item, descript, quantity, price)
             setDisplayItem((prev) => [...prev, {item, descript, quantity, price}])
+            
             setIsItem(true)
             setItem('')
             setDescript('')
             setQuantity('')
             setPrice('')
-            console.log(displayItem)
             const comp = 'no'
             try {
-                const req = await fetch('https://localhost:6001/api/fl/invoices', {
+                const req = await fetch('http://localhost:6001/api/fl/invoices', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({item, descript, quantity, price, comp}),
@@ -159,7 +212,7 @@ function FlInvoices() {
                 if (!req.ok) {
                     const data = await req.json()
                     console.log(data)
-                }
+                } 
             } catch (err) {
                 console.log(err)
             }
@@ -172,17 +225,22 @@ function FlInvoices() {
         if (!isItem) {
             setShowAlert(true)
             setAlertText('Add items to invoice before submitting')
+            console.log(displayItem)
         } else {
             try {
-                const req = await fetch('https://localhost:6001/api/fl/invoices', {
+                const req = await fetch('http://localhost:6001/api/fl/invoices', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({name, date, dueDate, id, notes, fees: Number(fees), discount: Number(discount), coupon, comp}),
                     credentials: 'include'
-                })
+                }) 
                 if (!req.ok) {
                     const data = await req.json()
                     console.log(data)
+                } else {
+                    const data = await req.json()
+                    setDisplayItems((prev) => [...prev, {invId: data.invId, name: data.name, total: data.total, stat: data.stat}])
+                    setSendPopup(data.invId)
                 }
             } catch (err) {
                 console.log(err)
@@ -203,7 +261,7 @@ function FlInvoices() {
             setShowAlert(true)
             setAlertText('Invoice created')
             setTimeout(() => {
-                setShowAlert(false)
+            setShowAlert(false)
             }, 3000)
         }
     }
@@ -237,12 +295,13 @@ function FlInvoices() {
                     <button className="invoices-main-buttons" type='submit' onClick={createInvoice}>CREATE INVOICE</button>
             </main>
             <h2 className='page-sub-titles' style={{display: showSend ? 'flex' : 'none'}}>SEND INVOICE</h2>
-            <InvSubPages showPage={showSend} subPageInfo={'See send invoice instructions'} subPageInfoText={'Sending invoice instructions'} infoText={"If an invoice is ready to send you can click the 'waiting' status on that invoice then follow the pop instructions."}/>
+            <InvSubPages dispItem={displayItems} setDispItem={setDisplayItems} Inv={inv} setInv={setInv} sendTo={sendTo} display={displayItems} showPage={showSend} subPageInfo={'See send invoice instructions'} subPageInfoText={'Sending invoice instructions'} infoText={"If an invoice is ready to send you can click the 'waiting' status on that invoice then follow the pop instructions."}/>
             <h2 className='page-sub-titles' style={{display: showAll ? 'flex' : 'none'}}>ALL INVOICES</h2>
-            <InvSubPages showPage={showAll} subPageInfo={'See more info'} subPageInfoText={'All invoices page info.'} infoText={"On this page you can view, delete or print created invoices. To view an invoice click the invoice ID, to print an invoice click the client's name and to delete an invoice click the 'status' of that invoice."}/>
+            <InvSubPages setInv={setInv} display={displayItems} display2={displayAllInvs} showPage={showAll} subPageInfo={'See more info'} subPageInfoText={'All invoices page info.'} infoText={"On this page you can view, delete or print created invoices. To view an invoice click the invoice ID, to print an invoice click the client's name and to delete an invoice click the 'status' of that invoice."}/>
             <h2 className='page-sub-titles' style={{display: showDraft ? 'flex' : 'none'}}>DRAFTED INVOICES</h2>
             <InvSubPages showPage={showDraft} subPageInfo={'See more info about drafted invoices'} subPageInfoText={'Drafted invoices info.'} infoText={"Here you can view all the incompleted invoices you have saved. To continue working on a draft click the invoice ID, once an invoice is loaded it's removed from the drafts page so re-save if necessary. You can also delete invoices by clicking their statuses."}/>
             <MoreInfo showMore={showAlert} setShowMore={setShowAlert} MoreInfoTitle={'ALERT'} MoreInfoText={alertText}/>
+
         </form>
     )
 }

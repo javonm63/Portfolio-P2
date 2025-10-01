@@ -2,18 +2,54 @@ import {v4 as uuidv4} from 'uuid'
 import pool from '../config/db.js'
 
 let items = []
-async function createInvoice(req, res) {
-    console.log('incoming data: ', req.body)
+export async function createInvoice(req, res) {
+    const flClntID = req.cookies.flclntid
+    const flInvID = req.cookies.flinvid
+    const invId = req.body.invId
     const comp = req.body.comp
+    const data = req.body
     const item = {}
+    if (!comp) {
+        try {
+            const invDatabse = await pool.query(`SELECT * FROM usertables WHERE id = $1`, [flInvID])
+            const clientToSend = await pool.query('SELECT * FROM users WHERE email = $1', [data.sendCL])
+            const database = invDatabse.rows[0]
+            const invoices = database.database
+            const sendingInv = Object.entries(invoices).find(([key , value]) => key === invId) 
+            const inv = sendingInv[1]
+            const sendingClient = clientToSend.rows[0]
+            const query = `
+            UPDATE usertables
+            SET database = database || $1::jsonb
+            WHERE id = $2
+            RETURNING *`
+            const values = [JSON.stringify({[data.invId]: inv}), sendingClient.id]
+            const send = await pool.query(query, values)
+            inv.stat = 'Sent'
+            const updatedInv = inv
+            const newQuery = `
+            UPDATE usertables
+            SET database = jsonb_set(
+            database, 
+            ARRAY [$1:: text], 
+            $2::jsonb,
+            true)
+            WHERE id = $3`
+            const updateVals = [invId, inv , flInvID]
+            const updateInv = await pool.query(newQuery, updateVals)
+            return res.status(200).json({invId: inv.invId, name: inv.name, total: inv.total, stat: inv.stat})
+        } catch (err) {
+            console.error(err)
+        }
+    }
     if (comp === 'no') {
         item.item = req.body.item
         item.descript = req.body.descript
         item.quantity = req.body.quantity
         item.price = req.body.price
         items.push(item)
-        console.log(items)
     } else if (comp === 'yes') {
+        const invId = Math.floor(Math.random() * 2000)
         const name = req.body.name
         const date = req.body.date
         const due = req.body.dueDate
@@ -21,20 +57,56 @@ async function createInvoice(req, res) {
         const item = [...items]
         const notes = req.body.notes
         const fees = req.body.fees || 0
-        const discounts = req.body.discounts || 0
+        const discounts = req.body.discount || 0
         const coupons = req.body.coupons || 0
-
-        const query = `
-            INSERT INTO invoices
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-            RETURNING *;
-            `
-        const values = [id, name, date, due, JSON.stringify(item), notes, Number(fees), Number(discounts), Number(coupons)]
-        const sendToDb = await pool.query(query, values)
-
+        const totalObj = item[0]
+        const total = Number(totalObj.price) + Number(fees) + Number(discounts)
+        let stat = 'Waiting'
+        try {
+            const query = `
+                UPDATE usertables 
+                SET database = database || jsonb_build_object($1::text, $2::jsonb)
+                WHERE id = $3
+                RETURNING *;
+                `
+            const values = [invId, JSON.stringify({id, name, date, due, item, notes, fees, invId, discounts, coupons, total, stat}), flInvID]
+            const sendToDb = await pool.query(query, values)
+        } catch (err) {
+            console.error(err)
+        }
         items = []
+        res.status(201).json({invId: invId, name, total, stat})
     }
     
 }
 
-export default createInvoice
+export async function sendData(req, res) {
+    const flClntID = req.cookies.flclntid
+    const flInvID = req.cookies.flinvid
+    const query = `
+    SELECT * FROM usertables WHERE id = $1`
+    const getData = await pool.query(query, [flInvID])
+    const data = getData.rows[0]
+    const database = data.database
+    if (Object.entries(database).length !== 0) {
+        const dataArr = []
+        for (const value of Object.values(database)) {
+            const {invId, name, total, stat} = value
+            dataArr.push({invId, name, total, stat})
+        }
+        return res.status(200).json({data: dataArr})
+    } else {
+        return res.status(200).json({message: "user hasn't made any invoices yet"})
+    }
+}
+
+export async function sendInv(req, res) {
+    const flInvID = req.cookies.flinvid
+    const view = req.body
+    const query = `SELECT * FROM usertables WHERE id = $1`
+    const getInv = await pool.query(query, [flInvID])
+    const database = getInv.rows[0]
+    const invoices = database.database
+    return res.status(200).json({data: invoices})
+}
+

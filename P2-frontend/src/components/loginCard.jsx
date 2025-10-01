@@ -20,7 +20,7 @@ function LoginCard({showSignup, closeSignup}) {
     const navigate = useNavigate()
 
     async function login() {
-        const res = await fetch('https://localhost:6001/api/fl/login', {
+        const res = await fetch('http://localhost:6001/api/fl/login', {
             method: 'POST', 
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({email: email, pass: pass, role: 'freelancer'}),

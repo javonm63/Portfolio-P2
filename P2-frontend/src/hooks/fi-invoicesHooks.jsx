@@ -33,6 +33,20 @@ function showMerchHook() {
     const [showMerch, setShowMerch] = useState(false)
     return {showMerch, setShowMerch}
 }
+function sendInvHook() {
+    const [sendPopup, setSendPopup] = useState(false)
+    const [inv, setInv] = useState('')
+    const [sendCL, setSendCL] = useState('')
+    return {sendPopup, setSendPopup, inv, setInv, sendCL, setSendCL}
+}
+function sendToHooks() {
+    const [sendTo, setSendTo] = useState([])
+    return {sendTo, setSendTo}
+}
+function viewInvHooks() {
+    const [viewInv, setViewInv] = useState(false)
+    const [viewInvData, setViewInvData] = useState([])
+    return {viewInv, setViewInv, viewInvData, setViewInvData}
+}
 
-
-export {showMoreHook, pageBodyHeight, showSendPage, showAllPage, showNewPage, showDraftsPage, showSendPage2, showMerchHook}
+export {showMoreHook, pageBodyHeight, showSendPage, showAllPage, showNewPage, showDraftsPage, showSendPage2, showMerchHook, sendInvHook, sendToHooks, viewInvHooks}

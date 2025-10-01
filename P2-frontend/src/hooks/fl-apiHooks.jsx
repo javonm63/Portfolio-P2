@@ -28,6 +28,8 @@ function flInvoicesHooks() {
     const [coupon, setCoupon] = useState('')
     const [id, setId] = useState('')
     const [displayItem, setDisplayItem] = useState([])
+    const [displayItems, setDisplayItems] = useState([])
+    const [displayAllInvs, setDisplayAllInvs] = useState([])
     const [isItem, setIsItem] = useState(false)
     return { 
         item, setItem,
@@ -43,7 +45,9 @@ function flInvoicesHooks() {
         coupon, setCoupon,
         id, setId,
         displayItem, setDisplayItem,
-        isItem, setIsItem
+        isItem, setIsItem,
+        displayItems, setDisplayItems,
+        displayAllInvs, setDisplayAllInvs,
     }
 }
 

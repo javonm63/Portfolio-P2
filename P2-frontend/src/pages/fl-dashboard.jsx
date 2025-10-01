@@ -36,7 +36,7 @@ function FlDashboard() {
     useEffect(() => {
         async function refresh() {
             const csrfToken = getCookie('csrfToken')
-            const req = await fetch('https://localhost:6001/api/fl/refresh', {
+            const req = await fetch('http://localhost:6001/api/fl/refresh', {
                 method: 'POST',
                 headers: {"x-csrf-token": `Bearer ${csrfToken}`, 'Content-Type': 'application/json'},
                 credentials: 'include',
@@ -51,7 +51,7 @@ function FlDashboard() {
             }
         }
         refresh()
-    }, [])
+    }, [0])
 
     return (
         <div className="dashboard-page-container">

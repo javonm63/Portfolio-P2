@@ -1,0 +1,63 @@
+.view-invoice-main-container {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    z-index: 9999;
+    padding: 10px;
+    width: 45vw;
+    height: 87vh;
+    top: 8vh;
+    background-color: rgba(0, 128, 0, 0.643);
+    backdrop-filter: blur(5px);
+    box-shadow: 0px 0px 10px black;
+}
+.page-sub-title {
+    margin: 0;
+    margin-bottom: 10px;
+    color: rgb(204, 227, 2);
+}
+.viewInv-page-info {
+    font-size: 14px;
+    text-align: center;
+    width: 80%;
+    margin: 0;
+    margin-bottom: 10px;
+}
+.viewInv-page-info:hover {
+    color: rgb(204, 227, 2);
+}
+.labels-for-viewInvs {
+    margin: 0;
+    margin-top: 15px;
+    width: 95%;
+    color: rgba(219, 204, 2, 0.784);
+}
+.view-invoice-client-info {
+    font-size: 15px;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 95%;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    margin: 5px;
+    color: rgb(180, 200, 0);
+    background-color: rgb(1, 72, 1);
+}
+.viewInv-item-table-title {
+    margin: 0;
+    margin-top: 15px;
+    font-weight: bold;
+    color: rgb(204, 227, 2);
+}
+
+@media screen and (max-width: 1030px) {
+    .view-invoice-main-container {
+        width: 85vw;
+    }
+}

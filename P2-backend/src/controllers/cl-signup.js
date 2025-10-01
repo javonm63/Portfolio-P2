@@ -4,14 +4,14 @@ import genUserId from "../utils/genUserId.js"
 import hashPass from "../utils/pwHashingHelper.js"
 import { v4 as uuidv4 } from 'uuid'
 
-export default async function FlSignup(req, res) {
+export default async function ClSignup(req, res) {
     const SECRET = process.env.JWT_SECRET
     const REF_SECRET = process.env.JWT_SECRET_REF
 
     const {name, company, email, phone, pass, role} = req.body
     const id = genUserId()
     const invoicesDBid = genUserId()
-    const clientsDBid = genUserId()
+    const clientsDBid = 'nothing to see here'
 
     const hashed = await hashPass(pass)
 
@@ -20,14 +20,8 @@ export default async function FlSignup(req, res) {
         INSERT INTO usertables (id, database)
         VALUES ($1, $2)
         RETURNING *;`
-        const dbValues = [invoicesDBid, []]
+        const dbValues = [id, []]
         const makingDb = await pool.query(makeDb, dbValues)
-        const makeDb2 = `
-        INSERT INTO usertables (id, database)
-        VALUES ($1, $2)
-        RETURNING *;`
-        const dbValues2 = [clientsDBid, []]
-        const makingDb2 = await pool.query(makeDb2, dbValues2)
 
         const query = `
         INSERT INTO users (id, name, company, email, phone, pass, role, invdb, cldb)
@@ -70,18 +64,12 @@ export default async function FlSignup(req, res) {
         sameSite: 'strict',
         maxAge: 900000,
     })
-        .cookie('flinvid', invoicesDBid, {
+        .cookie('id', id, {
         httpOnly: false,
         secure: false,
         sameSite: 'strict',
         maxAge: 7 * 24 * 60 * 60 * 1000,
     })
-        .cookie('flclntid', clientsDBid, {
-        httpOnly: false,
-        secure: false,
-        sameSite: 'strict',
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-    })
-        .status(201).json({message: 'freelancer account created', role: 'freelancer'})
+        .status(201).json({message: 'client account created', role: 'client'})
 } 
 

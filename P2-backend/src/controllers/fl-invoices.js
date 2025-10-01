@@ -102,7 +102,6 @@ export async function sendData(req, res) {
 
 export async function sendInv(req, res) {
     const flInvID = req.cookies.flinvid
-    const view = req.body
     const query = `SELECT * FROM usertables WHERE id = $1`
     const getInv = await pool.query(query, [flInvID])
     const database = getInv.rows[0]
@@ -110,3 +109,21 @@ export async function sendInv(req, res) {
     return res.status(200).json({data: invoices})
 }
 
+export async function deleteInv(req, res) {
+    console.log(req.body)
+    const invToDel = req.body.data
+    const flInvID = req.cookies.flinvid
+    const query = `SELECT * FROM usertables WHERE id = $1`
+    const value = [flInvID]
+    const getInv = await pool.query(query, value)
+    const database = getInv.rows[0].database
+    for (const [key, value] of Object.entries(database)) {
+        if (key === invToDel) {
+            delete database[key]
+        }
+    }
+    const newQuery = `UPDATE usertables SET database = $1 WHERE id = $2 RETURNING *;`
+    const newValue = [database, flInvID]
+    const updateDatabase = await pool.query(newQuery, newValue)
+    return res.status(200).json({message: 'invoice deleted'})
+}

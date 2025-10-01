@@ -9,9 +9,7 @@ function ViewInvoice({viewInvData, displayInv, setView}) {
     } else {
         inv = viewInvData[0]
         items = inv.item
-        console.log(inv)
     }
-    console.log(items)
     
     
     function closeViewInvoice() {

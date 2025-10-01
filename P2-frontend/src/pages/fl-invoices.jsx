@@ -307,3 +307,5 @@ function FlInvoices() {
 }
 
 export default FlInvoices
+
+// GENERATE PDF THEN ADD PRINITNG FUNCTION FOR INVOICES 

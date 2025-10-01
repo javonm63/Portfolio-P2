@@ -1,8 +1,14 @@
 import '../styles/tableCard.css'
 import SendPopup from './sendPopup'
 import { sendInvHook } from '../hooks/fi-invoicesHooks'
+import { showAlertHooks } from '../hooks/fl-apiHooks'
+import MoreInfo from '../utils/moreInfo'
 
 function TableCard({setViewInvData, setView, dispItem, setDispItem, darkMode, tableWidth, tableID, invNumText, clientText, amountText, statusText, pageSubTitle, display, display2, display3, setInv, Inv, sendTo}) {
+    const alertHooks = showAlertHooks()
+    const showAlert = alertHooks.showAlert
+    const setShowAlert = alertHooks.setShowAlert
+
     const currInvId = []
     const currInv = []
     const sendPopHook = sendInvHook()
@@ -50,6 +56,36 @@ function TableCard({setViewInvData, setView, dispItem, setDispItem, darkMode, ta
         setView(true)
     }
 
+    async function deleteInvoice(e) {
+        if (currInvId.length > 0) {
+            currInvId.pop()
+            currInvId.push(e.target.value)
+        } else {
+            currInvId.push(e.target.value)
+        }
+        try {
+            const req = await fetch('http://localhost:6001/api/fl/invoices', {
+            method: 'DELETE',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({data: currInvId[0]}),
+            credentials: 'include'
+            })
+            if (!req.ok) {
+                const error = await req.json()
+                console.log(error)
+            } else {
+                const data = await req.json()
+                const message = data.message
+                if (message === 'invoice deleted') {
+                    setShowAlert(true)
+                }
+                console.log(message)
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     return (
         <article className='tableCard-container' style={{width: tableWidth}}>
             <table className='table-container'>
@@ -78,7 +114,7 @@ function TableCard({setViewInvData, setView, dispItem, setDispItem, darkMode, ta
                             <td className='row-data'><button className='all-inv-table-buttons' type='button' value={item.invId} onClick={viewInvoice}>{`#${item.invId}`}</button></td>
                             <td className='row-data'><button className='all-inv-table-buttons' type='button'>{item.name}</button></td>
                             <td className='row-data'>{`$${item.total}`}</td>
-                            <td className='row-data'><button className='all-inv-table-buttons' type='button'>{item.stat}</button></td>
+                            <td className='row-data'><button className='all-inv-table-buttons' type='button' value={item.invId} onClick={deleteInvoice}>{item.stat}</button></td>
                         </tr>
                     ))}
                     {display3 && display3.map((item, i) => (
@@ -93,6 +129,7 @@ function TableCard({setViewInvData, setView, dispItem, setDispItem, darkMode, ta
                 </tbody>
             </table>
             <SendPopup dispItem={dispItem} setDispItem={setDispItem} inv={Inv} display={sendPop} setDisplay={setSendPop} sendTo={sendTo} />
+            <MoreInfo showMore={showAlert} setShowMore={setShowAlert} MoreInfoTitle={'ALERT'} MoreInfoText={'Invoice deleted refresh the page to see changes'} />
         </article>
     )
 }

@@ -9,7 +9,7 @@ import MoreInfo from "../utils/moreInfo.jsx";
 import { useEffect } from "react";
 import { showDarkModeHook } from '../hooks/landingPageHooks.jsx'
 import getCookie from "../utils/getCookie.jsx";
-import { flAddClientHooks } from "../hooks/fl-clientsHooks.jsx";
+import { flAddClientHooks, showEditClientPopHooks } from "../hooks/fl-clientsHooks.jsx";
 
 
 function FlClients() {
@@ -38,6 +38,10 @@ function FlClients() {
     const setSend = sendHook.setSend
     const dispClient = sendHook.dispClient
     const setDispClient = sendHook.setDispClient
+
+    const showEditHooks = showEditClientPopHooks()
+    const editPop = showEditHooks.showEditPop
+    const setEditPop = showEditHooks.setShowEditPop
 
     useEffect(() => {
         if (window.matchMedia('(prefers-color-scheme : dark)').matches) {
@@ -82,13 +86,11 @@ function FlClients() {
                     const dataArr = []
                     const dataObj = data.data[0]
                     const database = dataObj.database
-                    console.log(database)
                     for (const value of Object.values(database)) {
                         const {name, email, phone, city} = value 
                         dataArr.push({name, email, phone, city})
                         setSendTo((prev) => [...prev, {name, email, phone, city}])
                     }
-                    console.log(dataArr)
                     setDispClient(dataArr)
                 }
             }
@@ -110,7 +112,7 @@ function FlClients() {
             <section className='clients-sub-page-container'>
                 <MoreInfo showMore={showMore} setShowMore={setShowMore} MoreInfoTitle={'Clients page info.'} MoreInfoText={"On the clients page you can add new clients, remove clients and edit clients' information. To remove clients click their ID numbers, to edit a client's information click the client's name."} />
                 <button className='inv-sub-page-text' type="button" onClick={showSendInfo}>See clients page info.</button>
-                <TableCard2 darkMode={darkMode} display={dispClient} tableWidth={'95%'} tableID={"add-client-table-body"} nameText={'CLIENT'} emailText={'EMAIL'} phoneText={'PHONE'} cityText={'CITY'} />
+                <TableCard2 showEditPop={editPop} setEditPopup={setEditPop} darkMode={darkMode} display={dispClient} tableWidth={'95%'} tableID={"add-client-table-body"} nameText={'CLIENT'} emailText={'EMAIL'} phoneText={'PHONE'} cityText={'CITY'} />
             </section>
         </div>
     )

@@ -14,6 +14,11 @@ function showAlertHooks() {
     const [alertText, setAlertText] = useState('')
     return {showAlert, setShowAlert, alertText, setAlertText}
 }
+function showEditClientPopHooks() {
+    const [showEditPop, setShowEditPop] = useState(false)
+    const [clid, setclid] = useState(null)
+    return {showEditPop, setShowEditPop, clid, setclid}
+}
 
 
-export { flAddClientHooks, showAlertHooks}
+export { flAddClientHooks, showAlertHooks, showEditClientPopHooks}

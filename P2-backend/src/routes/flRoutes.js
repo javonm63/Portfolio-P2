@@ -5,10 +5,10 @@ import existingUsr from "../middleware/existingUser.js"
 import authentUser from "../middleware/authenticateUser.js"
 import FlSignup from '../controllers/fl-signup.js'
 import flLogin from '../controllers/fl-login.js'
-import { flClients, sendClientData } from '../controllers/fl-clients.js'
+import { editClientInfo, flClients, sendClientData } from '../controllers/fl-clients.js'
 import {createInvoice, deleteDraft, deleteInv, draftInv, getDrafts, sendData, sendInv} from '../controllers/fl-invoices.js'
 import { flValidateInvoice } from '../validators/flInvoiceValidator.js'
-import { flValidateClient } from '../validators/flclientsValidator.js'
+import { flValidateClient, flValidateEditClient } from '../validators/flclientsValidator.js'
 import { validateInvHelper } from '../utils/InvoiceValidation.js'
 import { validateClntHelper } from '../utils/ClientValidation.js'
 import refreshToken from '../utils/refreshToken.js'
@@ -32,7 +32,7 @@ Server.post('/draft', authentUser('freelancer'), flValidateInvoice, validateInvH
 // CLIENT API ROUTES 
 Server.post('/clients', authentUser('freelancer'), flValidateClient, validateClntHelper, flClients)
 Server.get('/clients', authentUser('freelancer'), sendClientData)
-// Server.patch('/clients')
+Server.patch('/clients', authentUser('freelancer'), flValidateEditClient, validateClntHelper, editClientInfo)
 // Server.put('/clients')
 // Server.delete('/clients')
 

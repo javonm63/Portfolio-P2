@@ -1,7 +1,18 @@
+import { showEditClientPopHooks } from '../hooks/fl-clientsHooks'
 import '../styles/tableCard.css'
+import EditedInfoCard from './editedInfoCard'
 import SendPopup from './sendPopup'
 
-function TableCard2({darkMode, tableWidth, tableID, nameText, emailText, phoneText, cityText, pageSubTitle, display, sendPop}) {
+function TableCard2({darkMode, tableWidth, tableID, nameText, emailText, phoneText, cityText, pageSubTitle, display, sendPop, setEditPopup, showEditPop}) {
+    const editInfoHooks = showEditClientPopHooks()
+    const clid = editInfoHooks.clid
+    const setClid = editInfoHooks.setclid
+
+    function editClientInfo(e) {
+        setClid(e.target.value)
+        setEditPopup(true)
+    }
+
     return (
         <article className='tableCard-container' style={{width: tableWidth}}>
             <table className='table-container'>
@@ -19,16 +30,17 @@ function TableCard2({darkMode, tableWidth, tableID, nameText, emailText, phoneTe
                     </tr>
                     {display && display.map((item, i) => (
                         <tr className='table-row' key={i}>
-                            <td className='row-data'><button className="table-button" type="button">{item.name}</button></td>
+                            <td className='row-data'><button className="table-button" type="button" value={item.email} onClick={editClientInfo}>{item.name}</button></td>
                             <td className='row-data-email'>{item.email}</td>
                             <td className='row-data'>{item.phone}</td>
-                            <td className='row-data'>{item.city}</td>
+                            <td className='row-data'><button className="table-button" type="button" value={item.email}>{item.city}</button></td>
                         </tr>
                     ))}
                          
                 </tbody>
             </table>
             <SendPopup />
+            <EditedInfoCard client={clid} showEditPop={showEditPop} setShowEditPop={setEditPopup}/>
         </article>
     )
 }

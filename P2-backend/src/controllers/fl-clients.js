@@ -5,14 +5,15 @@ export async function flClients(req, res) {
     const flClntID = req.cookies.flclntid
     const {name, email, phone, city} = req.body
     const id = uuidv4()
+    const flCLID = email
 
     try {const query = `
         UPDATE usertables 
-        SET database = database || $1::jsonb
-        WHERE id = $2
+        SET database = database || jsonb_build_object($1::text, $2::jsonb)
+        WHERE id = $3
         RETURNING *;
         `
-        const values = [JSON.stringify({flclient: {id, name, email, phone, city}}), flClntID]
+        const values = [flCLID, JSON.stringify({id, name, email, phone, city}), flClntID]
         const sendToDb = await pool.query(query, values)
     } catch (err) {
         console.error(err)
@@ -32,4 +33,41 @@ export async function sendClientData(req, res) {
     } else {
         return res.status(200).json({message: "user hasn't made any invoices yet"})
     }
+}
+
+export async function editClientInfo(req, res) {
+    let curClient
+    const {name,  email, phone, city} = req.body
+    const flClntID = req.cookies.flclntid
+    const clientEmail = req.body.client
+    const query = `SELECT * FROM usertables WHERE id = $1`
+    const value = [flClntID]
+    const getClients = await pool.query(query, value)
+    const database = getClients.rows[0].database
+    for (const [key, value] of Object.entries(database)) {
+        if (key === clientEmail) {
+            curClient = value
+            delete database[key]
+        }
+    }
+    if (name !== '') {
+        curClient.name = name
+    } else if (email !== '') {
+        curClient.email = email
+    } else if (phone !== '') {
+        curClient.phone = phone
+    } else if (city !== '') {
+        curClient.city = city
+    }
+    database[clientEmail] = curClient
+
+    const newQuery = `
+    UPDATE usertables 
+    SET database = $1::jsonb
+    WHERE id = $2
+    RETURNING *;
+    `
+    const newValue = [JSON.stringify(database), flClntID]
+    const updateClientInfo = await pool.query(newQuery, newValue)
+    return res.status(200).json({message: 'client information updated'})
 }

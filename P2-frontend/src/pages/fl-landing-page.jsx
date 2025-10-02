@@ -107,3 +107,6 @@ function FlLandingPage() {
 }
 
 export default FlLandingPage    
+
+// AUTOMATIC TOKEN REFRESH ASIDE FROM ON PAGE REFRESHES
+// because if a user stays on a page for more than 15mins the api calls gets blocked due to the page no refreshed

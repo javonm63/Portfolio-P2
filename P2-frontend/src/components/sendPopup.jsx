@@ -43,7 +43,6 @@ function SendPopup({dispItem, setDispItem, display, setDisplay, sendTo, inv}) {
     }
 
     const sendInvoice = async () => {
-        console.log(sendCL)
         try {
             const req = await fetch('http://localhost:6001/api/fl/invoices', {
                 method: 'POST',

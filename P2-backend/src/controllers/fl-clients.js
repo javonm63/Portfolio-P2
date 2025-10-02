@@ -69,7 +69,7 @@ export async function editClientInfo(req, res) {
     `
     const newValue = [JSON.stringify(database), flClntID]
     const updateClientInfo = await pool.query(newQuery, newValue)
-    return res.status(200).json({message: 'client information updated'})
+    return res.status(200).json({message: 'client information updated', data: getClients.rows})
 }
 
 export async function deleteClient(req, res) {
@@ -94,5 +94,5 @@ export async function deleteClient(req, res) {
     `
     const newValue = [database, flClId]
     const updateClients = await pool.query(newQuery, newValue)
-    return res.status(200).json({message: 'client deleted'})
+    return res.status(200).json({message: 'client deleted', data: getClients.rows})
 }

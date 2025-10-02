@@ -2,7 +2,7 @@ import { flAddClientHooks, showAlertHooks } from '../hooks/fl-clientsHooks'
 import '../styles/editedInfoCard.css'
 import MoreInfo from '../utils/moreInfo'
 
-function EditedInfoCard({showEditPop, setShowEditPop, client}) {
+function EditedInfoCard({showEditPop, setShowEditPop, client, setDisplay}) {
     function closePopup() {
         setShowEditPop(false)
     }
@@ -38,15 +38,22 @@ function EditedInfoCard({showEditPop, setShowEditPop, client}) {
             } else {
                 const data = await req.json()
                 if (data.message === 'client information updated') {
+                    const dataArr = []
+                    const dataObj = data.data[0]
+                    const database = dataObj.database
+                    for (const value of Object.values(database)) {
+                        const {name, email, phone, city} = value 
+                        dataArr.push({name, email, phone, city})
+                    }
+                    setDisplay(dataArr)
                     setShowAlert(true)
-                    setAlertText('Client information updated successfully, refresh page to see changes.')
+                    setAlertText('Client information updated successfully.')
                     setTimeout(() => {
                         setShowEditPop(false)
                         setShowAlert(false)
                         setAlertText('')
                     }, 3000)
                 }
-                console.log(data)
             }
         } catch (err) {
             console.log(err)

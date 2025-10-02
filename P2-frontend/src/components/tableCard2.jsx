@@ -4,7 +4,7 @@ import MoreInfo from '../utils/moreInfo'
 import EditedInfoCard from './editedInfoCard'
 import SendPopup from './sendPopup'
 
-function TableCard2({darkMode, tableWidth, tableID, nameText, emailText, phoneText, cityText, pageSubTitle, display, sendPop, setEditPopup, showEditPop}) {
+function TableCard2({darkMode, tableWidth, tableID, nameText, emailText, phoneText, cityText, pageSubTitle, display, setDisplay, sendPop, setEditPopup, showEditPop}) {
     const editInfoHooks = showEditClientPopHooks()
     const clid = editInfoHooks.clid
     const setClid = editInfoHooks.setclid
@@ -36,10 +36,17 @@ function TableCard2({darkMode, tableWidth, tableID, nameText, emailText, phoneTe
             } else {
                 const data = await req.json()
                 if (data.message === 'client deleted') {
+                    const dataArr = []
+                    const dataObj = data.data[0]
+                    const database = dataObj.database
+                    for (const value of Object.values(database)) {
+                        const {name, email, phone, city} = value 
+                        dataArr.push({name, email, phone, city})
+                    }
+                    setDisplay(dataArr)
                     setShowAlert(true)
-                    setAlertText('Client deleted successfully, refresh page to see changes.')
+                    setAlertText('Client deleted successfully.')
                 }
-                console.log(data)
             }
         } catch (err) {
             console.log(err)
@@ -73,7 +80,7 @@ function TableCard2({darkMode, tableWidth, tableID, nameText, emailText, phoneTe
                 </tbody>
             </table>
             <SendPopup />
-            <EditedInfoCard client={clid} showEditPop={showEditPop} setShowEditPop={setEditPopup}/>
+            <EditedInfoCard setDisplay={setDisplay} client={clid} showEditPop={showEditPop} setShowEditPop={setEditPopup}/>
             <MoreInfo showMore={showAlert} setShowMore={setShowAlert} MoreInfoTitle={'ALERT'} MoreInfoText={alertText} />
         </article>
     )

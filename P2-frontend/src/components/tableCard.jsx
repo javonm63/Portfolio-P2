@@ -4,10 +4,12 @@ import { sendInvHook } from '../hooks/fi-invoicesHooks'
 import { showAlertHooks } from '../hooks/fl-apiHooks'
 import MoreInfo from '../utils/moreInfo'
 
-function TableCard({setShowNew, setShowDraft, setDraft, setLoad, setViewInvData, setView, dispItem, setDispItem, darkMode, tableWidth, tableID, invNumText, clientText, amountText, statusText, pageSubTitle, display, display2, display3, display4, setInv, Inv, sendTo}) {
+function TableCard({setShowNew, setShowDraft, setDraft, setLoad, setViewInvData, setView, dispItem, setDispItem, darkMode, tableWidth, tableID, invNumText, clientText, amountText, statusText, pageSubTitle, display, display2, display3, display4, setDisplay4, setInv, Inv, sendTo}) {
     const alertHooks = showAlertHooks()
     const showAlert = alertHooks.showAlert
     const setShowAlert = alertHooks.setShowAlert
+    const alertText = alertHooks.alertText
+    const setAlertText = alertHooks.setAlertText
 
     const currInvId = []
     const currInv = []
@@ -78,6 +80,7 @@ function TableCard({setShowNew, setShowDraft, setDraft, setLoad, setViewInvData,
                 const message = data.message
                 if (message === 'invoice deleted') {
                     setShowAlert(true)
+                    setAlertText('Invoice deleted refresh the page to see changes')
                 }
                 console.log(message)
             }
@@ -107,6 +110,32 @@ function TableCard({setShowNew, setShowDraft, setDraft, setLoad, setViewInvData,
                         setShowNew(true)
                         setShowDraft(false)
                     }
+                }
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    async function deleteDraft(e) {
+        const invId = e.target.value 
+        try {
+            const req = await fetch('http://localhost:6001/api/fl/draft', {
+                method: 'DELETE',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({invId}), 
+                credentials: 'include'
+            })
+            if (!req.ok) {
+                const error = await req.json()
+                console.log(error)
+            } else {
+                const data = await req.json()
+                if (data.message === 'draft deleted') {
+                    const curIndex = display4.findIndex((draft) => draft.invId === invId)
+                    display4.splice(curIndex, 1)
+                    setShowAlert(true)
+                    setAlertText('Draft deleted successfully.')
                 }
             }
         } catch (err) {
@@ -158,14 +187,14 @@ function TableCard({setShowNew, setShowDraft, setDraft, setLoad, setViewInvData,
                             <td className='row-data'><button className='all-inv-table-buttons' type='button' value={item.invId} onClick={loadDraft}>{`#${item.invId}`}</button></td>
                             <td className='row-data'>{item.name}</td>
                             <td className='row-data'>{item.total}</td>
-                            <td className='row-data'><button className='all-inv-table-buttons' type='button' value={item.invId}>{item.stat}</button></td>
+                            <td className='row-data'><button className='all-inv-table-buttons' type='button' value={item.invId} onClick={deleteDraft}>{item.stat}</button></td>
                         </tr>
                     ))}
                         
                 </tbody>
             </table>
             <SendPopup dispItem={dispItem} setDispItem={setDispItem} inv={Inv} display={sendPop} setDisplay={setSendPop} sendTo={sendTo} />
-            <MoreInfo showMore={showAlert} setShowMore={setShowAlert} MoreInfoTitle={'ALERT'} MoreInfoText={'Invoice deleted refresh the page to see changes'} />
+            <MoreInfo showMore={showAlert} setShowMore={setShowAlert} MoreInfoTitle={'ALERT'} MoreInfoText={alertText} />
         </article>
     )
 }

@@ -178,3 +178,21 @@ export async function getDrafts(req, res) {
     }
     return res.status(200).json({data: groups})
 }
+
+export async function deleteDraft(req, res) {
+    const flInvID = req.cookies.flinvid
+    const invId = req.body.invId
+    const query = `SELECT * FROM usertables WHERE id = $1`
+    const value = [flInvID]
+    const getDrafts = await pool.query(query, value)
+    const database = getDrafts.rows[0].database
+    for (const [key, value] of Object.entries(database)) {
+        if (key === invId) {
+            delete database[key]
+        }
+    }
+    const newQuery = `UPDATE usertables SET database = $1 WHERE id = $2 RETURNING *;`
+    const newValue = [database, flInvID]
+    const updateDatabase = await pool.query(newQuery, newValue)
+    return res.status(200).json({message: 'draft deleted'})
+}

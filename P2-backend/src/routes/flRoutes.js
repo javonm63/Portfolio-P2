@@ -6,7 +6,7 @@ import authentUser from "../middleware/authenticateUser.js"
 import FlSignup from '../controllers/fl-signup.js'
 import flLogin from '../controllers/fl-login.js'
 import { flClients, sendClientData } from '../controllers/fl-clients.js'
-import {createInvoice, deleteInv, draftInv, getDrafts, sendData, sendInv} from '../controllers/fl-invoices.js'
+import {createInvoice, deleteDraft, deleteInv, draftInv, getDrafts, sendData, sendInv} from '../controllers/fl-invoices.js'
 import { flValidateInvoice } from '../validators/flInvoiceValidator.js'
 import { flValidateClient } from '../validators/flclientsValidator.js'
 import { validateInvHelper } from '../utils/InvoiceValidation.js'
@@ -27,6 +27,7 @@ Server.delete('/invoices', authentUser('freelancer'), deleteInv)
 Server.get('/view', authentUser('freelancer'), sendInv)
 // DRAFT INVOICE API ROUTES
 Server.get('/draft', authentUser('freelancer'), getDrafts)
+Server.delete('/draft', authentUser('freelancer'), deleteDraft)
 Server.post('/draft', authentUser('freelancer'), flValidateInvoice, validateInvHelper, draftInv)
 // CLIENT API ROUTES 
 Server.post('/clients', authentUser('freelancer'), flValidateClient, validateClntHelper, flClients)

@@ -110,7 +110,7 @@ function FlClients() {
             <button className="addNewClient-button" onClick={() => {setSend(true)}}>Add Client</button>
             <h2 className={darkMode ? "page-sub-titles dark" : "page-sub-titles"}>YOUR CLIENTS</h2>
             <section className='clients-sub-page-container'>
-                <MoreInfo showMore={showMore} setShowMore={setShowMore} MoreInfoTitle={'Clients page info.'} MoreInfoText={"On the clients page you can add new clients, remove clients and edit clients' information. To remove clients click their ID numbers, to edit a client's information click the client's name."} />
+                <MoreInfo showMore={showMore} setShowMore={setShowMore} MoreInfoTitle={'Clients page info.'} MoreInfoText={"On the clients page you can add new clients, remove clients and edit clients' information. To remove clients click their names, to edit a client's information click the client's city."} />
                 <button className='inv-sub-page-text' type="button" onClick={showSendInfo}>See clients page info.</button>
                 <TableCard2 showEditPop={editPop} setEditPopup={setEditPop} darkMode={darkMode} display={dispClient} tableWidth={'95%'} tableID={"add-client-table-body"} nameText={'CLIENT'} emailText={'EMAIL'} phoneText={'PHONE'} cityText={'CITY'} />
             </section>

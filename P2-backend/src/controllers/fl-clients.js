@@ -71,3 +71,28 @@ export async function editClientInfo(req, res) {
     const updateClientInfo = await pool.query(newQuery, newValue)
     return res.status(200).json({message: 'client information updated'})
 }
+
+export async function deleteClient(req, res) {
+    const flClId = req.cookies.flclntid
+    const curClientEm = req.body.clid
+    console.log(curClientEm)
+    const query = `SELECT * FROM usertables WHERE id = $1`
+    const value = [flClId]
+    const getClients = await pool.query(query, value) 
+    const database = getClients.rows[0].database
+    for (const [key, value] of Object.entries(database)) {
+        if (key === String(curClientEm)) {
+            delete database[key]
+        }
+    }
+    console.log(database)
+    const newQuery = `
+    UPDATE usertables
+    SET database = $1::jsonb
+    WHERE id = $2
+    RETURNING *;
+    `
+    const newValue = [database, flClId]
+    const updateClients = await pool.query(newQuery, newValue)
+    return res.status(200).json({message: 'client deleted'})
+}

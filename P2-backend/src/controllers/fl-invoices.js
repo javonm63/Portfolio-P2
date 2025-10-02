@@ -157,3 +157,24 @@ export async function draftInv(req, res) {
     const sendDraft = await pool.query(query, value)
     return res.status(200).json({message: 'invoice drafted'})
 }
+
+export async function getDrafts(req, res) {
+    const flInvID = req.cookies.flinvid
+    const query = `SELECT * FROM usertables WHERE id = $1`
+    const value = [flInvID]
+    const getDrafts = await pool.query(query, value)
+    const database = getDrafts.rows[0].database
+    const groups = {}
+    for (const [key, nested] of Object.entries(database)) {
+        const value = nested.stat
+        if (value === 'Draft') {
+            if (!groups[value]) {
+                groups[value] = {}
+            }
+            groups[value][key] = nested
+        } else {
+            console.log('nope')
+        }
+    }
+    return res.status(200).json({data: groups})
+}

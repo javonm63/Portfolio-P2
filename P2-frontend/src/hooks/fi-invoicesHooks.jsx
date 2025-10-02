@@ -48,5 +48,30 @@ function viewInvHooks() {
     const [viewInvData, setViewInvData] = useState([])
     return {viewInv, setViewInv, viewInvData, setViewInvData}
 }
+function showDraftInvsHooks() {
+    const [showDraftInvs, setShowDraftInvs] = useState([])
+    return {showDraftInvs, setShowDraftInvs}
+}
 
-export {showMoreHook, pageBodyHeight, showSendPage, showAllPage, showNewPage, showDraftsPage, showSendPage2, showMerchHook, sendInvHook, sendToHooks, viewInvHooks}
+function loadDraftHooks() {
+    const [loadDraft, setLoadDraft] = useState([])
+    const [loadDft, setLoadDft] = useState(false)
+    return {loadDraft, setLoadDraft, loadDft, setLoadDft}
+}
+
+
+export {
+    showMoreHook, 
+    pageBodyHeight, 
+    showSendPage, 
+    showAllPage, 
+    showNewPage, 
+    showDraftsPage, 
+    showSendPage2, 
+    showMerchHook, 
+    sendInvHook, 
+    sendToHooks, 
+    viewInvHooks, 
+    showDraftInvsHooks,
+    loadDraftHooks,
+}

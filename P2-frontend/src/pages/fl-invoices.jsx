@@ -6,7 +6,7 @@ import TableCard from '../components/tableCard.jsx'
 import '../styles/fl-invoices.css'
 import InvPgMenuCard from "../components/invoicePageMenu.jsx";
 import InvSubPages from "../components/invoicesSubPages.jsx";
-import { pageBodyHeight, showSendPage, showAllPage, showNewPage, showDraftsPage, sendInvHook, sendToHooks} from "../hooks/fi-invoicesHooks.jsx";
+import { pageBodyHeight, showSendPage, showAllPage, showNewPage, showDraftsPage, sendInvHook, sendToHooks, showDraftInvsHooks, loadDraftHooks} from "../hooks/fi-invoicesHooks.jsx";
 import { useEffect } from "react";
 import { showDarkModeHook } from "../hooks/landingPageHooks.jsx";
 import { flInvoicesHooks, showAlertHooks } from "../hooks/fl-apiHooks.jsx";
@@ -93,6 +93,16 @@ function FlInvoices() {
     const sendToHook = sendToHooks()
     const sendTo = sendToHook.sendTo
     const setSendTo = sendToHook.setSendTo
+
+    const showDraftedInvs = showDraftInvsHooks()
+    const showDraftInvs = showDraftedInvs.showDraftInvs
+    const setShowDraftInvs = showDraftedInvs.setShowDraftInvs
+
+    const loadDraftHook = loadDraftHooks()
+    const loadDraft = loadDraftHook.loadDraft
+    const setLoadDraft = loadDraftHook.setLoadDraft
+    const loadDft = loadDraftHook.loadDft
+    const setLoadDft = loadDraftHook.setLoadDft
 
     useEffect(() => {
         if (window.matchMedia('(prefers-color-scheme : dark)').matches) {
@@ -301,6 +311,15 @@ function FlInvoices() {
             console.log(err)
         }
     }
+    const draftArr = []
+    if (loadDft) {
+        draftArr.push(loadDraft.item)
+    }
+
+    function showSaveInvInfo() {
+        setShowAlert(true)
+        setAlertText("Once an invoice is drafted you can no longer edit the information already saved only continue from where you left off, so make sure that every input entered is your final answer before saving. If you aren't sure leave it blank and contiue later when  you're ready.")
+    }
 
     return ( 
         <form onSubmit={handleSubmit} className="invoice-page-body" style={{height: bodyHeight ? '100vh' : 'fit-content'}}>
@@ -309,11 +328,11 @@ function FlInvoices() {
                 <h1 className={darkMode ? "page-titles" : "page-titles dark"}>INVOICES</h1>
             </header>
             <WebNavbar showWebNav={showWebNav} />
-            <InvPgMenuCard showSend={showSendPg} setShowSend={setShowSend} showAll={showAllPg} setShowAll={setShowAll} showNew={showNew} setShowNew={setShowNew} setBodyHeight={setBodyHeight} showDraft={showDraftPg} setShowDraft={setShowDraft}/>
+            <InvPgMenuCard setShowDraftInvs={setShowDraftInvs} showSend={showSendPg} setShowSend={setShowSend} showAll={showAllPg} setShowAll={setShowAll} showNew={showNew} setShowNew={setShowNew} setBodyHeight={setBodyHeight} showDraft={showDraftPg} setShowDraft={setShowDraft}/>
             <h2 className='page-sub-titles'style={{visibility: showNew ? 'visible' : 'hidden'}}>CREATE INVOICE</h2>
             <main className="invoice-main-container" style={{display: showNew ? 'flex' : 'none'}}>
-                <InvoiceInfoCard name={name} setName={setName} date={date} setDate={setDate} due={dueDate} setDue={setDueDate} id={id} setId={setId}/>
-                <TableCard display={displayItem} tableWidth={'95%'} tableID={"item-table-body"} invNumText={'ITEM'} clientText={'DESCRIPTION'} amountText={'QUANTITY'} statusText={'PRICE'}/>
+                <InvoiceInfoCard name={loadDft ? loadDraft.name : name} setName={setName} date={loadDft ? loadDraft.date : date} setDate={setDate} due={loadDft ? loadDraft.due : dueDate} setDue={setDueDate} id={loadDft ? loadDraft.invId : id} setId={setId}/>
+                <TableCard display3={loadDft ? draftArr[0] : displayItem} tableWidth={'95%'} tableID={"item-table-body"} invNumText={'ITEM'} clientText={'DESCRIPTION'} amountText={'QUANTITY'} statusText={'PRICE'}/>
                 <h3 className="page-section-subtitles">Add Items To Invoice</h3>
                 <fieldset className="add-items-input-cont">
                     <input className={darkMode ? "add-item-inputs dark" : "add-item-inputs"} type='text' placeholder="Enter item" value={item} onChange={(ev) => {setItem(ev.target.value)}}></input>
@@ -322,11 +341,12 @@ function FlInvoices() {
                     <input className={darkMode ? "add-item-inputs dark" : "add-item-inputs"} type='number' placeholder="Enter price" value={price} onChange={(ev) => {setPrice(ev.target.value)}}></input>
                 </fieldset>
                 <button className="add-item-button" type='button' onClick={addItem}>Add Item</button>
-                    <input className='invoiceExtras-inputs' type='text' placeholder='NOTES' value={notes} onChange={(ev) => {setNotes(ev.target.value)}}></input>
-                    <input className='invoiceExtras-inputs' type='number' placeholder='FEES' value={fees} onChange={(ev) => {setFees(ev.target.value)}}></input>
-                    <input className='invoiceExtras-inputs' type='number' placeholder='DISCOUNTS' value={discount} onChange={(ev) => {setDiscount(ev.target.value)}}></input>
+                    <input className='invoiceExtras-inputs' type='text' placeholder='NOTES' value={loadDft ? loadDraft.notes : notes} onChange={(ev) => {setNotes(ev.target.value)}}></input>
+                    <input className='invoiceExtras-inputs' type='number' placeholder='FEES' value={loadDft ? loadDraft.fees : fees} onChange={(ev) => {setFees(ev.target.value)}}></input>
+                    <input className='invoiceExtras-inputs' type='number' placeholder='DISCOUNTS' value={loadDft ? loadDraft.discounts : discount} onChange={(ev) => {setDiscount(ev.target.value)}}></input>
                     <input className='invoiceExtras-inputs' type='text' placeholder='COUPONS' value={coupon} onChange={(ev) => {setCoupon(ev.target.value)}}></input>
-                    
+
+                    <button type='button' className='MoreInfo-button' onClick={showSaveInvInfo}>i</button>
                     <button className="invoices-main-buttons" type='button' onClick={draftInvoice}>SAVE INVOICE</button>
                     <button className="invoices-main-buttons" type='submit' onClick={createInvoice}>CREATE INVOICE</button>
             </main>
@@ -335,7 +355,7 @@ function FlInvoices() {
             <h2 className='page-sub-titles' style={{display: showAll ? 'flex' : 'none'}}>ALL INVOICES</h2>
             <InvSubPages setInv={setInv} display={displayItems} display2={displayAllInvs} showPage={showAll} subPageInfo={'See more info'} subPageInfoText={'All invoices page info.'} infoText={"On this page you can view, delete or print created invoices. To view an invoice click the invoice ID, to print an invoice click the client's name and to delete an invoice click the 'status' of that invoice."}/>
             <h2 className='page-sub-titles' style={{display: showDraft ? 'flex' : 'none'}}>DRAFTED INVOICES</h2>
-            <InvSubPages showPage={showDraft} subPageInfo={'See more info about drafted invoices'} subPageInfoText={'Drafted invoices info.'} infoText={"Here you can view all the incompleted invoices you have saved. To continue working on a draft click the invoice ID, once an invoice is loaded it's removed from the drafts page so re-save if necessary. You can also delete invoices by clicking their statuses."}/>
+            <InvSubPages setShowDraft={setShowDraft} setShowNew={setShowNew} setDraft={setLoadDft} setLoad={setLoadDraft} display4={showDraftInvs} showPage={showDraft} subPageInfo={'See more info about drafted invoices'} subPageInfoText={'Drafted invoices info.'} infoText={"Here you can view all the incompleted invoices you have saved. To continue working on a draft click the invoice ID, once an invoice is loaded it's removed from the drafts page so re-save if necessary. You can also delete invoices by clicking their statuses."}/>
             <MoreInfo showMore={showAlert} setShowMore={setShowAlert} MoreInfoTitle={'ALERT'} MoreInfoText={alertText}/>
 
         </form>

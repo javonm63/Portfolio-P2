@@ -4,7 +4,7 @@ import { sendInvHook } from '../hooks/fi-invoicesHooks'
 import { showAlertHooks } from '../hooks/fl-apiHooks'
 import MoreInfo from '../utils/moreInfo'
 
-function TableCard({setViewInvData, setView, dispItem, setDispItem, darkMode, tableWidth, tableID, invNumText, clientText, amountText, statusText, pageSubTitle, display, display2, display3, setInv, Inv, sendTo}) {
+function TableCard({setShowNew, setShowDraft, setDraft, setLoad, setViewInvData, setView, dispItem, setDispItem, darkMode, tableWidth, tableID, invNumText, clientText, amountText, statusText, pageSubTitle, display, display2, display3, display4, setInv, Inv, sendTo}) {
     const alertHooks = showAlertHooks()
     const showAlert = alertHooks.showAlert
     const setShowAlert = alertHooks.setShowAlert
@@ -86,6 +86,34 @@ function TableCard({setViewInvData, setView, dispItem, setDispItem, darkMode, ta
         }
     }
 
+    async function loadDraft(e) {
+        const invId = e.target.value
+        try {
+            const fetchDrafts = await fetch('http://localhost:6001/api/fl/draft', {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'},
+                credentials: 'include'
+            })
+            if (!fetchDrafts.ok) {
+                const error = await fetchDrafts.json()
+                console.log(error)
+            } else {
+                const data = await fetchDrafts.json()
+                const database = data.data.Draft
+                for (const [key, value] of Object.entries(database)) {
+                    if (key === invId) {
+                        setLoad(value)
+                        setDraft(true)
+                        setShowNew(true)
+                        setShowDraft(false)
+                    }
+                }
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
+// wire the load and delete buttons for drafted invoices : fetch from the draft api on the table card component to load drafted invoices 
     return (
         <article className='tableCard-container' style={{width: tableWidth}}>
             <table className='table-container'>
@@ -122,7 +150,15 @@ function TableCard({setViewInvData, setView, dispItem, setDispItem, darkMode, ta
                             <td className='row-data'>{item.item}</td>
                             <td className='row-data'>{item.descript}</td>
                             <td className='row-data'>{item.quantity}</td>
-                            <td className='row-data'>{`$${item.price}`}</td>
+                            <td className='row-data'>{`$${item.price}` || ''}</td>
+                        </tr>
+                    ))}
+                    {display4 && display4.map((item, i) => (
+                        <tr className='table-row' key={i}>
+                            <td className='row-data'><button className='all-inv-table-buttons' type='button' value={item.invId} onClick={loadDraft}>{`#${item.invId}`}</button></td>
+                            <td className='row-data'>{item.name}</td>
+                            <td className='row-data'>{item.total}</td>
+                            <td className='row-data'><button className='all-inv-table-buttons' type='button' value={item.invId}>{item.stat}</button></td>
                         </tr>
                     ))}
                         

@@ -8,6 +8,7 @@ import TotalsCard from '../components/reportsTotalsCard.jsx';
 import { useEffect } from 'react';
 import { showDarkModeHook } from '../hooks/landingPageHooks.jsx'
 import getCookie from '../utils/getCookie.jsx';
+import { reportsHooks } from '../hooks/fi-invoicesHooks.jsx';
 
 function FlReports() {
     const navbarHook = navbarHooks() 
@@ -19,6 +20,10 @@ function FlReports() {
     const darkModeHook = showDarkModeHook()
     const darkMode = darkModeHook.darkMode
     const setDarkMode = darkModeHook.setDarkMode
+
+    const reportsHook = reportsHooks()
+    const reports = reportsHook.reports
+    const setReports = reportsHook.setReports
 
     useEffect(() => {
         if (window.matchMedia('(prefers-color-scheme : dark)').matches) {
@@ -35,7 +40,7 @@ function FlReports() {
     useEffect(() => {
         async function refresh() {
             const csrfToken = getCookie('csrfToken')
-            const req = await fetch('https://localhost:6001/api/fl/refresh', {
+            const req = await fetch('http://localhost:6001/api/fl/refresh', {
                 method: 'POST',
                 headers: {"x-csrf-token": `Bearer ${csrfToken}`, 'Content-Type': 'application/json'},
                 credentials: 'include',
@@ -48,9 +53,30 @@ function FlReports() {
                     window.location.href = '/'
                 }
             }
+            const reportsReq = await fetch('http://localhost:6001/api/fl/reports', {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'},
+                credentials: 'include',
+            })
+
+            if (!reportsReq.ok) {
+                const error = await reportsReq.json()
+                console.log(error)
+            } else {
+                const data = await reportsReq.json()
+                const {earned, unpaid, overdue, paidReport} = data.data
+                setReports({earned, unpaid, overdue, paidReport})
+            }
         }
         refresh()
     }, [])
+    const {earned, unpaid, overdue, paidReport} = reports
+    const paidArr = []
+    const unpaidArr = []
+    if (paidReport !== undefined || unpaid !== undefined) {
+            paidArr.push(paidReport)
+        unpaidArr.push(unpaid)
+    } 
 
     return (
         <div className='flReports-page-container'>
@@ -65,13 +91,13 @@ function FlReports() {
             </span>
             <article className='reports-main-container'>
                 <div className='reports-left-container'>
-                    <ReportsGraphCard gaphLabel={"Monthly Earnings"}/>
+                    <ReportsGraphCard gaphLabel={'Monthly Earnings'}/>
                 </div>
                 <div className='reports-right-container'>
-                    <PieGraphCard />
+                    <PieGraphCard paid={paidArr[0]} unpaid={unpaidArr[0]}/>
                 </div>
             </article>
-            <TotalsCard totalTitle={'Total Earned'}/>
+            <TotalsCard totalTitle={'Total Earned'} earned={earned} unpaid={unpaid} overdue={overdue}/>
         </div>
     )
 }

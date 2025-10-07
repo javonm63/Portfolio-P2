@@ -156,6 +156,41 @@ function FlInvoices() {
                     paid.forEach((inv) => allInvArr.push(inv))
                     setDisplayItems(unsent)
                     setDisplayAllInvs(allInvArr)
+
+                    const currEarnedArr = []
+                    const currUnpaidArr = []
+                    const currOverdueArr = []
+                    const currPaidArr = []
+                    paid.forEach((inv) => {
+                        currEarnedArr.push(inv.total)
+                        currPaidArr.push(currPaidArr.length + 1)
+                    })
+                    all.forEach((inv) => {
+                        if (inv.stat === 'Sent') {
+                            const now = new Date()
+                            const dueDate = new Date(inv.due)
+                            if (dueDate < now) {
+                                currOverdueArr.push(currOverdueArr.length + 1)
+                                currUnpaidArr.push(currUnpaidArr.length + 1)
+                            } else {
+                                currUnpaidArr.push(currUnpaidArr.length + 1)
+                            }
+                        }
+                    })
+                    const earned = currEarnedArr.reduce((sum, num) => sum + num, 0)
+                    const unpaid = currUnpaidArr[currUnpaidArr.length - 1]
+                    const overdue = currOverdueArr.reduce((sum, num) => sum + num, 0)
+                    const paidReport = currPaidArr[0]
+                    try {
+                        const reportsReq = await fetch('http://localhost:6001/api/fl/reports', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({earned, unpaid, overdue, paidReport, post: 'post'}),
+                            credentials: 'include'
+                        })
+                    } catch (err) {
+                        console.log(err)
+                    }
                 }
             }
 
@@ -211,7 +246,6 @@ function FlInvoices() {
             setShowAlert(true)
             setAlertText('All item input fields are required')
         } else {
-            console.log(item, descript, quantity, price)
             setDisplayItem((prev) => [...prev, {item, descript, quantity, price}])
             
             setIsItem(true)
@@ -238,12 +272,10 @@ function FlInvoices() {
     }
 
     const createInvoice = async (e) => {
-        console.log(name, date, dueDate, id, notes, fees, discount, coupon)
         const comp = 'yes'
         if (!isItem) {
             setShowAlert(true)
             setAlertText('Add items to invoice before submitting')
-            console.log(displayItem)
         } else {
             try {
                 const req = await fetch('http://localhost:6001/api/fl/invoices', {
@@ -335,7 +367,7 @@ function FlInvoices() {
             <h2 className='page-sub-titles'style={{visibility: showNew ? 'visible' : 'hidden'}}>CREATE INVOICE</h2>
             <main className="invoice-main-container" style={{display: showNew ? 'flex' : 'none'}}>
                 <InvoiceInfoCard name={loadDft ? loadDraft.name : name} setName={setName} date={loadDft ? loadDraft.date : date} setDate={setDate} due={loadDft ? loadDraft.due : dueDate} setDue={setDueDate} id={loadDft ? loadDraft.invId : id} setId={setId}/>
-                <TableCard display3={loadDft ? draftArr[0] : displayItem} tableWidth={'95%'} tableID={"item-table-body"} invNumText={'ITEM'} clientText={'DESCRIPTION'} amountText={'QUANTITY'} statusText={'PRICE'}/>
+                <TableCard title1={'ITEM'} title2={'DESCRIPT.'} title3={'QUANTITY'} title4={'PRICE'} display3={loadDft ? draftArr[0] : displayItem} tableWidth={'95%'} tableID={"item-table-body"} invNumText={'ITEM'} clientText={'DESCRIPT.'} amountText={'QUANT.'} statusText={'PRICE'}/>
                 <h3 className="page-section-subtitles">Add Items To Invoice</h3>
                 <fieldset className="add-items-input-cont">
                     <input className={darkMode ? "add-item-inputs dark" : "add-item-inputs"} type='text' placeholder="Enter item" value={item} onChange={(ev) => {setItem(ev.target.value)}}></input>
@@ -354,11 +386,11 @@ function FlInvoices() {
                     <button className="invoices-main-buttons" type='submit' onClick={createInvoice}>CREATE INVOICE</button>
             </main>
             <h2 className='page-sub-titles' style={{display: showSend ? 'flex' : 'none'}}>SEND INVOICE</h2>
-            <InvSubPages dispItem={displayItems} setDispItem={setDisplayItems} Inv={inv} setInv={setInv} sendTo={sendTo} display={displayItems} showPage={showSend} subPageInfo={'See send invoice instructions'} subPageInfoText={'Sending invoice instructions'} infoText={"If an invoice is ready to send you can click the 'waiting' status on that invoice then follow the pop instructions."}/>
+            <InvSubPages title1={'INVOICE'} title2={'CLIENT'} title3={'AMOUNT'} title4={'STAT'} dispItem={displayItems} setDispItem={setDisplayItems} Inv={inv} setInv={setInv} sendTo={sendTo} display={displayItems} showPage={showSend} subPageInfo={'See send invoice instructions'} subPageInfoText={'Sending invoice instructions'} infoText={"If an invoice is ready to send you can click the 'waiting' status on that invoice then follow the pop instructions."}/>
             <h2 className='page-sub-titles' style={{display: showAll ? 'flex' : 'none'}}>ALL INVOICES</h2>
-            <InvSubPages setInv={setInv} setDispItem={setDisplayAllInvs} display2={displayAllInvs} showPage={showAll} subPageInfo={'See more info'} subPageInfoText={'All invoices page info.'} infoText={"On this page you can view, delete or print created invoices. To view an invoice click the invoice ID, to print an invoice click the client's name and to delete an invoice click the 'status' of that invoice."}/>
+            <InvSubPages title1={'INVOICE'} title2={'CLIENT'} title3={'AMOUNT'} title4={'STAT'} setInv={setInv} setDispItem={setDisplayAllInvs} display2={displayAllInvs} showPage={showAll} subPageInfo={'See more info'} subPageInfoText={'All invoices page info.'} infoText={"On this page you can view, delete or print created invoices. To view an invoice click the invoice ID, to print an invoice click the client's name and to delete an invoice click the 'status' of that invoice."}/>
             <h2 className='page-sub-titles' style={{display: showDraft ? 'flex' : 'none'}}>DRAFTED INVOICES</h2>
-            <InvSubPages setShowDraft={setShowDraft} setShowNew={setShowNew} setDraft={setLoadDft} setLoad={setLoadDraft} display4={showDraftInvs} setDisplay4={setShowDraftInvs} showPage={showDraft} subPageInfo={'See more info about drafted invoices'} subPageInfoText={'Drafted invoices info.'} infoText={"Here you can view all the incompleted invoices you have saved. To continue working on a draft click the invoice ID or delete invoices by clicking their statuses. Drafted invoices don't disppear on their own so remember to delete old or unwanted drafts regularly."}/>
+            <InvSubPages title1={'INVOICE'} title2={'CLIENT'} title3={'AMOUNT'} title4={'STAT'} setShowDraft={setShowDraft} setShowNew={setShowNew} setDraft={setLoadDft} setLoad={setLoadDraft} display4={showDraftInvs} setDisplay4={setShowDraftInvs} showPage={showDraft} subPageInfo={'See more info about drafted invoices'} subPageInfoText={'Drafted invoices info.'} infoText={"Here you can view all the incompleted invoices you have saved. To continue working on a draft click the invoice ID or delete invoices by clicking their statuses. Drafted invoices don't disppear on their own so remember to delete old or unwanted drafts regularly."}/>
             <MoreInfo showMore={showAlert} setShowMore={setShowAlert} MoreInfoTitle={'ALERT'} MoreInfoText={alertText}/>
 
         </form>

@@ -58,7 +58,10 @@ function loadDraftHooks() {
     const [loadDft, setLoadDft] = useState(false)
     return {loadDraft, setLoadDraft, loadDft, setLoadDft}
 }
-
+function reportsHooks() {
+    const [reports, setReports] = useState([])
+    return {reports, setReports}
+}
 
 export {
     showMoreHook, 
@@ -74,4 +77,5 @@ export {
     viewInvHooks, 
     showDraftInvsHooks,
     loadDraftHooks,
+    reportsHooks,
 }

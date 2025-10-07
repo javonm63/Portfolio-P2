@@ -92,3 +92,5 @@ function ReportsGraphCard({graphLabel}) {
 }
 
 export default ReportsGraphCard
+
+// FIX THE LABEL FOR THE BAR GRAPH, IT'S CURRENTLY UNDEFINED

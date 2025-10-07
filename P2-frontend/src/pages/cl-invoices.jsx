@@ -92,7 +92,6 @@ function ClInvoices() {
                     console.log(error)
                 } else {
                     const data = await req.json()
-                    console.log(data)
                     for (const key in data.data) {
                         if (data.data[key].item) {
                             delete data.data[key].item

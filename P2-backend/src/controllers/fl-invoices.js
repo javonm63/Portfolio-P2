@@ -108,8 +108,8 @@ export async function sendData(req, res) {
         return res.status(200).json({message: "user hasn't made any invoices yet"})
     } else {
         for (const value of Object.values(database)) {
-            const {invId, name, total, stat} = value
-            dataArr.push({invId, name, total, stat})
+            const {invId, name, total, stat, due} = value
+            dataArr.push({invId, name, total, stat, due})
         }
     }
     return res.status(200).json({data: dataArr})
@@ -210,4 +210,24 @@ export async function deleteDraft(req, res) {
     const newValue = [database, flInvID]
     const updateDatabase = await pool.query(newQuery, newValue)
     return res.status(200).json({message: 'draft deleted'})
+}
+    
+const reports = []
+export function saveReports(req, res) {
+    let post
+    if (req.body) {
+        post = req.body.post
+    }
+    if (post) {
+        const {earned, unpaid, overdue, paidReport} = req.body
+        if (reports.length > 0) {
+            reports.pop()
+            reports.push({earned, unpaid, overdue, paidReport})
+        } else {
+            reports.push({earned, unpaid, overdue, paidReport})
+        }
+        return res.status(200).json({message: 'reports saved'})
+    } else if (post === undefined) {
+        return res.status(200).json({data: reports[0]})
+    }
 }

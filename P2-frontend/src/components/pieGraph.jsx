@@ -13,13 +13,13 @@ ChartJs.register(
     Tooltip,
     Legend
 )
-function PieGraphCard() {
+function PieGraphCard({paid, unpaid}) {
     const data2 = {
         labels: ['Paid', 'Unpaid'],
         datasets: [
             {
                 label: 'Paid vs. Unpaid',
-                data: [75, 25],
+                data: [paid, unpaid],
                 borderColor: "rgba(45, 55, 0, 0)",
                 backgroundColor: ["rgba(54, 66, 0, 0.67)", "rgba(248, 236, 8, 1)"],
                 tension: 0.3,

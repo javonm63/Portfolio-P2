@@ -1,0 +1,138 @@
+.payCard-main-container {
+    border-radius: 5px;
+    width: 40vw;
+    height: fit-content;
+    padding: 10px;
+    padding-bottom: 30px;
+    position: fixed;
+    z-index: 9999;
+    top: 9%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(175, 214, 0, 0.81);
+    backdrop-filter: blur(5px);
+    box-shadow: 0px 0px 15px black;
+}
+.payCard-dropdown {
+    width: 75%;
+    height: 30px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    padding-left: 2.5px;
+    padding-right: 5px;
+    font-size: 15.5px;
+    color: rgba(255, 255, 255, 0.688);
+    background-color: rgba(1, 165, 1, 0.847);
+}
+.payCard-dropdown-button {
+    width: 75%;
+    height: 25px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 5px;
+    color: rgba(0, 0, 0, 0.697);
+    background-color: rgba(255, 255, 0, 0.811);
+}
+.payCard-dropdown-button:hover {
+    cursor: pointer;
+    scale: 1.01;
+    color: black;
+}
+.total-display {
+    margin-top: 10px;
+    margin-bottom: 30px;
+    width: 72.5%;
+    outline: none;
+    border: none;
+    color: rgba(0, 0, 0, 0.716);
+    background-color: rgba(0, 0, 0, 0);
+}
+.payment-info-container {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.label-for-payment-info {
+    text-align: center;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    width: 50%;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.592);
+    background-color: rgba(1, 184, 1, 0.472);
+}
+.payment-info-inputs {
+    width: 100%;
+    height: 25px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 15px;
+    background-color: rgba(0, 179, 0, 0.716);
+}
+.save-invoice-info {
+    margin: 0;
+    font-size: 14px;
+}
+.pay-button-conditions {
+    width: 75%;
+    text-align: center;
+    font-size: 12.5px;
+    margin-bottom: 0;
+}
+.pay-button-conditions:hover {
+    font-weight: bold;
+}
+.submit-payment-button {
+    width: 75%;
+    height: 25px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 5px;
+    color: rgba(0, 0, 0, 0.697);
+    background-color: rgba(255, 255, 0, 0.811);
+}
+.submit-payment-button:hover {
+    cursor: pointer;
+    scale: 1.025;
+    color: green;
+    font-weight: bold;
+}
+.StripeElement {
+    width: 100%;
+    height: 25px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 15px;
+    background-color: rgba(0, 179, 0, 0.716);
+}
+.pay-invoice-info-btn {
+    margin: 0;
+    margin-bottom: 10px;
+    font-weight: bold;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    color: rgba(87, 102, 1, 0.65);
+}
+.pay-invoice-info-btn:hover {
+    cursor: pointer;
+    scale: 1.025;
+    color: yellow;
+}
+
+
+@media screen and (max-width: 1030px){
+    .payCard-main-container {
+        width: 70vw;
+    }
+}

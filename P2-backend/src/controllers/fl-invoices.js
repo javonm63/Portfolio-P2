@@ -3,7 +3,7 @@ import pool from '../config/db.js'
 
 let items = []
 export async function createInvoice(req, res) {
-    const flClntID = req.cookies.flclntid
+    const fliD = req.cookies.flid
     const flInvID = req.cookies.flinvid
     const invId = req.body.invId
     const comp = req.body.comp
@@ -17,7 +17,19 @@ export async function createInvoice(req, res) {
             const invoices = database.database
             const sendingInv = Object.entries(invoices).find(([key , value]) => key === invId) 
             const inv = sendingInv[1]
+            inv.flInvID = flInvID
             const sendingClient = clientToSend.rows[0]
+            if (sendingClient === undefined) {
+                return res.status(500).json({error: "client doesn't have a fli account"})
+            }
+            const merchQuery = `SELECT * FROM users WHERE id = $1`
+            const merchValue = [fliD]
+            const getUser = await pool.query(merchQuery, merchValue)
+            const merchData = getUser.rows[0]
+            const {id, pass, role, invdb, cldb, paidid, ...rest} = merchData
+            inv.merch = rest
+            console.log(inv)
+
             const query = `
             UPDATE usertables
             SET database = database || $1::jsonb
@@ -37,18 +49,22 @@ export async function createInvoice(req, res) {
             WHERE id = $3`
             const updateVals = [invId, inv , flInvID]
             const updateInv = await pool.query(newQuery, updateVals)
-            return res.status(200).json({invId: inv.invId, name: inv.name, total: inv.total, stat: inv.stat})
+            return res.status(200).json({invId: inv.invId, name: inv.name, total: inv.total, stat: inv.stat}, flInvID)
         } catch (err) {
             console.error(err)
         }
     }
     if (comp === 'no') {
+        const item = {}
         item.item = req.body.item
         item.descript = req.body.descript
         item.quantity = req.body.quantity
         item.price = req.body.price
         items.push(item)
+        console.log(items)
     } else if (comp === 'yes') {
+        console.log(items)
+
         const invId = Math.floor(Math.random() * 2000)
         const name = req.body.name
         const date = req.body.date
@@ -75,29 +91,28 @@ export async function createInvoice(req, res) {
             console.error(err)
         }
         items = []
-        res.status(201).json({invId: invId, name, total, stat})
+        return res.status(201).json({invId: invId, name, total, stat})
     }
     
 }
 
 export async function sendData(req, res) {
-    const flClntID = req.cookies.flclntid
     const flInvID = req.cookies.flinvid
     const query = `
     SELECT * FROM usertables WHERE id = $1`
     const getData = await pool.query(query, [flInvID])
     const data = getData.rows[0]
     const database = data.database
-    if (Object.entries(database).length !== 0) {
-        const dataArr = []
+    const dataArr = []
+    if (Object.entries(database).length === 0) {
+        return res.status(200).json({message: "user hasn't made any invoices yet"})
+    } else {
         for (const value of Object.values(database)) {
             const {invId, name, total, stat} = value
             dataArr.push({invId, name, total, stat})
         }
-        return res.status(200).json({data: dataArr})
-    } else {
-        return res.status(200).json({message: "user hasn't made any invoices yet"})
     }
+    return res.status(200).json({data: dataArr})
 }
 
 export async function sendInv(req, res) {

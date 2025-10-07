@@ -23,6 +23,7 @@ function InvPgMenuCard({showSend, setShowSend, showAll, setShowAll, setShowNew, 
             } else {
                 const data = await req.json()
                 const database = data.data.Draft
+                console.log(data, database)
                 const draftsArr = Object.values(database)
                 setShowDraftInvs(prev => {
                     const existingIds = new Set(prev.map(item => item.invId))

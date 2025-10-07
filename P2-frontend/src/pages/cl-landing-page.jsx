@@ -8,7 +8,7 @@ import LandingCard1 from '../components/flLandingCard1.jsx';
 import LandingCard2 from '../components/flLandingCard2.jsx';
 import LandingCard3 from '../components/flLandingCard3.jsx';
 import ClSignUp from '../components/cl-signupCard.jsx'
-import LoginCard from '../components/loginCard.jsx';
+import ClLoginCard from '../components/clLoginCard.jsx';
 import { showDarkModeHook } from '../hooks/landingPageHooks.jsx';
 
 function ClLandingPage() {
@@ -95,9 +95,12 @@ function ClLandingPage() {
             <LandingCard3 darkMode={darkMode} graphLabel={'Paid vs Unpaid'} openSignup={openSignupPg} landingCard3Text={'You can view insights about your invoices, payments and merchants. Some of these insights are: paid vs unpaid invoices, recently paid invoice, overdue or outstanding invoices etc.'}/> 
 
             <ClSignUp openSignup={showSignup} closeSignup={closeSignup}/>
-            <LoginCard showSignup={showLogin} closeSignup={closeSignup}/>
+            <ClLoginCard showSignup={showLogin} closeSignup={closeSignup}/>
         </div>
     )
 }
 
 export default ClLandingPage
+
+// SET LOGIN TO FIT ROLE 
+// right now any user can log in on any side 

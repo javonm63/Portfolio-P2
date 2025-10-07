@@ -10,6 +10,7 @@ export default async function FlSignup(req, res) {
 
     const {name, company, email, phone, pass, role} = req.body
     const id = genUserId()
+    const paidId = 'nothing to see here'
     const invoicesDBid = genUserId()
     const clientsDBid = genUserId()
 
@@ -30,10 +31,10 @@ export default async function FlSignup(req, res) {
         const makingDb2 = await pool.query(makeDb2, dbValues2)
 
         const query = `
-        INSERT INTO users (id, name, company, email, phone, pass, role, invdb, cldb)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+        INSERT INTO users (id, name, company, email, phone, pass, role, invdb, cldb, paidid)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
         RETURNING *;`
-        const values = [id, name, company, email, phone, hashed, role, invoicesDBid, clientsDBid]
+        const values = [id, name, company, email, phone, hashed, role, invoicesDBid, clientsDBid, paidId]
         const sendToDb = await pool.query(query, values)
     } catch (err) {
         console.error(err)
@@ -77,6 +78,12 @@ export default async function FlSignup(req, res) {
         maxAge: 7 * 24 * 60 * 60 * 1000,
     })
         .cookie('flclntid', clientsDBid, {
+        httpOnly: false,
+        secure: false,
+        sameSite: 'strict',
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+    })
+    .cookie('flid', id, {
         httpOnly: false,
         secure: false,
         sameSite: 'strict',

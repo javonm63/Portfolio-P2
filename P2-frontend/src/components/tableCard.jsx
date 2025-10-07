@@ -4,7 +4,7 @@ import { sendInvHook } from '../hooks/fi-invoicesHooks'
 import { showAlertHooks } from '../hooks/fl-apiHooks'
 import MoreInfo from '../utils/moreInfo'
 
-function TableCard({setShowNew, setShowDraft, setDraft, setLoad, setViewInvData, setView, dispItem, setDispItem, darkMode, tableWidth, tableID, invNumText, clientText, amountText, statusText, pageSubTitle, display, display2, display3, display4, setDisplay4, setInv, Inv, sendTo}) {
+function TableCard({view, setCurInv, setShowNew, setShowDraft, setDraft, setLoad, setViewInvData, clientDisp, setView, dispItem, setDispItem, darkMode, tableWidth, tableID, invNumText, clientText, amountText, statusText, pageSubTitle, display, display2, display3, display4, display5, setDisplay4, setInv, Inv, sendTo}) {
     const alertHooks = showAlertHooks()
     const showAlert = alertHooks.showAlert
     const setShowAlert = alertHooks.setShowAlert
@@ -18,44 +18,86 @@ function TableCard({setShowNew, setShowDraft, setDraft, setLoad, setViewInvData,
     const setSendPop = sendPopHook.setSendPopup
 
     function startSend(item) {
-        setInv(String(item.invId))
-        setSendPop(true)
-        console.log(Inv)
+        if (setInv) {
+            setInv(String(item.invId))
+            setSendPop(true)
+        } else {
+            setCurInv([item.invId, item.total])
+            clientDisp(true)
+        }
     } 
 
     async function viewInvoice(e) {
-        if (currInvId.length > 0) {
-            currInvId.pop()
-            currInvId.push(e.target.value)
+        if (view) {
+            if (currInvId.length > 0) {
+                currInvId.pop()
+                currInvId.push(e.target.value)
+            } else {
+                currInvId.push(e.target.value)
+            }
+            try {
+                const fetchSaved = await fetch('http://localhost:6001/api/cl/invoices', {
+                    method: 'GET',
+                    headers: {'Content-Type': 'application/json'},
+                    credentials: 'include',
+                })
+                if (!fetchSaved.ok) {
+                    const error = await fetchSaved.json()
+                    console.log(error)
+                } else {
+                    const data = await fetchSaved.json()
+                    const database = data.paid
+                    for (const [key, value] of Object.entries(database)) {
+                        if (key === currInvId[0]) {
+                            if (currInv.length > 0) {
+                                currInv.pop()
+                                currInv.push(value)
+                                setViewInvData(currInv)
+                            } else {
+                                currInv.push(value)
+                                setViewInvData(currInv)
+                            }
+                        }
+                    }
+                    setView(true)
+                }
+            } catch (err) {
+                console.log(err)
+            }
         } else {
-            currInvId.push(e.target.value)
-        }
-        
-        const req = await fetch('http://localhost:6001/api/fl/view', {
-            method: 'GET',
-            headers: {'Content-Type': 'application/json'},
-            credentials: 'include',
-        })
-        if (!req.ok) {
-            const data = await req.json()
-            console.log(data)
-        } else {
-            const data = await req.json()
-            const database = data.data
-            for (const [key, value] of Object.entries(database)) {
-                if (key === currInvId[0]) {
-                    if (currInv.length > 0) {
-                        currInv.pop()
-                        currInv.push(value)
-                        setViewInvData(currInv)
-                    } else {
-                        currInv.push(value)
-                        setViewInvData(currInv)
+            if (currInvId.length > 0) {
+                currInvId.pop()
+                currInvId.push(e.target.value)
+            } else {
+                currInvId.push(e.target.value)
+            }
+            
+            const req = await fetch('http://localhost:6001/api/fl/view', {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'},
+                credentials: 'include',
+            })
+            if (!req.ok) {
+                const data = await req.json()
+                console.log(data)
+            } else {
+                const data = await req.json()
+                const database = data.data
+                for (const [key, value] of Object.entries(database)) {
+                    if (key === currInvId[0]) {
+                        if (currInv.length > 0) {
+                            currInv.pop()
+                            currInv.push(value)
+                            setViewInvData(currInv)
+                        } else {
+                            currInv.push(value)
+                            setViewInvData(currInv)
+                        }
                     }
                 }
             }
+            setView(true)
         }
-        setView(true)
     }
 
     async function deleteInvoice(e) {
@@ -142,6 +184,7 @@ function TableCard({setShowNew, setShowDraft, setDraft, setLoad, setViewInvData,
             console.log(err)
         }
     }
+
 // wire the load and delete buttons for drafted invoices : fetch from the draft api on the table card component to load drafted invoices 
     return (
         <article className='tableCard-container' style={{width: tableWidth}}>
@@ -188,6 +231,14 @@ function TableCard({setShowNew, setShowDraft, setDraft, setLoad, setViewInvData,
                             <td className='row-data'>{item.name}</td>
                             <td className='row-data'>{item.total}</td>
                             <td className='row-data'><button className='all-inv-table-buttons' type='button' value={item.invId} onClick={deleteDraft}>{item.stat}</button></td>
+                        </tr>
+                    ))}
+                    {display5 && display5.map((item, i) => (
+                        <tr className='table-row' key={i}>
+                            <td className='row-data'>{item.name}</td>
+                            <td className='row-data'>{item.email}</td>
+                            <td className='row-data'>{item.phone}</td>
+                            <td className='row-data'>{item.company}</td>
                         </tr>
                     ))}
                         

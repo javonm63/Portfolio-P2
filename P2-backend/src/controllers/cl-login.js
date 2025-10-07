@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import { v4 as uuidv4 } from 'uuid'
 
-async function flLogin(req, res) {
+async function clLogin(req, res) {
     const SECRET = process.env.JWT_SECRET
     const REF_SECRET = process.env.JWT_SECRET_REF
 
@@ -24,6 +24,7 @@ async function flLogin(req, res) {
             return res.status(401).json({message: 'Invalid credentials'})
         }
         const id = user.id
+        const paidId = user.paidid
         const csrfToken = uuidv4()
 
         const accessToken = jwt.sign(
@@ -60,24 +61,12 @@ async function flLogin(req, res) {
             sameSite: 'strict',
             maxAge: 7 * 24 * 60 * 60 * 1000,
         })
-            .cookie('flclntid', clientsDBid, {
+            .cookie('paidId', paidId, {
             httpOnly: false,
             secure: false,
             sameSite: 'strict',
             maxAge: 7 * 24 * 60 * 60 * 1000,
         })
-            .cookie('flinvid', invoicesDBid, {
-            httpOnly: false,
-            secure: false,
-            sameSite: 'strict',
-            maxAge: 7 * 24 * 60 * 60 * 1000,
-        })
-        .cookie('flid', id, {
-        httpOnly: false,
-        secure: false,
-        sameSite: 'strict',
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-    })
             .status(201).json({role: role, message: 'Logged in successfully'})
     } catch (err) {
         console.error(err)
@@ -85,4 +74,4 @@ async function flLogin(req, res) {
     }
 }
 
-export default flLogin
+export default clLogin

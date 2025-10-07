@@ -11,8 +11,9 @@ function flSignupHooks() {
 }
 function showAlertHooks() {
     const [showAlert, setShowAlert] = useState(false)
+    const [alertTitle, setAlertTitle] = useState('')
     const [alertText, setAlertText] = useState('')
-    return {showAlert, setShowAlert, alertText, setAlertText}
+    return {showAlert, setShowAlert, alertTitle, setAlertTitle, alertText, setAlertText}
 }
 function flInvoicesHooks() {
     const [item, setItem] = useState('')

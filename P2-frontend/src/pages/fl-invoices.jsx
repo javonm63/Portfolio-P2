@@ -150,8 +150,12 @@ function FlInvoices() {
                 } else {
                     const unsent = database.filter((invoice) => invoice.stat === 'Waiting')
                     const all = database.filter((invoice) => invoice.stat === 'Sent')
+                    const paid = database.filter((invoice) => invoice.stat === 'Paid')
+                    const allInvArr = []
+                    all.forEach((inv) => allInvArr.push(inv))
+                    paid.forEach((inv) => allInvArr.push(inv))
                     setDisplayItems(unsent)
-                    setDisplayAllInvs(all)
+                    setDisplayAllInvs(allInvArr)
                 }
             }
 
@@ -233,7 +237,7 @@ function FlInvoices() {
         } 
     }
 
-    const createInvoice = async () => {
+    const createInvoice = async (e) => {
         console.log(name, date, dueDate, id, notes, fees, discount, coupon)
         const comp = 'yes'
         if (!isItem) {
@@ -254,14 +258,13 @@ function FlInvoices() {
                 } else {
                     const data = await req.json()
                     setDisplayItems((prev) => [...prev, {invId: data.invId, name: data.name, total: data.total, stat: data.stat}])
+                    setDisplayAllInvs((prev) => [...prev, {invId: data.invId, name: data.name, total: data.total, stat: data.stat}])
                     setSendPopup(data.invId)
                 }
             } catch (err) {
                 console.log(err)
             }
         } 
-    }
-    const handleSubmit = (e) => {
         if (!isItem) {
             e.preventDefault()
             return
@@ -322,7 +325,7 @@ function FlInvoices() {
     }
 
     return ( 
-        <form onSubmit={handleSubmit} className="invoice-page-body" style={{height: bodyHeight ? '100vh' : 'fit-content'}}>
+        <form className="invoice-page-body" style={{height: bodyHeight ? '100vh' : 'fit-content'}}>
             <Searchbar sideNav={sideNav} setSideNav={setSideNav} setShowWebNav={setShowWebNav} />
             <header className="page-title-container">
                 <h1 className={darkMode ? "page-titles" : "page-titles dark"}>INVOICES</h1>
@@ -353,7 +356,7 @@ function FlInvoices() {
             <h2 className='page-sub-titles' style={{display: showSend ? 'flex' : 'none'}}>SEND INVOICE</h2>
             <InvSubPages dispItem={displayItems} setDispItem={setDisplayItems} Inv={inv} setInv={setInv} sendTo={sendTo} display={displayItems} showPage={showSend} subPageInfo={'See send invoice instructions'} subPageInfoText={'Sending invoice instructions'} infoText={"If an invoice is ready to send you can click the 'waiting' status on that invoice then follow the pop instructions."}/>
             <h2 className='page-sub-titles' style={{display: showAll ? 'flex' : 'none'}}>ALL INVOICES</h2>
-            <InvSubPages setInv={setInv} display={displayItems} display2={displayAllInvs} showPage={showAll} subPageInfo={'See more info'} subPageInfoText={'All invoices page info.'} infoText={"On this page you can view, delete or print created invoices. To view an invoice click the invoice ID, to print an invoice click the client's name and to delete an invoice click the 'status' of that invoice."}/>
+            <InvSubPages setInv={setInv} setDispItem={setDisplayAllInvs} display2={displayAllInvs} showPage={showAll} subPageInfo={'See more info'} subPageInfoText={'All invoices page info.'} infoText={"On this page you can view, delete or print created invoices. To view an invoice click the invoice ID, to print an invoice click the client's name and to delete an invoice click the 'status' of that invoice."}/>
             <h2 className='page-sub-titles' style={{display: showDraft ? 'flex' : 'none'}}>DRAFTED INVOICES</h2>
             <InvSubPages setShowDraft={setShowDraft} setShowNew={setShowNew} setDraft={setLoadDft} setLoad={setLoadDraft} display4={showDraftInvs} setDisplay4={setShowDraftInvs} showPage={showDraft} subPageInfo={'See more info about drafted invoices'} subPageInfoText={'Drafted invoices info.'} infoText={"Here you can view all the incompleted invoices you have saved. To continue working on a draft click the invoice ID or delete invoices by clicking their statuses. Drafted invoices don't disppear on their own so remember to delete old or unwanted drafts regularly."}/>
             <MoreInfo showMore={showAlert} setShowMore={setShowAlert} MoreInfoTitle={'ALERT'} MoreInfoText={alertText}/>

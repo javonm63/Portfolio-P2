@@ -50,6 +50,8 @@ tr {
     border: 2px solid rgb(194, 237, 0);
     width: 25%;
     height: 30px;
+    overflow-y: auto;
+    text-align: center;
     font-weight: bold;
     display: flex;
     align-items: center;

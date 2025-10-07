@@ -54,6 +54,10 @@ function SendPopup({dispItem, setDispItem, display, setDisplay, sendTo, inv}) {
             if (!req.ok) {
                 const data = await req.json()
                 console.log(data)
+                if (data.error === "client doesn't have a fli account") {
+                    setShowAlert(true)
+                    setAlertText("This client doesn't have a FreelancerInnvoice.com account, try emailing the invoice.")
+                }
             } else {
                 const data = await req.json()
                 if (data) {

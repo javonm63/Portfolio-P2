@@ -10,6 +10,7 @@ export default async function ClSignup(req, res) {
 
     const {name, company, email, phone, pass, role} = req.body
     const id = genUserId()
+    const paidId = genUserId()
     const invoicesDBid = genUserId()
     const clientsDBid = 'nothing to see here'
 
@@ -23,11 +24,18 @@ export default async function ClSignup(req, res) {
         const dbValues = [id, []]
         const makingDb = await pool.query(makeDb, dbValues)
 
-        const query = `
-        INSERT INTO users (id, name, company, email, phone, pass, role, invdb, cldb)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+        const makeDb2 = `
+        INSERT INTO usertables (id, database)
+        VALUES ($1, $2)
         RETURNING *;`
-        const values = [id, name, company, email, phone, hashed, role, invoicesDBid, clientsDBid]
+        const dbValues2 = [paidId, []]
+        const makingDb2 = await pool.query(makeDb2, dbValues2)
+
+        const query = `
+        INSERT INTO users (id, name, company, email, phone, pass, role, invdb, cldb, paidid)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+        RETURNING *;`
+        const values = [id, name, company, email, phone, hashed, role, invoicesDBid, clientsDBid, paidId]
         const sendToDb = await pool.query(query, values)
     } catch (err) {
         console.error(err)
@@ -65,6 +73,12 @@ export default async function ClSignup(req, res) {
         maxAge: 900000,
     })
         .cookie('id', id, {
+        httpOnly: false,
+        secure: false,
+        sameSite: 'strict',
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+    })
+        .cookie('paidId', paidId, {
         httpOnly: false,
         secure: false,
         sameSite: 'strict',

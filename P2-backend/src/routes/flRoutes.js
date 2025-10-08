@@ -12,31 +12,37 @@ import { flValidateClient, flValidateEditClient } from '../validators/flclientsV
 import { validateInvHelper } from '../utils/InvoiceValidation.js'
 import { validateClntHelper } from '../utils/ClientValidation.js'
 import refreshToken from '../utils/refreshToken.js'
+import { editProfile, getAppSettings, makeProfile } from '../controllers/fl-settings.js'
 
 
 const Server = express()
-// SIGN UP ROUTES 
+// SIGN UP API
 Server.post('/signup', validateSignup, validateHelper, existingUsr, FlSignup)
 Server.post('/login', validateLogin, validateHelper, flLogin)
 Server.post('/refresh', refreshToken)
-// INVOICE API ROUTES 
+// INVOICE API 
 Server.post('/invoices', authentUser('freelancer'), flValidateInvoice, validateInvHelper, createInvoice)
 Server.get('/invoices', authentUser('freelancer'), sendData)
 Server.delete('/invoices', authentUser('freelancer'), deleteInv)
-// VIEW INVOICE API ROUTE 
+// VIEW INVOICE API
 Server.get('/view', authentUser('freelancer'), sendInv)
-// REPORTS API ROUTE 
+// REPORTS API 
 Server.post('/reports', authentUser('freelancer'), saveReports)
 Server.get('/reports', authentUser('freelancer'), saveReports)
-// DRAFT INVOICE API ROUTES
+// DRAFT INVOICE API 
 Server.get('/draft', authentUser('freelancer'), getDrafts)
 Server.delete('/draft', authentUser('freelancer'), deleteDraft)
 Server.post('/draft', authentUser('freelancer'), flValidateInvoice, validateInvHelper, draftInv)
-// CLIENT API ROUTES 
+// CLIENT API 
 Server.post('/clients', authentUser('freelancer'), flValidateClient, validateClntHelper, flClients)
 Server.get('/clients', authentUser('freelancer'), sendClientData)
 Server.patch('/clients', authentUser('freelancer'), flValidateEditClient, validateClntHelper, editClientInfo)
-// Server.put('/clients')
 Server.delete('/clients', authentUser('freelancer'), deleteClient)
+// SETTINGS API 
+Server.get('/settings', authentUser('freelancer'), getAppSettings)
+Server.post('/settings', authentUser('freelancer'), makeProfile)
+Server.patch('/settings', authentUser('freelancer'), editProfile)
+// Server.delete()
+
 
 export default Server 

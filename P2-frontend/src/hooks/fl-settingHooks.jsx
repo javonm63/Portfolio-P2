@@ -21,3 +21,20 @@ export function settingsProfileHooks() {
         setPass,
     }
 }
+
+export function settingsProfileEditHooks() {
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [phone, setPhone] = useState('')
+    const [pass, setPass] = useState('')
+    return {
+        name,
+        setName,
+        email, 
+        setEmail,
+        phone,
+        setPhone,
+        pass,
+        setPass,
+    }
+}

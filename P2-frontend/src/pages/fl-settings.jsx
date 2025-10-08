@@ -117,7 +117,7 @@ function FlSettings() {
                     {/* ADD APP SETTINGS FOR FREELANCER SIDE */}
                 </div>
             </div>
-            <SettingsEditCard title={'EDIT PROFILE INFO.'} display={display} setDisplay={setDisplay}/>
+            <SettingsEditCard title={'EDIT PROFILE INFO.'} display={display} setDisplay={setDisplay} setName={setName} setEmail={setEmail} setPhone={setPhone} setPass={setPass}/>
             <SettingsEditCard2 title={'EDIT COMPANY INFO.'} title2={'EDIT PAYMENT INFO.'} display={display2} setDisplay={setDisplay2}/>
         </div>
     )

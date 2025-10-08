@@ -21,6 +21,11 @@ function InvoiceSetCard() {
                 <option className='invSettingsDropDnOptions' value="20%">20%</option>
                 <option className='invSettingsDropDnOptions' value="25%">25%</option>
             </select>
+            <p className='invSettingsCurrTitle'>DarkMode</p>
+            <label className="switch">
+                <input type="checkbox" id="toggle"></input>
+                <span className="slider"></span>
+            </label>
         </section>
     )
 }

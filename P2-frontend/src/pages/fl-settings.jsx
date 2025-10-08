@@ -7,6 +7,9 @@ import InvoiceSetCard from '../components/invoiceSettingsCard.jsx';
 import { useEffect } from 'react';
 import { showDarkModeHook } from '../hooks/landingPageHooks.jsx'
 import getCookie from '../utils/getCookie.jsx';
+import SettingsEditCard from '../components/settingsEditCard.jsx';
+import SettingsEditCard2 from '../components/settingsEditCard2.jsx';
+import { settingsHooks, settingsProfileHooks } from '../hooks/fl-settingHooks.jsx';
 
 function FlSettings() {
     const navbarHook = navbarHooks() 
@@ -18,6 +21,22 @@ function FlSettings() {
     const darkModeHook = showDarkModeHook()
     const darkMode = darkModeHook.darkMode
     const setDarkMode = darkModeHook.setDarkMode
+
+    const settingHook = settingsHooks()
+    const display = settingHook.display 
+    const setDisplay = settingHook.setDisplay
+    const display2 = settingHook.display2 
+    const setDisplay2 = settingHook.setDisplay2
+
+    const profileHooks = settingsProfileHooks()
+    const name = profileHooks.name
+    const setName = profileHooks.setName
+    const email = profileHooks.email
+    const setEmail = profileHooks.setEmail
+    const phone = profileHooks.phone
+    const setPhone = profileHooks.setPhone
+    const pass = profileHooks.pass
+    const setPass = profileHooks.setPass
 
     useEffect(() => {
         if (window.matchMedia('(prefers-color-scheme : dark)').matches) {
@@ -34,7 +53,7 @@ function FlSettings() {
     useEffect(() => {
         async function refresh() {
             const csrfToken = getCookie('csrfToken')
-            const req = await fetch('https://localhost:6001/api/fl/refresh', {
+            const req = await fetch('http://localhost:6001/api/fl/refresh', {
                 method: 'POST',
                 headers: {"x-csrf-token": `Bearer ${csrfToken}`, 'Content-Type': 'application/json'},
                 credentials: 'include',
@@ -46,6 +65,26 @@ function FlSettings() {
                 if (data.message === 'Unauthorized user') {
                     window.location.href = '/'
                 }
+            }
+
+            try {
+                const profileReq = await fetch('http://localhost:6001/api/fl/settings', {
+                    method: 'GET',
+                    headers: {'Content-Type': 'application/json'},
+                    credentials: 'include',
+                })
+                if (!profileReq.ok) {
+                    const error = await profileReq.json()
+                    console.log(error)
+                } else {
+                    const data = await profileReq.json()
+                    const database = data.rest
+                    setName(database.name)
+                    setEmail(database.email)
+                    setPhone(database.phone)
+                }
+            } catch (err) {
+                console.log(err)
             }
         }
         refresh()
@@ -61,24 +100,25 @@ function FlSettings() {
             <div className='settings-page-main-container'>
                 <h3 className='settings-page-subTitles'>Profile Info</h3>
                 <div className='profile-container'>
-                    <input className='settingsProfile-inputs' type='text' placeholder='John Doe'readOnly></input>
-                    <input className='settingsProfile-inputs' type='email' placeholder='JohnDoe12@email.com' readOnly></input>
-                    <input className='settingsProfile-inputs' type='number' placeholder='347-123-4567' readOnly></input>
+                    <input className='settingsProfile-inputs' type='text' value={name} readOnly></input>
+                    <input className='settingsProfile-inputs' type='email' value={email} readOnly></input>
+                    <input className='settingsProfile-inputs' type='number' value={phone} readOnly></input>
                     <input className='settingsProfile-inputs' type='text' placeholder='**********' readOnly></input>
-                    <button className='edit-profile-button' type='button'>Edit Profile</button>
+                    <button className='edit-profile-button' type='button' onClick={() => setDisplay(true)}>Edit Profile</button>
                 </div>
                 <h3 className='settings-page-subTitles'>Company Info</h3>
                 <div className='companyInfo-container'>
                     <ProfileInfoCard placeHolderText={'LOGO'}/>
                 </div>
-                <button className='edit-profile-button' type='button'>Edit Company</button>
+                <button className='edit-profile-button' type='button' onClick={() => setDisplay2(true)}>Edit Company</button>
                 <h3 className='settings-page-subTitles'>Invoice Settings</h3>
                 <div className='appSettings-container'>
                     <InvoiceSetCard />
                     {/* ADD APP SETTINGS FOR FREELANCER SIDE */}
-                    {/* ADD TOGGLE SETTING FOR LIGHT AND DARK MODE */}
                 </div>
             </div>
+            <SettingsEditCard title={'EDIT PROFILE INFO.'} display={display} setDisplay={setDisplay}/>
+            <SettingsEditCard2 title={'EDIT COMPANY INFO.'} title2={'EDIT PAYMENT INFO.'} display={display2} setDisplay={setDisplay2}/>
         </div>
     )
 }

@@ -1,0 +1,61 @@
+.editCard-main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    z-index: 9999;
+    top: 10%;
+    left: 25%;
+    border-radius: 5px;
+    width: 50%;
+    padding: 10px;
+    background-color: rgb(169, 211, 1);
+    backdrop-filter: blur(5px);
+    box-shadow: 0px 0px 15px black;
+}
+.settingEdit-title {
+    margin: 0;
+    margin-bottom: 10px;
+    font-size: 22.5px;
+    color: rgba(0, 0, 0, 0.785);
+}
+.settingsEditCard-inputs {
+    width: 75%;
+    height: 30px;
+    margin-bottom: 12.5px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    text-align: center;
+    font-size: 15px;
+    background-color: rgba(0, 128, 0, 0.534);
+}
+.settingsEditCard-inputs::placeholder {
+    color: rgba(0, 0, 0, 0.711);
+}
+.settingsEditCard-inputs:hover {
+    background-color: rgba(2, 182, 2, 0.534);
+}
+.settingEditCard-submit-btn {
+    width: 50%;
+    height: 25px;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 25px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.703);
+    background-color: rgb(217, 255, 47);
+}
+.settingEditCard-submit-btn:hover {
+    cursor: pointer;
+    scale: 1.025;
+    color: black;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.655);
+}
+
+@media screen and (max-width: 1030px) {
+    .editCard-main-container {
+        width: 70%;
+        left: 15%;
+    }
+}

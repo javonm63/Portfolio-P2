@@ -10,6 +10,7 @@ import getCookie from '../utils/getCookie.jsx';
 import SettingsEditCard from '../components/settingsEditCard.jsx';
 import SettingsEditCard2 from '../components/settingsEditCard2.jsx';
 import { companyInfoHooks, settingsHooks, settingsProfileHooks } from '../hooks/fl-settingHooks.jsx';
+import { settingsAppHooks } from '../hooks/fl-settingHooks'
 
 function FlSettings() {
     const navbarHook = navbarHooks() 
@@ -43,6 +44,10 @@ function FlSettings() {
     const setAddress = companyHook.setAddress
     const card = companyHook.card
     const setCard = companyHook.setCard
+
+    const settingsHook = settingsAppHooks()
+    const on = settingsHook.on
+    const setOn = settingsHook.setOn
 
     useEffect(() => {
         if (window.matchMedia('(prefers-color-scheme : dark)').matches) {
@@ -100,6 +105,15 @@ function FlSettings() {
         refresh()
     }, [])
 
+    const toggleDarkMode = () => {
+        setOn(!on)
+        if(on) {
+            setDarkMode(true)
+        } else {
+            setDarkMode(false)
+        }
+    }
+
     return (
         <div className='flSettings-page-container'>
             <Searchbar sideNav={sideNav} setSideNav={setSideNav} setShowWebNav={setShowWebNav} />
@@ -123,7 +137,7 @@ function FlSettings() {
                 <button className='edit-profile-button' type='button' onClick={() => setDisplay2(true)}>Edit Company</button>
                 <h3 className='settings-page-subTitles'>Invoice Settings</h3>
                 <div className='appSettings-container'>
-                    <InvoiceSetCard />
+                    <InvoiceSetCard on={on} toggleDarkMode={toggleDarkMode} />
                     {/* ADD APP SETTINGS FOR FREELANCER SIDE */}
                 </div>
             </div>
@@ -134,3 +148,6 @@ function FlSettings() {
 }
 
 export default FlSettings
+
+// ADD TAX FUNCTIONS AND LOGIC TO TAKE TAX SETTINGS AND APPLY TO INVOICE TOTAL 
+// FIX TOGGLE FOR LIGHT AND DARK MODES 

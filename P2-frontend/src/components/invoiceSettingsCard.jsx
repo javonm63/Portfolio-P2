@@ -1,6 +1,6 @@
 import '../styles/invoiceSettingsCard.css'
 
-function InvoiceSetCard() {
+function InvoiceSetCard({on, toggleDarkMode}) {
     return (
         <section className='invSettings-page-container'>
             <p className='invSettingsCurrTitle'>Default Currency:</p>
@@ -23,7 +23,7 @@ function InvoiceSetCard() {
             </select>
             <p className='invSettingsCurrTitle'>DarkMode</p>
             <label className="switch">
-                <input type="checkbox" id="toggle"></input>
+                <input type="checkbox" id="toggle" checked={on} onChange={toggleDarkMode}></input>
                 <span className="slider"></span>
             </label>
         </section>

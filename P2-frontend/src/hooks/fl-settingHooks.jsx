@@ -66,3 +66,8 @@ export function settingsPayEditHooks() {
         cvc, setCvc
     }
 }
+
+export function settingsAppHooks() {
+    const [on, setOn] = useState(false)
+    return {on, setOn}
+}

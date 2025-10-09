@@ -328,7 +328,6 @@ function FlInvoices() {
                 console.log(error)
             } else {
                 const data = await req.json()
-                console.log(data)
                 if (data.message === 'invoice drafted') {
                     setShowAlert(true)
                     setAlertText('Invoice saved, this invoice will now be in the drafts section.')

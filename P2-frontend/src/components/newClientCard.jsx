@@ -3,7 +3,7 @@ import { flAddClientHooks, showAlertHooks } from '../hooks/fl-clientsHooks'
 import { useEffect } from 'react'
 import MoreInfo from '../utils/moreInfo'
 
-function NewClientInfo({setSendTo, send, setSend, setDisplay}) {
+function NewClientInfo({setSendTo, send, setSend, setDisplay, disp}) {
     const addClientHook = flAddClientHooks()
     const name = addClientHook.name
     const setName = addClientHook.setName
@@ -29,7 +29,6 @@ function NewClientInfo({setSendTo, send, setSend, setDisplay}) {
                 return
             }
             async function addClient() {
-                console.log(name, email, phone, city)
                 setSendTo((prev) => [...prev, {name, email, phone, city}])
                 try {
                     const req = await fetch('http://localhost:6001/api/fl/clients', {
@@ -71,7 +70,7 @@ function NewClientInfo({setSendTo, send, setSend, setDisplay}) {
     }, [send])
 
     return (
-        <form className='add-new-client-main-cont'>
+        <form className='add-new-client-main-cont' style={{display: disp ? 'grid' : 'none'}}>
             <input className='add-new-client-inputs' type='text' placeholder="Enter client's name" required value={name} onChange={(ev) => setName(ev.target.value)}></input>
             <input className='add-new-client-inputs' type='email' placeholder="Enter client's email" required value={email} onChange={(ev) => setEmail(ev.target.value)}></input>
             <input className='add-new-client-inputs' type='number' placeholder="Enter client's phone" required value={phone} onChange={(ev) => setPhone(ev.target.value)}></input>

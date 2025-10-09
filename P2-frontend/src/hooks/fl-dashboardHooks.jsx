@@ -26,5 +26,14 @@ function showGraph() {
     const [showLineGraph, setShowLineGraph] = useState(true)
     return {showLineGraph, setShowLineGraph}
 }
+function showAddClient() {
+    const [disp, setDisp] = useState(false)
+    const [dispInv, setDispInv] = useState(false)
+    return {disp, setDisp, dispInv, setDispInv}
+}
+function showDrafts() {
+    const [showDraft, setShowDraft] = useState(false)
+    return {showDraft, setShowDraft}
+}
 
-export {showMenuHook, showClMenuHook, navbarHooks, searhbarHooks, showNotifHook, showGraph}
+export {showMenuHook, showClMenuHook, navbarHooks, searhbarHooks, showNotifHook, showGraph, showAddClient, showDrafts}

@@ -1,4 +1,4 @@
-import {navbarHooks} from "../hooks/fl-dashboardHooks.jsx";
+import {navbarHooks, showAddClient} from "../hooks/fl-dashboardHooks.jsx";
 import Searchbar from "../components/searchbar";
 import WebNavbar from "../components/webNav.jsx";
 import '../styles/fl-clients.css'
@@ -42,6 +42,10 @@ function FlClients() {
     const showEditHooks = showEditClientPopHooks()
     const editPop = showEditHooks.showEditPop
     const setEditPop = showEditHooks.setShowEditPop
+
+    const addClientHook = showAddClient()
+    const disp = addClientHook.disp
+    const setDisp = addClientHook.setDisp
 
     useEffect(() => {
         if (window.matchMedia('(prefers-color-scheme : dark)').matches) {
@@ -94,6 +98,7 @@ function FlClients() {
                     setDispClient(dataArr)
                 }
             }
+            setDisp(true)
         }
         refresh()
     }, [])
@@ -106,7 +111,7 @@ function FlClients() {
             </header>
             <WebNavbar showWebNav={showWebNav} />
             <h2 className={darkMode ? "page-sub-titles dark" : "page-sub-titles"}>ADD NEW CLIENT</h2>
-            <NewClientInfo setSendTo={setSendTo} setSend={setSend} setDisplay={setDispClient} send={send}/>
+            <NewClientInfo disp={disp} setSendTo={setSendTo} setSend={setSend} setDisplay={setDispClient} send={send}/>
             <button className="addNewClient-button" onClick={() => {setSend(true)}}>Add Client</button>
             <h2 className={darkMode ? "page-sub-titles dark" : "page-sub-titles"}>YOUR CLIENTS</h2>
             <section className='clients-sub-page-container'>

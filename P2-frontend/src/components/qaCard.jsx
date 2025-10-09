@@ -1,10 +1,10 @@
 import '../styles/qaCard.css'
 
-function QaCard({qaCardTitle, qaBtnText, qaCardHref, qaLinkText}) {
+function QaCard({qaCardTitle, qaBtnText, qaCardHref, qaLinkText, setDisp}) {
     return (
         <nav className='quick-action-card-cont'>
             <h3 className='quick-action-titles'>{qaCardTitle}</h3>
-            <button className='quick-action-btns' type='button'>{qaBtnText}</button>
+            <button className='quick-action-btns' type='button' onClick={() => setDisp(true)}>{qaBtnText}</button>
             <a className='quick-action-links' href={qaCardHref}>{qaLinkText}</a>
         </nav>
     )

@@ -228,6 +228,9 @@ export function saveReports(req, res) {
         }
         return res.status(200).json({message: 'reports saved'})
     } else if (post === undefined) {
+        if (reports.length === 0) {
+            reports.push({earned: 0, unpaid: 0, overdue: 0, paidReport: 0})
+        }
         return res.status(200).json({data: reports[0]})
     }
 }

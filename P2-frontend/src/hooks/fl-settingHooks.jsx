@@ -38,3 +38,31 @@ export function settingsProfileEditHooks() {
         setPass,
     }
 }
+
+export function companyInfoHooks() {
+    const [address, setAddress] = useState('')
+    const [card, setCard] = useState('')
+    return {address, setAddress, card, setCard}
+}
+export function settingsCompanyEditHooks() {
+    const [street, setStreet] = useState('')
+    const [city, setCity] = useState('')
+    const [state, setState] = useState('')
+    const [zip, setZip] = useState('')
+    return {
+        street, setStreet,
+        city, setCity,
+        state, setState,
+        zip, setZip,
+    }
+}
+export function settingsPayEditHooks() {
+    const [cardNumber, setCardNumber] = useState('')
+    const [expiration, setExpiration] = useState('')
+    const [cvc, setCvc] = useState('')
+    return {
+        cardNumber, setCardNumber,
+        expiration, setExpiration,
+        cvc, setCvc
+    }
+}

@@ -45,7 +45,6 @@ function LoginCard({showSignup, closeSignup}) {
         }
         
         const data = await res.json()
-        console.log(data)
         if (data.message === 'Invalid credentials') {
             setShowAlert(true)
             setAlertText('Invalid credentials try again')

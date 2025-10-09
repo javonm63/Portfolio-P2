@@ -9,7 +9,7 @@ import { showDarkModeHook } from '../hooks/landingPageHooks.jsx'
 import getCookie from '../utils/getCookie.jsx';
 import SettingsEditCard from '../components/settingsEditCard.jsx';
 import SettingsEditCard2 from '../components/settingsEditCard2.jsx';
-import { settingsHooks, settingsProfileHooks } from '../hooks/fl-settingHooks.jsx';
+import { companyInfoHooks, settingsHooks, settingsProfileHooks } from '../hooks/fl-settingHooks.jsx';
 
 function FlSettings() {
     const navbarHook = navbarHooks() 
@@ -37,6 +37,12 @@ function FlSettings() {
     const setPhone = profileHooks.setPhone
     const pass = profileHooks.pass
     const setPass = profileHooks.setPass
+
+    const companyHook = companyInfoHooks()
+    const address = companyHook.address
+    const setAddress = companyHook.setAddress
+    const card = companyHook.card
+    const setCard = companyHook.setCard
 
     useEffect(() => {
         if (window.matchMedia('(prefers-color-scheme : dark)').matches) {
@@ -82,6 +88,10 @@ function FlSettings() {
                     setName(database.name)
                     setEmail(database.email)
                     setPhone(database.phone)
+                    const database2 = data.rest2
+                    const addr = String(`${database2.street}, ${database2.city}, ${database2.state}, ${database2.zip} `)
+                    setAddress(addr)
+                    setCard(database2.num)
                 }
             } catch (err) {
                 console.log(err)
@@ -108,7 +118,7 @@ function FlSettings() {
                 </div>
                 <h3 className='settings-page-subTitles'>Company Info</h3>
                 <div className='companyInfo-container'>
-                    <ProfileInfoCard placeHolderText={'LOGO'}/>
+                    <ProfileInfoCard addres={address} cardNum={card} placeHolderText={'LOGO'}/>
                 </div>
                 <button className='edit-profile-button' type='button' onClick={() => setDisplay2(true)}>Edit Company</button>
                 <h3 className='settings-page-subTitles'>Invoice Settings</h3>

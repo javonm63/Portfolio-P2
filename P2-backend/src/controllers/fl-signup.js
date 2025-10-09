@@ -36,6 +36,17 @@ export default async function FlSignup(req, res) {
         RETURNING *;`
         const values = [id, name, company, email, phone, hashed, role, invoicesDBid, clientsDBid, paidId]
         const sendToDb = await pool.query(query, values)
+
+        const street = 'no profile'
+        const city = 'no profile'
+        const state = 'no profile'
+        const zip = Number('00000')
+        const card = Number('0000000000000000')
+        const cardexp = new Date('2025-01-01')
+        const cvc = Number('000')
+        const query2 = `INSERT INTO company (name, street, city, state, zip, card, cardexp, cvc) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`
+        const value2 = [company, street, city, state, zip, card, cardexp, cvc]
+        const sendToDb2 = await pool.query(query2, value2)
     } catch (err) {
         console.error(err)
         return res.json({errors: "Server error"})
@@ -84,6 +95,12 @@ export default async function FlSignup(req, res) {
         maxAge: 7 * 24 * 60 * 60 * 1000,
     })
     .cookie('flid', id, {
+        httpOnly: false,
+        secure: false,
+        sameSite: 'strict',
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+    })
+    .cookie('company', company, {
         httpOnly: false,
         secure: false,
         sameSite: 'strict',

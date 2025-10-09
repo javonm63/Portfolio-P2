@@ -1,6 +1,6 @@
 import '../styles/profileInfoCard.css'
 
-function ProfileInfoCard({placeHolderText}) {
+function ProfileInfoCard({placeHolderText, addres, cardNum}) {
     return (
         <section className='companyInfo-main-container'>
             <span className='companyLogo-container'>
@@ -9,11 +9,11 @@ function ProfileInfoCard({placeHolderText}) {
             <section className='companyInfo-Info-container'>
                 <div className='companyInfo-top-container'>
                     <p className='addressTitle'>Address</p>
-                    <p className='addressText'>123 helloworld st. earth, MW, 00345</p>
+                    <p className='addressText'>{addres}</p>
                 </div>
                 <div className='companyInfo-bottom-container'>
                     <p className='paymentTitle'>Payment Details</p>
-                    <p className='paymentText'>************1234</p>
+                    <p className='paymentText'>************{cardNum}</p>
                 </div>
             </section>
         </section>

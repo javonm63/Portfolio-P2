@@ -51,7 +51,7 @@ function SettingsEditCard({title, display, setDisplay, setName, setEmail, setPho
             const profileReq = await fetch('http://localhost:6001/api/fl/settings', {
                 method: 'PATCH',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({editName, editEmail, editPhone, editPass}),
+                body: JSON.stringify({editName, editEmail, editPhone, editPass, comp: 'no'}),
                 credentials: 'include',
             })
             if (!profileReq.ok) {

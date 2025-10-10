@@ -98,7 +98,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
+    color: rgba(0, 0, 0, 0.7);
+} 
+.page-sub-titles.dark {
+    color: rgb(224, 249, 0);
+} 
 @media screen and (max-width: 1030px) {
     .invoiceExtras-inputs {
         width: 93%;

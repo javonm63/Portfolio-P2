@@ -76,7 +76,8 @@ function FlDashboard() {
     const setAlertTitle = showAlertHook.setAlertTitle
 
     useEffect(() => {
-        if (window.matchMedia('(prefers-color-scheme : dark)').matches) {
+        const dark = sessionStorage.getItem('darkMode')
+        if (window.matchMedia('(prefers-color-scheme : dark)').matches || JSON.parse(dark) === true) {
             setDarkMode(true)
         }
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
@@ -86,7 +87,7 @@ function FlDashboard() {
           setDarkMode(false)
         }
         })
-    })
+    }) 
     useEffect(() => {
         async function refresh() {
             const csrfToken = getCookie('csrfToken')
@@ -259,24 +260,24 @@ function FlDashboard() {
             <header className="page-title-container">
                 <h1 className={darkMode ? "page-titles" : "page-titles dark"}>DASHBOARD</h1>
             </header>
-            <WebNavbar showWebNav={showWebNav} />
+            <WebNavbar darkMode={darkMode} showWebNav={showWebNav} />
             <article className="cards-container">
                 <Card cardTitle={"EARNINGS"} cardText={`$${String(earned)}`}/>
                 <Card cardTitle={"OUTSTANDING"} cardText={String(overdue)}/>
             </article>
-            <TableCard display2={displayItems} tableWidth={'90vw'} pageSubTitle={"INVOICE STATUS"} tableID={"home-table-body"} invNumText={'INVOICE'} clientText={'CLIENT'} amountText={'AMOUNT'} statusText={'STATUS'}/>
+            <TableCard darkMode={darkMode} display2={displayItems} tableWidth={'90vw'} pageSubTitle={"INVOICE STATUS"} tableID={"home-table-body"} invNumText={'INVOICE'} clientText={'CLIENT'} amountText={'AMOUNT'} statusText={'STATUS'}/>
             <article className="quick-actions-container">
                 <QaCard setDisp={setDisp} qaCardTitle={'CLIENTS'} qaBtnText={'ADD CLIENT'} qaCardHref={'/fl/clients'} qaLinkText={'EDIT CLIENT'} />
                 <QaCard setDisp={setDispInv} qaCardTitle={'INVOICES'} qaBtnText={'INVOICES'} qaCardHref={'/fl/invoices'} qaLinkText={'ADD INVOICE'} />
             </article>
             <span className="page-sub-title-cont">
-                <h3 className="page-sub-titles">EARNINGS</h3>
+                <h3 className={darkMode ? "page-sub-titles2 dark" : "page-sub-titles2"}>EARNINGS</h3>
             </span>
             <article className="barGraph-container2">
                 <BarGraphCard />
             </article>
             <article className="drafted-div">
-                <TableCard display2={showDraft} pageSubTitle={"DRAFTED INVOICES"} tableID={'home-draft-table'} invNumText={'INVOICE'} clientText={'CLIENT'} amountText={'AMOUNT'} statusText={'STAT'} />
+                <TableCard darkMode={darkMode} display2={showDraft} pageSubTitle={"DRAFTED INVOICES"} tableID={'home-draft-table'} invNumText={'INVOICE'} clientText={'CLIENT'} amountText={'AMOUNT'} statusText={'STAT'} />
             </article>
 
             <aside className="add-client-container" style={{display: disp ? 'flex' : 'none'}}>

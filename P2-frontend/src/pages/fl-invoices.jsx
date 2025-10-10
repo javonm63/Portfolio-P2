@@ -417,9 +417,9 @@ function FlInvoices() {
             <header className="page-title-container">
                 <h1 className={darkMode ? "page-titles" : "page-titles dark"}>INVOICES</h1>
             </header>
-            <WebNavbar showWebNav={showWebNav} />
+            <WebNavbar darkMode={darkMode} showWebNav={showWebNav} />
             <InvPgMenuCard setShowDraftInvs={setShowDraftInvs} showSend={showSendPg} setShowSend={setShowSend} showAll={showAllPg} setShowAll={setShowAll} showNew={showNew} setShowNew={setShowNew} setBodyHeight={setBodyHeight} showDraft={showDraftPg} setShowDraft={setShowDraft}/>
-            <h2 className='page-sub-titles'style={{visibility: showNew ? 'visible' : 'hidden'}}>CREATE INVOICE</h2>
+            <h2 className={darkMode ? 'page-sub-titles dark' : 'page-sub-titles'} style={{visibility: showNew ? 'visible' : 'hidden'}}>CREATE INVOICE</h2>
             <main className="invoice-main-container" style={{display: showNew ? 'flex' : 'none'}}>
                 <InvoiceInfoCard name={loadDft ? loadDraft.name : name} setName={setName} date={loadDft ? loadDraft.date : date} setDate={setDate} due={loadDft ? loadDraft.due : dueDate} setDue={setDueDate} id={loadDft ? loadDraft.invId : id} setId={setId}/>
                 <TableCard title1={'ITEM'} title2={'DESCRIPT.'} title3={'QUANTITY'} title4={'PRICE'} display3={loadDft ? draftArr[0] : displayItem} tableWidth={'95%'} tableID={"item-table-body"} invNumText={'ITEM'} clientText={'DESCRIPT.'} amountText={'QUANT.'} statusText={'PRICE'}/>

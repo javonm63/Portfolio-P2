@@ -165,7 +165,7 @@ function FlClients() {
             <header className="page-title-container">
                 <h1 className={darkMode ? "page-titles" : "page-titles dark"}>CLIENTS</h1>
             </header>
-            <WebNavbar showWebNav={showWebNav} />
+            <WebNavbar darkMode={darkMode} showWebNav={showWebNav} />
             <h2 className={darkMode ? "page-sub-titles dark" : "page-sub-titles"}>ADD NEW CLIENT</h2>
             <NewClientInfo disp={disp} setSendTo={setSendTo} setSend={setSend} setDisplay={setDispClient} send={send}/>
             <button className="addNewClient-button" onClick={() => {setSend(true)}}>Add Client</button>

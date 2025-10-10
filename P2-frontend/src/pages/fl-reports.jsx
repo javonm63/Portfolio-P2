@@ -140,10 +140,10 @@ function FlReports() {
             <header className="page-title-container">
                 <h1 className={darkMode ? "page-titles" : "page-titles dark"}>REPORTS</h1>
             </header>
-            <WebNavbar showWebNav={showWebNav} />
+            <WebNavbar darkMode={darkMode} showWebNav={showWebNav} />
             <span className='reports-subtitles-container'>
-                <h2 id="monthly-title" className="reports-page-sub-titleL">MONTHLY EARNINGS</h2>
-                <h2 id="PvsUP-title" className="reports-page-sub-titleR">PAID VS. UNPAID</h2>
+                <h2 id="monthly-title" className={darkMode ? "reports-page-sub-titleL dark" : "reports-page-sub-titleL"}>MONTHLY EARNINGS</h2>
+                <h2 id="PvsUP-title" className={darkMode ? "reports-page-sub-titleR dark" : "reports-page-sub-titleR"}>PAID VS. UNPAID</h2>
             </span>
             <article className='reports-main-container'>
                 <div className='reports-left-container'>

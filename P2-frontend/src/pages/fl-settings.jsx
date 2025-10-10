@@ -57,11 +57,12 @@ function FlSettings() {
     const setDispNalert = notificationHook.setDispNalert
 
     useEffect(() => {
-        if (window.matchMedia('(prefers-color-scheme : dark)').matches) {
+        const dark = sessionStorage.getItem('darkMode')
+        if (JSON.parse(dark) === true || window.matchMedia('(prefers-color-scheme : dark)').matches) {
             setDarkMode(true)
         }
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-        if (e.matches) {
+        if (e.matches || JSON.parse(dark) === true ) {
           setDarkMode(true)
         } else {
           setDarkMode(false)
@@ -101,6 +102,9 @@ function FlSettings() {
                     setEmail(database.email)
                     setPhone(database.phone)
                     const database2 = data.rest2
+                    if (database2.street === 'no profile') {
+                        return
+                    }
                     const addr = String(`${database2.street}, ${database2.city}, ${database2.state}, ${database2.zip} `)
                     setAddress(addr)
                     setCard(database2.num)
@@ -164,9 +168,11 @@ function FlSettings() {
     const toggleDarkMode = () => {
         setOn(!on)
         if(on) {
-            setDarkMode(true)
-        } else {
             setDarkMode(false)
+            sessionStorage.setItem('darkMode', JSON.stringify(false))
+        } else {
+            setDarkMode(true)
+            sessionStorage.setItem('darkMode', JSON.stringify(true))
         }
     }
 
@@ -176,7 +182,7 @@ function FlSettings() {
             <div className="page-title-container">
                 <h1 className={darkMode ? "page-titles" : "page-titles dark"}>PROFILE/SETTINGS</h1>
             </div>
-            <WebNavbar showWebNav={showWebNav} />
+            <WebNavbar darkMode={darkMode} showWebNav={showWebNav} />
             <div className='settings-page-main-container'>
                 <h3 className='settings-page-subTitles'>Profile Info</h3>
                 <div className='profile-container'>

@@ -8,15 +8,15 @@
     flex-direction: column;
     align-items: center;
 }
-.page-sub-titles {
+.page-sub-titles2 {
     color:rgba(92, 92, 0, 0.891);
     margin-bottom: 0;
     font-size: 22.5px;
     font-weight: bold;
     width: 100%;
-    text-align: center;
+    text-align: center; 
 }
-.page-sub-titles.dark {
+.page-sub-titles2.dark {
     color: rgba(253, 253, 28, 0.69);
     margin-bottom: 0;
     font-size: 22.5px;

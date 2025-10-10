@@ -3,6 +3,7 @@ import SendPopup from './sendPopup'
 import { sendInvHook } from '../hooks/fi-invoicesHooks'
 import { showAlertHooks } from '../hooks/fl-apiHooks'
 import MoreInfo from '../utils/moreInfo'
+import { showDarkModeHook } from '../hooks/landingPageHooks'
 
 function TableCard({setDispNotif, view, setCurInv, setShowNew, setShowDraft, setDraft, setLoad, setViewInvData, clientDisp, setView, dispItem, setDispItem, darkMode, tableWidth, tableID, invNumText, clientText, amountText, statusText, pageSubTitle, display, display2, display3, display4, display5, setDisplay4, setInv, Inv, sendTo}) {
     const alertHooks = showAlertHooks()
@@ -184,12 +185,10 @@ function TableCard({setDispNotif, view, setCurInv, setShowNew, setShowDraft, set
             console.log(err)
         }
     }
-
-// wire the load and delete buttons for drafted invoices : fetch from the draft api on the table card component to load drafted invoices 
     return (
         <article className='tableCard-container' style={{width: tableWidth}}>
             <table className='table-container'>
-                <thead className= {darkMode ? 'page-sub-titles dark' : 'page-sub-titles'}>
+                <thead className={darkMode ? 'page-sub-titles2 dark' : 'page-sub-titles2'}>
                     <tr>
                         <th>{pageSubTitle}</th>
                     </tr>

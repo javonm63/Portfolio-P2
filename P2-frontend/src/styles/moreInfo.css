@@ -4,7 +4,7 @@
     border-radius: 5px;
     width: 30vw;
     z-index: 9999;
-    position: fixed;
+    position: absolute;
     padding: 5px;
     padding-bottom: 17.5px;
     top: 30vh;

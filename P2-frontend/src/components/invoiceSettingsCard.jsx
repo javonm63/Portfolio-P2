@@ -1,6 +1,22 @@
 import '../styles/invoiceSettingsCard.css'
 
 function InvoiceSetCard({on, toggleDarkMode}) {
+    const logout = async () => {
+        const req = await fetch('http://localhost:6001/api/fl/logout', {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'},
+            credentials: 'include',
+        })
+        if (!req.ok) {
+            const error = await req.json()
+            console.log(error)
+        } else {
+            const data = await req.json()
+            console.log(data)
+            sessionStorage.removeItem('role')
+            window.location.href = '/'
+        }
+    } 
     return (
         <section className='invSettings-page-container'>
             <p className='invSettingsCurrTitle'>Default Currency:</p>
@@ -26,6 +42,7 @@ function InvoiceSetCard({on, toggleDarkMode}) {
                 <input type="checkbox" id="toggle" checked={on} onChange={toggleDarkMode}></input>
                 <span className="slider"></span>
             </label>
+            <button className='web-logout-btn' type='button' onClick={logout}>LOGOUT</button>
         </section>
     )
 }

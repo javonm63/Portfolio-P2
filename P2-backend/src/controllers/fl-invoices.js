@@ -49,7 +49,13 @@ export async function createInvoice(req, res) {
             WHERE id = $3`
             const updateVals = [invId, inv , flInvID]
             const updateInv = await pool.query(newQuery, updateVals)
-            return res.status(200).json({invId: inv.invId, name: inv.name, total: inv.total, stat: inv.stat}, flInvID)
+            const when = new Date().toISOString()
+            const notif = `Invoice #${invId} sent.`
+            const index = Math.floor(Math.random() * 3000)
+            const notifQuery = `UPDATE notifications SET notifs = notifs || jsonb_build_object($1::text, $2::jsonb) WHERE id = $3 RETURNING *`
+            const notifValue = [index, JSON.stringify({notif, when}), fliD]
+            const sendNotifToDb = await pool.query(notifQuery, notifValue)
+            return res.status(200).json({invId: inv.invId, name: inv.name, total: inv.total, stat: inv.stat, flInvID, message: {notif: notif, when: when}})
         } catch (err) {
             console.error(err)
         }

@@ -4,8 +4,9 @@ import SideNavBar from './sideNav.jsx'
 import { showMenuHook, showClMenuHook, searhbarHooks, showNotifHook, } from '../hooks/fl-dashboardHooks.jsx'
 import NotifsPage from './notifsCard'
 import ClSideNavBar from './clSideNav.jsx'
+import NotifIcon from '../utils/notifAlertIcon.jsx'
 
-function Searchbar({ setShowWebNav, setSideNav, sideNav}) {
+function Searchbar({dispNotifs, dispNalert, setDispNalert, setShowWebNav, setSideNav, sideNav, setShowAlert, setAlertText, setAlertTitle}) {
     const notifHook = showNotifHook()
     const showNotifs = notifHook.showNotif
     const setShowNotifs = notifHook.setShowNotif
@@ -13,6 +14,7 @@ function Searchbar({ setShowWebNav, setSideNav, sideNav}) {
     const openNotifPg = () => {
         setShowNotifs(true)
         setSideNav(false)
+        setDispNalert(false)
     }
 
     const menuHook = showMenuHook()
@@ -110,10 +112,11 @@ function Searchbar({ setShowWebNav, setSideNav, sideNav}) {
                 <img id="notif-icon" className="searchbar-icons" src="/notif-icon.png" alt="menu icon" onClick={openNotifPg}></img>
                 <img id="menu-icon" className="searchbar-icons" src="/sidenav-icon.png" alt="menu icon" onClick={openMenu}></img>
             </div>
+            <NotifIcon dispNalert={dispNalert} />
 
-            <SideNavBar sideNav={sideNav} setSideNav={setSideNav} openNotifPg={openNotifPg}/>
+            <SideNavBar setDispNalert={setDispNalert} sideNav={sideNav} setSideNav={setSideNav} openNotifPg={openNotifPg}/>
             <ClSideNavBar sideNav={showClMenu} setSideNav={setShowClMenu} openNotifPg={openNotifPg}/>
-            <NotifsPage showNotifs={showNotifs} setShowNotifs={setShowNotifs}/>
+            <NotifsPage setAlertTitle={setAlertTitle} setShowAlert={setShowAlert} setAlertText={setAlertText} notifications={dispNotifs} showNotifs={showNotifs} setShowNotifs={setShowNotifs}/>
         </nav> 
 
     )

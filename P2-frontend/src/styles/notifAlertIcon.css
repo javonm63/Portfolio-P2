@@ -1,0 +1,22 @@
+.notif-alert-icon {
+    margin: 0;
+    position: absolute;
+    z-index: 9999;
+    left: 91.5%;
+    top: 2.5%;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: red;
+}
+
+@media screen and (max-width: 1030px) {
+    .notif-alert-icon {
+        left: 91%;
+    }
+}
+@media screen and (max-width: 580px) {
+    .notif-alert-icon {
+        left: 90%;
+    }
+}

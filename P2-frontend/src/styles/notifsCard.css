@@ -59,6 +59,16 @@
     margin-bottom: 5px;
     text-align: center;
 }
+.clear-notifs-button {
+    border: none;
+    margin: 0;
+    color: rgba(153, 2, 2, 0.317);
+    background-color: rgba(0, 0, 0, 0);
+}
+.clear-notifs-button:hover {
+    cursor: pointer;
+    color: rgb(182, 3, 3);
+}
 
 @media screen and (max-width: 1030px) {
     .notif-page-main-cont{

@@ -82,6 +82,16 @@
 #sideNav-notif-btn:hover {
     cursor: pointer;
 }
+#sideNav-logout-btn {
+    border: none;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-bottom: 2px solid rgba(0, 41, 0, 0.59);
+    background-color: rgba(0, 0, 0, 0);
+}
+#sideNav-logout-btn:hover {
+    cursor: pointer;
+}
+
 @media screen and (max-width: 420px) {
     .sideNav {
         width: 95vw;

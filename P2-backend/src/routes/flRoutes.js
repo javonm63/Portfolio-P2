@@ -13,13 +13,16 @@ import { validateInvHelper } from '../utils/InvoiceValidation.js'
 import { validateClntHelper } from '../utils/ClientValidation.js'
 import refreshToken from '../utils/refreshToken.js'
 import { editProfile, getAppSettings, makeProfile } from '../controllers/fl-settings.js'
+import { flLogout } from '../controllers/fl-logout.js'
+import { clearNotifs, getNotifs } from '../controllers/notifications.js'
 
 
 const Server = express()
-// SIGN UP API
+// SIGN/LOGIN AND LOGOUT UP API
 Server.post('/signup', validateSignup, validateHelper, existingUsr, FlSignup)
 Server.post('/login', validateLogin, validateHelper, flLogin)
 Server.post('/refresh', refreshToken)
+Server.get('/logout', authentUser('freelancer'), flLogout)
 // INVOICE API 
 Server.post('/invoices', authentUser('freelancer'), flValidateInvoice, validateInvHelper, createInvoice)
 Server.get('/invoices', authentUser('freelancer'), sendData)
@@ -38,11 +41,13 @@ Server.post('/clients', authentUser('freelancer'), flValidateClient, validateCln
 Server.get('/clients', authentUser('freelancer'), sendClientData)
 Server.patch('/clients', authentUser('freelancer'), flValidateEditClient, validateClntHelper, editClientInfo)
 Server.delete('/clients', authentUser('freelancer'), deleteClient)
+// NOTIFACTIONS API 
+Server.get('/notifications', authentUser('freelancer'), getNotifs)
+Server.delete('/notifications', authentUser('freelancer'), clearNotifs)
 // SETTINGS API 
 Server.get('/settings', authentUser('freelancer'), getAppSettings)
 Server.post('/settings', authentUser('freelancer'), makeProfile)
 Server.patch('/settings', authentUser('freelancer'), editProfile)
 // Server.delete()
-
 
 export default Server 

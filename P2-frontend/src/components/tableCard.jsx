@@ -4,7 +4,7 @@ import { sendInvHook } from '../hooks/fi-invoicesHooks'
 import { showAlertHooks } from '../hooks/fl-apiHooks'
 import MoreInfo from '../utils/moreInfo'
 
-function TableCard({view, setCurInv, setShowNew, setShowDraft, setDraft, setLoad, setViewInvData, clientDisp, setView, dispItem, setDispItem, darkMode, tableWidth, tableID, invNumText, clientText, amountText, statusText, pageSubTitle, display, display2, display3, display4, display5, setDisplay4, setInv, Inv, sendTo}) {
+function TableCard({setDispNotif, view, setCurInv, setShowNew, setShowDraft, setDraft, setLoad, setViewInvData, clientDisp, setView, dispItem, setDispItem, darkMode, tableWidth, tableID, invNumText, clientText, amountText, statusText, pageSubTitle, display, display2, display3, display4, display5, setDisplay4, setInv, Inv, sendTo}) {
     const alertHooks = showAlertHooks()
     const showAlert = alertHooks.showAlert
     const setShowAlert = alertHooks.setShowAlert
@@ -244,7 +244,7 @@ function TableCard({view, setCurInv, setShowNew, setShowDraft, setDraft, setLoad
                         
                 </tbody>
             </table>
-            <SendPopup dispItem={dispItem} setDispItem={setDispItem} inv={Inv} display={sendPop} setDisplay={setSendPop} sendTo={sendTo} />
+            <SendPopup setDispNotif={setDispNotif} dispItem={dispItem} setDispItem={setDispItem} inv={Inv} display={sendPop} setDisplay={setSendPop} sendTo={sendTo} />
             <MoreInfo showMore={showAlert} setShowMore={setShowAlert} MoreInfoTitle={'ALERT'} MoreInfoText={alertText} />
         </article>
     )

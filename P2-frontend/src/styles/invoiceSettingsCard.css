@@ -2,6 +2,9 @@
     border-radius: 5px;
     width: 50%;
     padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: rgba(249, 255, 76, 0.687);
 }
 .invSettingsCurrTitle {
@@ -24,7 +27,7 @@
   display: inline-block;
   width: 50px;
   height: 24px;
-  margin-left: 43.5%;
+  margin-bottom: 15px;
 }
 
 .switch input {
@@ -63,4 +66,20 @@ input:checked + .slider {
 
 input:checked + .slider::before {
   transform: translateX(26px);
+}
+.web-logout-btn {
+    width: 50%;
+    height: 25px;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: rgba(0, 0, 0, 0.703);
+    background-color: rgb(217, 255, 47);
+}
+.web-logout-btn:hover {
+    cursor: pointer;
+    scale: 1.025;
+    color: black;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.655);
 }

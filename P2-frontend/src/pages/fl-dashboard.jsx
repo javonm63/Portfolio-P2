@@ -10,10 +10,12 @@ import { useEffect } from "react";
 import { showDarkModeHook } from '../hooks/landingPageHooks.jsx'
 import getCookie from "../utils/getCookie.jsx";
 import { reportsHooks, sendInvHook, sendToHooks } from '../hooks/fi-invoicesHooks.jsx';
-import { flInvoicesHooks } from "../hooks/fl-apiHooks.jsx";
+import { flInvoicesHooks, showAlertHooks } from "../hooks/fl-apiHooks.jsx";
 import NewClientInfo from "../components/newClientCard.jsx";
 import { flAddClientHooks } from "../hooks/fl-clientsHooks.jsx";
 import InvSubPages from "../components/invoicesSubPages.jsx";
+import { displayNotifsHooks } from '../hooks/notifisHooks.jsx'
+import MoreInfo from "../utils/moreInfo.jsx";
 
 function FlDashboard() {
     const navbarHook = navbarHooks() 
@@ -58,6 +60,20 @@ function FlDashboard() {
     const draftsHooks = showDrafts()
     const showDraft = draftsHooks.showDraft
     const setShowDraft = draftsHooks.setShowDraft
+
+    const notificationHook = displayNotifsHooks()
+    const dispNotif = notificationHook.dispNotifs
+    const setDispNotifs = notificationHook.setDispNotifs
+    const dispNalert = notificationHook.dispNalert
+    const setDispNalert = notificationHook.setDispNalert
+
+    const showAlertHook = showAlertHooks()
+    const showAlert = showAlertHook.showAlert
+    const setShowAlert = showAlertHook.setShowAlert
+    const alertText = showAlertHook.alertText
+    const setAlertText = showAlertHook.setAlertText
+    const alertTitle = showAlertHook.alertTitle
+    const setAlertTitle = showAlertHook.setAlertTitle
 
     useEffect(() => {
         if (window.matchMedia('(prefers-color-scheme : dark)').matches) {
@@ -176,10 +192,61 @@ function FlDashboard() {
                 const data = await req2.json()
                 const draftArr = []
                 const database = data.data.Draft
-                for (const [key, value] of Object.entries(database)) {
-                    draftArr.push(value)
+                if (database) {
+                    for (const [key, value] of Object.entries(database)) {
+                        draftArr.push(value)
+                    }
+                    setShowDraft(draftArr)
                 }
-                setShowDraft(draftArr)
+            }
+            try {
+                const notifReq = await fetch('http://localhost:6001/api/fl/notifications', {
+                    method: 'GET',
+                    headers: {'Content-Type': 'application/json'},
+                    credentials: 'include',
+                })
+                if (!notifReq.ok) {
+                    const error = await notifReq.json()
+                    console.log(error)
+                } else {
+                    const notifsDataArr = []
+                    const notifsArr = []
+                    const data = await notifReq.json()
+                    const database = data.data
+                    if (database) {
+                        for (const [key, value] of Object.entries(database)) {
+                            notifsDataArr.push(value)
+                        }
+                        notifsDataArr.forEach((notifObj) => {
+                            const when = notifObj.when
+                            const timeAgo = (when) => {
+                                const now = new Date()
+                                const then = new Date(when)
+                                const diffMs = now - then
+                                const diffMins = Math.floor(diffMs / (1000 * 60))
+                                const diffHrs = Math.floor(diffMs / 60)
+                                const diffDays = Math.floor(diffMs / 24)
+                                if (diffMins < 1) {
+                                    return 'Just now'
+                                }
+                                if (diffMins < 60) {
+                                    return `${diffMins} min${diffMins > 1 ? 's' : ''} ago`
+                                }
+                                if (diffMins < 24) {
+                                    return `${diffHrs} hr${diffHrs > 1 ? 's' : ''} ago`
+                                }
+                                return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`
+                            }
+                            const whenNotif = timeAgo(when)
+                            const newNotif = notifObj.notif 
+                            notifsArr.push({newNotif, whenNotif})
+                            setDispNalert(true)
+                        })
+                        setDispNotifs([...notifsArr])
+                    }
+                }
+            } catch (err) {
+                console.log(err)
             }
         }
         refresh()
@@ -188,7 +255,7 @@ function FlDashboard() {
 
     return (
         <div className="dashboard-page-container">
-            <Searchbar sideNav={sideNav} setSideNav={setSideNav} setShowWebNav={setShowWebNav} />
+            <Searchbar setAlertTitle={setAlertTitle} setShowAlert={setShowAlert} setAlertText={setAlertText} dispNalert={dispNalert} setDispNalert={setDispNalert} dispNotifs={dispNotif} sideNav={sideNav} setSideNav={setSideNav} setShowWebNav={setShowWebNav} />
             <header className="page-title-container">
                 <h1 className={darkMode ? "page-titles" : "page-titles dark"}>DASHBOARD</h1>
             </header>
@@ -223,6 +290,7 @@ function FlDashboard() {
                 <h3 className="dash-sub-title" style={{display: dispInv ? 'flex' : 'none'}}>ALL INVOICES</h3>
                 <InvSubPages title1={'INVOICE'} title2={'CLIENT'} title3={'AMOUNT'} title4={'STAT'} setInv={setInv} setDispItem={setDisplayAllInvs} display2={displayAllInvs} showPage={dispInv} subPageInfo={'See more info'} subPageInfoText={'All invoices page info.'} infoText={"On this page you can view, delete or print created invoices. To view an invoice click the invoice ID, to print an invoice click the client's name and to delete an invoice click the 'status' of that invoice."}/>
             </aside>
+            <MoreInfo MoreInfoTitle={alertTitle} MoreInfoText={alertText} showMore={showAlert} setShowMore={setShowAlert} />
         </div>
     )
 }

@@ -11,6 +11,7 @@ import SettingsEditCard from '../components/settingsEditCard.jsx';
 import SettingsEditCard2 from '../components/settingsEditCard2.jsx';
 import { companyInfoHooks, settingsHooks, settingsProfileHooks } from '../hooks/fl-settingHooks.jsx';
 import { settingsAppHooks } from '../hooks/fl-settingHooks'
+import { displayNotifsHooks } from '../hooks/notifisHooks.jsx';
 
 function FlSettings() {
     const navbarHook = navbarHooks() 
@@ -48,6 +49,12 @@ function FlSettings() {
     const settingsHook = settingsAppHooks()
     const on = settingsHook.on
     const setOn = settingsHook.setOn
+
+    const notificationHook = displayNotifsHooks()
+    const dispNotif = notificationHook.dispNotifs
+    const setDispNotifs = notificationHook.setDispNotifs
+    const dispNalert = notificationHook.dispNalert
+    const setDispNalert = notificationHook.setDispNalert
 
     useEffect(() => {
         if (window.matchMedia('(prefers-color-scheme : dark)').matches) {
@@ -101,6 +108,55 @@ function FlSettings() {
             } catch (err) {
                 console.log(err)
             }
+            try {
+                const notifReq = await fetch('http://localhost:6001/api/fl/notifications', {
+                    method: 'GET',
+                    headers: {'Content-Type': 'application/json'},
+                    credentials: 'include',
+                })
+                if (!notifReq.ok) {
+                    const error = await notifReq.json()
+                    console.log(error)
+                } else {
+                    const notifsDataArr = []
+                    const notifsArr = []
+                    const data = await notifReq.json()
+                    const database = data.data
+                    if (database) {
+                        for (const [key, value] of Object.entries(database)) {
+                            notifsDataArr.push(value)
+                        }
+                        notifsDataArr.forEach((notifObj) => {
+                            const when = notifObj.when
+                            const timeAgo = (when) => {
+                                const now = new Date()
+                                const then = new Date(when)
+                                const diffMs = now - then
+                                const diffMins = Math.floor(diffMs / (1000 * 60))
+                                const diffHrs = Math.floor(diffMs / 60)
+                                const diffDays = Math.floor(diffMs / 24)
+                                if (diffMins < 1) {
+                                    return 'Just now'
+                                }
+                                if (diffMins < 60) {
+                                    return `${diffMins} min${diffMins > 1 ? 's' : ''} ago`
+                                }
+                                if (diffMins < 24) {
+                                    return `${diffHrs} hr${diffHrs > 1 ? 's' : ''} ago`
+                                }
+                                return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`
+                            }
+                            const whenNotif = timeAgo(when)
+                            const newNotif = notifObj.notif 
+                            notifsArr.push({newNotif, whenNotif})
+                            setDispNalert(true)
+                        })
+                        setDispNotifs([...notifsArr])
+                    }
+                }
+            } catch (err) {
+                console.log(err)
+            }
         }
         refresh()
     }, [])
@@ -116,7 +172,7 @@ function FlSettings() {
 
     return (
         <div className='flSettings-page-container'>
-            <Searchbar sideNav={sideNav} setSideNav={setSideNav} setShowWebNav={setShowWebNav} />
+            <Searchbar dispNalert={dispNalert} setDispNalert={setDispNalert} dispNotifs={dispNotif} sideNav={sideNav} setSideNav={setSideNav} setShowWebNav={setShowWebNav} />
             <div className="page-title-container">
                 <h1 className={darkMode ? "page-titles" : "page-titles dark"}>PROFILE/SETTINGS</h1>
             </div>

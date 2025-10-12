@@ -440,15 +440,15 @@ function FlInvoices() {
                     <button className="invoices-main-buttons" type='button' onClick={draftInvoice}>SAVE INVOICE</button>
                     <button className="invoices-main-buttons" type='submit' onClick={createInvoice}>CREATE INVOICE</button>
             </main>
-            <h2 className='page-sub-titles' style={{display: showSend ? 'flex' : 'none'}}>SEND INVOICE</h2>
+            <h2 className={darkMode ? 'page-sub-titles dark' : 'page-sub-titles'} style={{display: showSend ? 'flex' : 'none'}}>SEND INVOICE</h2>
             <InvSubPages setDispNotif={setDispNotifs} title1={'INVOICE'} title2={'CLIENT'} title3={'AMOUNT'} title4={'STAT'} dispItem={displayItems} setDispItem={setDisplayItems} Inv={inv} setInv={setInv} sendTo={sendTo} display={displayItems} showPage={showSend} subPageInfo={'See send invoice instructions'} subPageInfoText={'Sending invoice instructions'} infoText={"If an invoice is ready to send you can click the 'waiting' status on that invoice then follow the pop instructions."}/>
-            <h2 className='page-sub-titles' style={{display: showAll ? 'flex' : 'none'}}>ALL INVOICES</h2>
+            <h2 className={darkMode ? 'page-sub-titles dark' : 'page-sub-titles'} style={{display: showAll ? 'flex' : 'none'}}>ALL INVOICES</h2>
             <InvSubPages title1={'INVOICE'} title2={'CLIENT'} title3={'AMOUNT'} title4={'STAT'} setInv={setInv} setDispItem={setDisplayAllInvs} display2={displayAllInvs} showPage={showAll} subPageInfo={'See more info'} subPageInfoText={'All invoices page info.'} infoText={"On this page you can view, delete or print created invoices. To view an invoice click the invoice ID, to print an invoice click the client's name and to delete an invoice click the 'status' of that invoice."}/>
-            <h2 className='page-sub-titles' style={{display: showDraft ? 'flex' : 'none'}}>DRAFTED INVOICES</h2>
+            <h2 className={darkMode ? 'page-sub-titles dark' : 'page-sub-titles'} style={{display: showDraft ? 'flex' : 'none'}}>DRAFTED INVOICES</h2>
             <InvSubPages title1={'INVOICE'} title2={'CLIENT'} title3={'AMOUNT'} title4={'STAT'} setShowDraft={setShowDraft} setShowNew={setShowNew} setDraft={setLoadDft} setLoad={setLoadDraft} display4={showDraftInvs} setDisplay4={setShowDraftInvs} showPage={showDraft} subPageInfo={'See more info about drafted invoices'} subPageInfoText={'Drafted invoices info.'} infoText={"Here you can view all the incompleted invoices you have saved. To continue working on a draft click the invoice ID or delete invoices by clicking their statuses. Drafted invoices don't disppear on their own so remember to delete old or unwanted drafts regularly."}/>
             <MoreInfo showMore={showAlert} setShowMore={setShowAlert} MoreInfoTitle={'ALERT'} MoreInfoText={alertText}/>
 
-        </form>
+        </form> 
     )
 }
 

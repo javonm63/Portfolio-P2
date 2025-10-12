@@ -1,5 +1,6 @@
 import express from 'express'
-import pool from './config/db.js'
+import path from 'path'
+import { fileURLToPath } from 'url'
 import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
@@ -9,6 +10,8 @@ import logger from './utils/logger.js'
 import cookieParser from 'cookie-parser'
 
 const app = express()
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 // GLOBAL MIDDLEWARES
 app.use(helmet())
@@ -25,6 +28,7 @@ app.use(morgan('combined', {
 
 app.use('/api/fl', flRoutes)
 app.use('/api/cl', clRoutes)
+app.use('/api/fl/email', express.static(path.join(__dirname, 'public', 'invoices')))
 
 app.use((err, req, res, next) => {
     logger.error('Server Error', {error: err.stack})

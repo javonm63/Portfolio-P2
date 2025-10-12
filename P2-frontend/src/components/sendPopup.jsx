@@ -77,6 +77,33 @@ function SendPopup({dispItem, setDispItem, display, setDisplay, sendTo, inv}) {
         }
     }
 
+    const emailInvoice = async () => {
+        try {
+            const req = await fetch(`http://localhost:6001/api/fl/email${inv}/pdf`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({invId: inv, sendCL}),
+                credentials: 'include',
+            })
+            if (!req.ok) {
+                const error = await req.json()
+                console.log(error)
+            } else {
+                const data = await req.json()
+                const { url, name, company } = data
+                const recipient = sendCL
+                const subject = encodeURIComponent('Incoming invoice from FLI.com')
+                const body = encodeURIComponent(`Hello ${name}, here is invoice ${inv} from ${company}:\n${url}`)
+
+                setDisplay(false)
+                window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`
+            }
+        } catch(err) {
+            console.log(err)
+        }
+        
+    }
+
     return (
         <article className="send-popup-main-container" style={{display: display ? 'flex' : 'none'}}>
             <button className='exit-button' type="button" onClick={closePopup}>X</button>
@@ -88,7 +115,7 @@ function SendPopup({dispItem, setDispItem, display, setDisplay, sendTo, inv}) {
                     <option key={i} className='sendTo-options' value={item.email}>{item.name}</option>
                 ))}
             </select>
-            <button className='send-invoice-buttons' type='button'>Email Invoice</button>
+            <button className='send-invoice-buttons' type='button' onClick={emailInvoice}>Email Invoice</button>
             <button className='send-invoice-buttons' type='button' onClick={sendInvoice}>Send Invoice</button>
 
             <MoreInfo showMore={showAlert} setShowMore={setShowAlert} MoreInfoTitle={'Sending Invoices Info'} MoreInfoText={alertText} />

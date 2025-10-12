@@ -1,5 +1,9 @@
 import {v4 as uuidv4} from 'uuid'
 import pool from '../config/db.js'
+import nodemailer from 'nodemailer'
+import { createInvoicePDF } from '../utils/createPDF.js'
+import { clearInvoicesFolder } from '../utils/clearPDFs.js'
+
 
 let items = []
 export async function createInvoice(req, res) {
@@ -216,6 +220,51 @@ export async function deleteDraft(req, res) {
     const newValue = [database, flInvID]
     const updateDatabase = await pool.query(newQuery, newValue)
     return res.status(200).json({message: 'draft deleted'})
+}
+
+export async function generateInvoicePDF(req, res) {
+    const flInvID = req.cookies.flinvid
+    const fliD = req.cookies.flid
+    try {
+        const id = req.body.invId
+        const sendCL = req.body.sendCL
+
+        const invQuery = `SELECT * FROM usertables WHERE id = $1`
+        const invValue = [flInvID]
+        const getInvoices = await pool.query(invQuery, invValue)
+        const invDatabase = getInvoices.rows[0].database
+        const EmailArr = []
+        for (const [key, value] of Object.entries(invDatabase)) {
+            if (key === id) {
+                EmailArr.push(value, value.item)
+            }
+        }
+        const userQuery = `SELECT * FROM users WHERE id = $1`
+        const userValue = [fliD]
+        const getUser = await pool.query(userQuery, userValue)
+        const userData = getUser.rows[0]
+        const invoice = {
+            id,
+            client: userData.name,
+            company: userData.company,
+            phone: userData.phone,
+            billed: EmailArr[0].name,
+            email: sendCL,
+            date: EmailArr[0].date,
+            due: EmailArr[0].due,
+            total: EmailArr[0].total,
+            items: EmailArr[1]
+        }
+        const pdfUrl = await createInvoicePDF(invoice)
+        const name = EmailArr[0].name
+        const company = userData.company
+        return res.status(200).json({ url: pdfUrl, name, company})
+        // LOOK INTO HOW TO SERVE PDFs FROM DATABASE INSTEAD OF THROUGH PUBLIC FOLDER 
+        // await clearInvoicesFolder()  serve pdfs from database instead of public then use this function to clear after email is sent
+    } catch (err) {
+        console.error('Error generating PDF:', err)
+        return res.status(500).json({ error: 'Server error generating PDF' })
+    }
 }
     
 const reports = []

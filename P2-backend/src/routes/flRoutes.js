@@ -6,7 +6,7 @@ import authentUser from "../middleware/authenticateUser.js"
 import FlSignup from '../controllers/fl-signup.js'
 import flLogin from '../controllers/fl-login.js'
 import { deleteClient, editClientInfo, flClients, sendClientData } from '../controllers/fl-clients.js'
-import {createInvoice, deleteDraft, deleteInv, draftInv, getDrafts, saveReports, sendData, sendInv} from '../controllers/fl-invoices.js'
+import {createInvoice, deleteDraft, deleteInv, draftInv, generateInvoicePDF, getDrafts, saveReports, sendData, sendInv} from '../controllers/fl-invoices.js'
 import { flValidateInvoice } from '../validators/flInvoiceValidator.js'
 import { flValidateClient, flValidateEditClient } from '../validators/flclientsValidator.js'
 import { validateInvHelper } from '../utils/InvoiceValidation.js'
@@ -27,8 +27,9 @@ Server.get('/logout', authentUser('freelancer'), flLogout)
 Server.post('/invoices', authentUser('freelancer'), flValidateInvoice, validateInvHelper, createInvoice)
 Server.get('/invoices', authentUser('freelancer'), sendData)
 Server.delete('/invoices', authentUser('freelancer'), deleteInv)
-// VIEW INVOICE API
+// VIEW/EMAIL INVOICE API
 Server.get('/view', authentUser('freelancer'), sendInv)
+Server.post('/:id/pdf', generateInvoicePDF)
 // REPORTS API 
 Server.post('/reports', authentUser('freelancer'), saveReports)
 Server.get('/reports', authentUser('freelancer'), saveReports)

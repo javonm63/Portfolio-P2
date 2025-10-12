@@ -29,6 +29,14 @@
 
 @media screen and (max-width: 1030px) {
     .add-new-client-main-cont {
-        width: 94.5%;
+        width: 93%;
+    }
+    .add-new-client-inputs {
+        width: 99%;
+    }
+}
+@media screen and (max-width: 380px) { 
+    .add-new-client-main-cont {
+        width: 90%;
     }
 }

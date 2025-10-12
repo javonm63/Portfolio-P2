@@ -101,6 +101,10 @@ function TableCard({setDispNotif, view, setCurInv, setShowNew, setShowDraft, set
         }
     }
 
+    async function printInvoice() {
+
+    } 
+
     async function deleteInvoice(e) {
         if (currInvId.length > 0) {
             currInvId.pop()
@@ -211,7 +215,7 @@ function TableCard({setDispNotif, view, setCurInv, setShowNew, setShowDraft, set
                     {display2 && display2.map((item, i) => (
                         <tr className='table-row' key={i}>
                             <td className='row-data'><button className='all-inv-table-buttons' type='button' value={item.invId} onClick={viewInvoice}>{`#${item.invId}`}</button></td>
-                            <td className='row-data'><button className='all-inv-table-buttons' type='button'>{item.name}</button></td>
+                            <td className='row-data'><button className='all-inv-table-buttons' type='button' value={item.invId} onClick={printInvoice}>{item.name}</button></td>
                             <td className='row-data'>{`$${item.total}`}</td>
                             <td className='row-data'><button className='all-inv-table-buttons' type='button' value={item.invId} onClick={deleteInvoice}>{item.stat}</button></td>
                         </tr>

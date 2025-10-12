@@ -107,3 +107,9 @@ tr {
     cursor: pointer;
     scale: 1.05;
 }
+
+@media screen and (max-width: 380px) { 
+    .tableCard-container {
+        width: 50vw;
+    }
+}

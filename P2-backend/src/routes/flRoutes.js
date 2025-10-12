@@ -9,6 +9,8 @@ import { deleteClient, editClientInfo, flClients, sendClientData } from '../cont
 import {createInvoice, deleteDraft, deleteInv, draftInv, generateInvoicePDF, getDrafts, saveReports, sendData, sendInv} from '../controllers/fl-invoices.js'
 import { flValidateInvoice } from '../validators/flInvoiceValidator.js'
 import { flValidateClient, flValidateEditClient } from '../validators/flclientsValidator.js'
+import {flValidateReports } from '../validators/flreportsValidator.js'
+import {flValidateProfileData } from '../validators/flsettingsValidator.js'
 import { validateInvHelper } from '../utils/InvoiceValidation.js'
 import { validateClntHelper } from '../utils/ClientValidation.js'
 import refreshToken from '../utils/refreshToken.js'
@@ -31,7 +33,7 @@ Server.delete('/invoices', authentUser('freelancer'), deleteInv)
 Server.get('/view', authentUser('freelancer'), sendInv)
 Server.post('/:id/pdf', generateInvoicePDF)
 // REPORTS API 
-Server.post('/reports', authentUser('freelancer'), saveReports)
+Server.post('/reports', authentUser('freelancer'), flValidateReports, validateHelper, saveReports)
 Server.get('/reports', authentUser('freelancer'), saveReports)
 // DRAFT INVOICE API 
 Server.get('/draft', authentUser('freelancer'), getDrafts)
@@ -47,7 +49,7 @@ Server.get('/notifications', authentUser('freelancer'), getNotifs)
 Server.delete('/notifications', authentUser('freelancer'), clearNotifs)
 // SETTINGS API 
 Server.get('/settings', authentUser('freelancer'), getAppSettings)
-Server.post('/settings', authentUser('freelancer'), makeProfile)
+Server.post('/settings', authentUser('freelancer'), flValidateProfileData, validateHelper, makeProfile)
 Server.patch('/settings', authentUser('freelancer'), editProfile)
 // Server.delete()
 

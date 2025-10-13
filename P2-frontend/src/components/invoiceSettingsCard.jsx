@@ -1,21 +1,39 @@
 import '../styles/invoiceSettingsCard.css'
 
-function InvoiceSetCard({on, toggleDarkMode}) {
+function InvoiceSetCard({on, toggleDarkMode, client}) {
     const logout = async () => {
-        const req = await fetch('http://localhost:6001/api/fl/logout', {
-            method: 'GET',
-            headers: {'Content-Type': 'application/json'},
-            credentials: 'include',
-        })
-        if (!req.ok) {
-            const error = await req.json()
-            console.log(error)
+        if (client) {
+            const req = await fetch('http://localhost:6001/api/cl/logout', {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'},
+                credentials: 'include',
+            })
+            if (!req.ok) {
+                const error = await req.json()
+                console.log(error)
+            } else {
+                const data = await req.json()
+                console.log(data)
+                sessionStorage.removeItem('role')
+                window.location.href = '/'
+            }
         } else {
-            const data = await req.json()
-            console.log(data)
-            sessionStorage.removeItem('role')
-            window.location.href = '/'
+            const req = await fetch('http://localhost:6001/api/fl/logout', {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'},
+                credentials: 'include',
+            })
+            if (!req.ok) {
+                const error = await req.json()
+                console.log(error)
+            } else {
+                const data = await req.json()
+                console.log(data)
+                sessionStorage.removeItem('role')
+                window.location.href = '/'
+            }
         }
+        
     } 
     return (
         <section className='invSettings-page-container'>

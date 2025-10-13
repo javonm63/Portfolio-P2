@@ -10,6 +10,7 @@ export default async function ClSignup(req, res) {
 
     const {name, company, email, phone, pass, role} = req.body
     const id = genUserId()
+    const company1 = id
     const paidId = genUserId()
     const invoicesDBid = genUserId()
     const clientsDBid = 'nothing to see here'
@@ -35,8 +36,19 @@ export default async function ClSignup(req, res) {
         INSERT INTO users (id, name, company, email, phone, pass, role, invdb, cldb, paidid)
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
         RETURNING *;`
-        const values = [id, name, company, email, phone, hashed, role, invoicesDBid, clientsDBid, paidId]
+        const values = [id, name, company1, email, phone, hashed, role, invoicesDBid, clientsDBid, paidId]
         const sendToDb = await pool.query(query, values)
+
+        const street = 'no profile'
+        const city = 'no profile'
+        const state = 'no profile'
+        const zip = Number('00000')
+        const card = Number('0000000000000000')
+        const cardexp = new Date('2025-01-01')
+        const cvc = Number('000')
+        const query2 = `INSERT INTO company (name, street, city, state, zip, card, cardexp, cvc) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`
+        const value2 = [company1, street, city, state, zip, card, cardexp, cvc]
+        const sendToDb2 = await pool.query(query2, value2)
     } catch (err) {
         console.error(err)
         return res.json({errors: "Server error"})

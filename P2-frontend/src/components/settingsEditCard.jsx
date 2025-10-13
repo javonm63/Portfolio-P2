@@ -3,7 +3,7 @@ import { settingsProfileEditHooks } from '../hooks/fl-settingHooks'
 import '../styles/settingsEditCard.css'
 import MoreInfo from '../utils/moreInfo'
 
-function SettingsEditCard({title, display, setDisplay, setName, setEmail, setPhone, setPass}) {
+function SettingsEditCard({title, client, display, setDisplay, setName, setEmail, setPhone, setPass}) {
     const closePopUp = () => {
         setDisplay(false)
     }
@@ -40,42 +40,82 @@ function SettingsEditCard({title, display, setDisplay, setName, setEmail, setPho
     }
 
     const updateProfile = async () => {
-        if (editName === '' && editEmail === '' && editPhone === '' && editPass === '') {
-            setShowAlert(true)
-            setAlertTitle('ALERT')
-            setAlertText('Enter a field to update')
-            return
-        } 
+        if (client) {
+            if (editName === '' && editEmail === '' && editPhone === '' && editPass === '') {
+                setShowAlert(true)
+                setAlertTitle('ALERT')
+                setAlertText('Enter a field to update')
+                return
+            } 
 
-        try {
-            const profileReq = await fetch('http://localhost:6001/api/fl/settings', {
-                method: 'PATCH',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({editName, editEmail, editPhone, editPass, comp: 'no'}),
-                credentials: 'include',
-            })
-            if (!profileReq.ok) {
-                const error = await profileReq.json()
-                console.log(error)
-            } else {
-                setEditName('')
-                setEditEmail('')
-                setEditPhone('')
-                setEditPass('')
-                const data = await profileReq.json()
-                if (data.message === 'profile updated') {
-                    setShowAlert(true)
-                    setAlertTitle('SUCCESS')
-                    setAlertText('Profile updated successfully, refresh page to see changes.')
+            try {
+                const profileReq = await fetch('http://localhost:6001/api/cl/settings', {
+                    method: 'PATCH',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({editName, editEmail, editPhone, editPass, comp: 'no'}),
+                    credentials: 'include',
+                })
+                if (!profileReq.ok) {
+                    const error = await profileReq.json()
+                    console.log(error)
+                } else {
+                    setEditName('')
+                    setEditEmail('')
+                    setEditPhone('')
+                    setEditPass('')
+                    const data = await profileReq.json()
+                    if (data.message === 'profile updated') {
+                        setShowAlert(true)
+                        setAlertTitle('SUCCESS')
+                        setAlertText('Profile updated successfully, refresh page to see changes.')
+                    }
+                    if (data.error === 'User not found') {
+                        setShowAlert(true)
+                        setAlertTitle('ALERT')
+                        setAlertText('Cannot make changes, no user profile found')
+                    }
                 }
-                if (data.error === 'User not found') {
-                    setShowAlert(true)
-                    setAlertTitle('ALERT')
-                    setAlertText('Cannot make changes, no user profile found')
-                }
+            } catch (err) {
+                console.log(err)
             }
-        } catch (err) {
-            console.log(err)
+        } else {
+            if (editName === '' && editEmail === '' && editPhone === '' && editPass === '') {
+                setShowAlert(true)
+                setAlertTitle('ALERT')
+                setAlertText('Enter a field to update')
+                return
+            } 
+
+            try {
+                const profileReq = await fetch('http://localhost:6001/api/fl/settings', {
+                    method: 'PATCH',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({editName, editEmail, editPhone, editPass, comp: 'no'}),
+                    credentials: 'include',
+                })
+                if (!profileReq.ok) {
+                    const error = await profileReq.json()
+                    console.log(error)
+                } else {
+                    setEditName('')
+                    setEditEmail('')
+                    setEditPhone('')
+                    setEditPass('')
+                    const data = await profileReq.json()
+                    if (data.message === 'profile updated') {
+                        setShowAlert(true)
+                        setAlertTitle('SUCCESS')
+                        setAlertText('Profile updated successfully, refresh page to see changes.')
+                    }
+                    if (data.error === 'User not found') {
+                        setShowAlert(true)
+                        setAlertTitle('ALERT')
+                        setAlertText('Cannot make changes, no user profile found')
+                    }
+                }
+            } catch (err) {
+                console.log(err)
+            }
         }
     }
 

@@ -40,7 +40,7 @@ function ClReports() {
     useEffect(() => {
             async function refresh() {
                 const csrfToken = getCookie('csrfToken')
-                const req = await fetch('http://localhost:6001/api/fl/refresh', {
+                const req = await fetch('http://localhost:6001/api/cl/refresh', {
                     method: 'POST',
                     headers: {"x-csrf-token": `Bearer ${csrfToken}`, 'Content-Type': 'application/json'},
                     credentials: 'include',

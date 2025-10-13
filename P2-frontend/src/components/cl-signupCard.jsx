@@ -31,7 +31,7 @@ function ClSignUp({openSignup, closeSignup}) {
             const req = await fetch('http://localhost:6001/api/cl/signup', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({name: name, company: company, email: email, phone: phone, pass: pass, conPass: conPass, role: 'freelancer'}),
+                body: JSON.stringify({name: name, company: company, email: email, phone: phone, pass: pass, conPass: conPass, role: 'client'}),
                 credentials: 'include'
             })
             if (!req.ok) {

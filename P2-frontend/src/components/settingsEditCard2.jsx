@@ -3,7 +3,7 @@ import { settingsCompanyEditHooks, settingsPayEditHooks } from '../hooks/fl-sett
 import '../styles/settingsEditCard.css'
 import MoreInfo from '../utils/moreInfo'
 
-function SettingsEditCard2({title, title2, display, setDisplay}) {
+function SettingsEditCard2({title, title2, display, setDisplay, client}) {
     const closePopUp = () => {
         setDisplay(false)
     }
@@ -35,61 +35,117 @@ function SettingsEditCard2({title, title2, display, setDisplay}) {
 
     async function updateCompany(e) {
         e.preventDefault()
-        if (street === '' && city === '' && state === '' && zip === '') {
-            setShowAlert(true)
-            setAlertTitle('ALERT')
-            setAlertText('All address fields are required, payment details are optional.')
-            return
-        }
-        if (street === '') {
-            setShowAlert(true)
-            setAlertTitle('ALERT')
-            setAlertText('Enter a valid street')
-        }
-        if (city === '') {
-            setShowAlert(true)
-            setAlertTitle('ALERT')
-            setAlertText('Enter a valid city')
-        }
-        if (state === '') {
-            setShowAlert(true)
-            setAlertTitle('ALERT')
-            setAlertText('Enter a valid state')
-        }
-        if (zip === '') {
-            setShowAlert(true)
-            setAlertTitle('ALERT')
-            setAlertText('Enter a valid zip code')
-        }
-        try {
-            const req = await fetch('http://localhost:6001/api/fl/settings', {
-                method: 'PATCH', 
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({street, city, state, zip, cardNumber, expiration, cvc, comp2: 'yes'}),
-                credentials: 'include',
-            })
-            if (!req.ok) {
-                const error = await req.json()
-                console.log(error)
-            } else {
-                const data = await req.json()
-                if (data.message === 'company updated') {
-                    setShowAlert(true)
-                    setAlertTitle('SUCCESS')
-                    setAlertText('Company address was updated successfully, refresh page to see changes.')
-                    setStreet('')
-                    setCity('')
-                    setState('')
-                    setZip('')
-                    setCardNumber('')
-                    setExpiration('')
-                    setCvc('')
-                }
+        if (client) {
+            if (street === '' && city === '' && state === '' && zip === '') {
+                setShowAlert(true)
+                setAlertTitle('ALERT')
+                setAlertText('All address fields are required, payment details are optional.')
+                return
             }
-        } catch (err) {
-            console.log(err)
+            if (street === '') {
+                setShowAlert(true)
+                setAlertTitle('ALERT')
+                setAlertText('Enter a valid street')
+            }
+            if (city === '') {
+                setShowAlert(true)
+                setAlertTitle('ALERT')
+                setAlertText('Enter a valid city')
+            }
+            if (state === '') {
+                setShowAlert(true)
+                setAlertTitle('ALERT')
+                setAlertText('Enter a valid state')
+            }
+            if (zip === '') {
+                setShowAlert(true)
+                setAlertTitle('ALERT')
+                setAlertText('Enter a valid zip code')
+            }
+            try {
+                const req = await fetch('http://localhost:6001/api/cl/settings', {
+                    method: 'PATCH', 
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({street, city, state, zip, cardNumber, expiration, cvc, comp2: 'yes'}),
+                    credentials: 'include',
+                })
+                if (!req.ok) {
+                    const error = await req.json()
+                    console.log(error)
+                } else {
+                    const data = await req.json()
+                    if (data.message === 'company updated') {
+                        setShowAlert(true)
+                        setAlertTitle('SUCCESS')
+                        setAlertText('Company address was updated successfully, refresh page to see changes.')
+                        setStreet('')
+                        setCity('')
+                        setState('')
+                        setZip('')
+                        setCardNumber('')
+                        setExpiration('')
+                        setCvc('')
+                    }
+                } 
+            } catch (err) {
+                console.log(err)
+            }
+        } else {
+            if (street === '' && city === '' && state === '' && zip === '') {
+                setShowAlert(true)
+                setAlertTitle('ALERT')
+                setAlertText('All address fields are required, payment details are optional.')
+                return
+            }
+            if (street === '') {
+                setShowAlert(true)
+                setAlertTitle('ALERT')
+                setAlertText('Enter a valid street')
+            }
+            if (city === '') {
+                setShowAlert(true)
+                setAlertTitle('ALERT')
+                setAlertText('Enter a valid city')
+            }
+            if (state === '') {
+                setShowAlert(true)
+                setAlertTitle('ALERT')
+                setAlertText('Enter a valid state')
+            }
+            if (zip === '') {
+                setShowAlert(true)
+                setAlertTitle('ALERT')
+                setAlertText('Enter a valid zip code')
+            }
+            try {
+                const req = await fetch('http://localhost:6001/api/fl/settings', {
+                    method: 'PATCH', 
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({street, city, state, zip, cardNumber, expiration, cvc, comp2: 'yes'}),
+                    credentials: 'include',
+                })
+                if (!req.ok) {
+                    const error = await req.json()
+                    console.log(error)
+                } else {
+                    const data = await req.json()
+                    if (data.message === 'company updated') {
+                        setShowAlert(true)
+                        setAlertTitle('SUCCESS')
+                        setAlertText('Company address was updated successfully, refresh page to see changes.')
+                        setStreet('')
+                        setCity('')
+                        setState('')
+                        setZip('')
+                        setCardNumber('')
+                        setExpiration('')
+                        setCvc('')
+                    }
+                } 
+            } catch (err) {
+                console.log(err)
+            }
         }
-        
     }
 
     return (

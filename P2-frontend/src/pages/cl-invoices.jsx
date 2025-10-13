@@ -192,4 +192,4 @@ function ClInvoices() {
 
 export default ClInvoices
 
-// continue prop drilling the view boolean hook into tableCard 
+// ADD PRINT OPTION FOR CLIENTS

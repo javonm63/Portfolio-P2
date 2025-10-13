@@ -130,7 +130,7 @@ function FlReports() {
     const paidArr = []
     const unpaidArr = []
     if (paidReport !== undefined || unpaid !== undefined) {
-            paidArr.push(paidReport)
+        paidArr.push(paidReport)
         unpaidArr.push(unpaid)
     } 
 

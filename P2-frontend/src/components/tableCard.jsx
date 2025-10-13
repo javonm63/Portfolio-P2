@@ -5,7 +5,7 @@ import { showAlertHooks } from '../hooks/fl-apiHooks'
 import MoreInfo from '../utils/moreInfo'
 import { showDarkModeHook } from '../hooks/landingPageHooks'
 
-function TableCard({setDispNotif, deleteAll, view, setCurInv, setShowNew, setShowDraft, setDraft, setLoad, setViewInvData, clientDisp, setView, dispItem, setDispItem, darkMode, tableWidth, tableID, invNumText, clientText, amountText, statusText, pageSubTitle, display, display2, display3, display4, display5, setDisplay4, setInv, Inv, sendTo}) {
+function TableCard({setDispNotif, deleteAll, view, setCurInv, setShowNew, setShowDraft, setDraft, setLoad, setViewInvData, clientDisp, setView, dispItem, setDispItem, darkMode, tableWidth, tableID, invNumText, clientText, amountText, statusText, pageSubTitle, display, display2, display3, display4, display5, display6, setDisplay4, setInv, Inv, sendTo}) {
     const alertHooks = showAlertHooks()
     const showAlert = alertHooks.showAlert
     const setShowAlert = alertHooks.setShowAlert
@@ -273,6 +273,14 @@ function TableCard({setDispNotif, deleteAll, view, setCurInv, setShowNew, setSho
                             <td className='row-data'>{item.email}</td>
                             <td className='row-data'>{item.phone}</td>
                             <td className='row-data'>{item.company}</td>
+                        </tr>
+                    ))}
+                    {display6 && display6.map((item, i) => (
+                        <tr className='table-row' key={i}>
+                            <td className='row-data'>{item.invId}</td>
+                            <td className='row-data'>{item.due}</td>
+                            <td className='row-data'>{item.total}</td>
+                            <td className='row-data'>{item.stat}</td>
                         </tr>
                     ))}
                         

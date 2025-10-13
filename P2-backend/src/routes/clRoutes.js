@@ -5,20 +5,22 @@ import { validateHelper } from '../utils/signupValidatorHelper.js'
 import existingClUsr from "../middleware/existingClUser.js"
 import clLogin from "../controllers/cl-login.js"
 import authentUser from "../middleware/authenticateUser.js"
-import { createPayIntent, deleteInvoice, loadClInvs } from "../controllers/cl-invoices.js"
+import { createPayIntent, deleteInvoice, loadClInvs, saveReports2 } from "../controllers/cl-invoices.js"
 import refreshToken from "../utils/refreshToken.js"
 
 
 
 const Server = express()
-// SIGN UP ROUTES 
+// SIGN UP/ LOGIN/ LOGOUT API
 Server.post('/signup', validateClSignup, validateHelper, existingClUsr, ClSignup)
 Server.post('/login', validateLogin, validateHelper, clLogin)
 Server.post('/refresh', refreshToken)
-// INVOICES ROUTES
+// INVOICES API
 Server.get('/invoices', authentUser('client'), loadClInvs)
 Server.delete('/invoices', authentUser('client'), deleteInvoice)
-// PAY ROUTES 
+// PAY INVOICE API
 Server.post('/pay', authentUser('client'), createPayIntent)
+// REPORTS API
+Server.post('/reports', authentUser('client'), saveReports2)
 
 export default Server

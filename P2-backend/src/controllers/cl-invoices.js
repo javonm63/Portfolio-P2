@@ -108,3 +108,26 @@ export async function deleteInvoice(req, res) {
     const updateDatabase = await pool.query(newQuery, newValue)
     return res.status(200).json({message: 'invoice deleted'})
 }
+
+const reports = []
+export function saveReports2(req, res) {
+    let post
+    if (req.body) {
+        post = req.body.post
+    }
+    if (post) {
+        const {earned, unpaid, overdue, paidReport} = req.body
+        if (reports.length > 0) {
+            reports.pop()
+            reports.push({earned, unpaid, overdue, paidReport})
+        } else {
+            reports.push({earned, unpaid, overdue, paidReport})
+        }
+        return res.status(200).json({message: 'reports saved'})
+    } else if (post === undefined) {
+        if (reports.length === 0) {
+            reports.push({earned: 0, unpaid: 0, overdue: 0, paidReport: 0})
+        }
+        return res.status(200).json({data: reports[0]})
+    }
+}

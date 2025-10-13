@@ -5,7 +5,7 @@ import { validateHelper } from '../utils/signupValidatorHelper.js'
 import existingClUsr from "../middleware/existingClUser.js"
 import clLogin from "../controllers/cl-login.js"
 import authentUser from "../middleware/authenticateUser.js"
-import { createPayIntent, loadClInvs } from "../controllers/cl-invoices.js"
+import { createPayIntent, deleteInvoice, loadClInvs } from "../controllers/cl-invoices.js"
 import refreshToken from "../utils/refreshToken.js"
 
 
@@ -17,6 +17,7 @@ Server.post('/login', validateLogin, validateHelper, clLogin)
 Server.post('/refresh', refreshToken)
 // INVOICES ROUTES
 Server.get('/invoices', authentUser('client'), loadClInvs)
+Server.delete('/invoices', authentUser('client'), deleteInvoice)
 // PAY ROUTES 
 Server.post('/pay', authentUser('client'), createPayIntent)
 

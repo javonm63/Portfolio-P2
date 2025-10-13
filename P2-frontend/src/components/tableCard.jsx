@@ -5,7 +5,7 @@ import { showAlertHooks } from '../hooks/fl-apiHooks'
 import MoreInfo from '../utils/moreInfo'
 import { showDarkModeHook } from '../hooks/landingPageHooks'
 
-function TableCard({setDispNotif, view, setCurInv, setShowNew, setShowDraft, setDraft, setLoad, setViewInvData, clientDisp, setView, dispItem, setDispItem, darkMode, tableWidth, tableID, invNumText, clientText, amountText, statusText, pageSubTitle, display, display2, display3, display4, display5, setDisplay4, setInv, Inv, sendTo}) {
+function TableCard({setDispNotif, deleteAll, view, setCurInv, setShowNew, setShowDraft, setDraft, setLoad, setViewInvData, clientDisp, setView, dispItem, setDispItem, darkMode, tableWidth, tableID, invNumText, clientText, amountText, statusText, pageSubTitle, display, display2, display3, display4, display5, setDisplay4, setInv, Inv, sendTo}) {
     const alertHooks = showAlertHooks()
     const showAlert = alertHooks.showAlert
     const setShowAlert = alertHooks.setShowAlert
@@ -36,7 +36,7 @@ function TableCard({setDispNotif, view, setCurInv, setShowNew, setShowDraft, set
             } else {
                 currInvId.push(e.target.value)
             }
-            try {
+            try { 
                 const fetchSaved = await fetch('http://localhost:6001/api/cl/invoices', {
                     method: 'GET',
                     headers: {'Content-Type': 'application/json'},
@@ -106,33 +106,64 @@ function TableCard({setDispNotif, view, setCurInv, setShowNew, setShowDraft, set
     } 
 
     async function deleteInvoice(e) {
-        if (currInvId.length > 0) {
-            currInvId.pop()
-            currInvId.push(e.target.value)
-        } else {
-            currInvId.push(e.target.value)
-        }
-        try {
-            const req = await fetch('http://localhost:6001/api/fl/invoices', {
-            method: 'DELETE',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({data: currInvId[0]}),
-            credentials: 'include'
-            })
-            if (!req.ok) {
-                const error = await req.json()
-                console.log(error)
+        if (deleteAll) {
+            if (currInvId.length > 0) {
+                currInvId.pop()
+                currInvId.push(e.target.value)
             } else {
-                const data = await req.json()
-                const message = data.message
-                if (message === 'invoice deleted') {
-                    setShowAlert(true)
-                    setAlertText('Invoice deleted refresh the page to see changes')
-                }
-                console.log(message)
+                currInvId.push(e.target.value)
             }
-        } catch (err) {
-            console.log(err)
+            try {
+                const req = await fetch('http://localhost:6001/api/cl/invoices', {
+                method: 'DELETE',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({data: currInvId[0]}),
+                credentials: 'include'
+                })
+                if (!req.ok) {
+                    const error = await req.json()
+                    console.log(error)
+                } else {
+                    const data = await req.json()
+                    const message = data.message
+                    if (message === 'invoice deleted') {
+                        setShowAlert(true)
+                        setAlertText('Invoice deleted refresh the page to see changes')
+                    }
+                    console.log(message)
+                }
+            } catch (err) {
+                console.log(err)
+            }
+        } else {
+            if (currInvId.length > 0) {
+                currInvId.pop()
+                currInvId.push(e.target.value)
+            } else {
+                currInvId.push(e.target.value)
+            }
+            try {
+                const req = await fetch('http://localhost:6001/api/fl/invoices', {
+                method: 'DELETE',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({data: currInvId[0]}),
+                credentials: 'include'
+                })
+                if (!req.ok) {
+                    const error = await req.json()
+                    console.log(error)
+                } else {
+                    const data = await req.json()
+                    const message = data.message
+                    if (message === 'invoice deleted') {
+                        setShowAlert(true)
+                        setAlertText('Invoice deleted refresh the page to see changes')
+                    }
+                    console.log(message)
+                }
+            } catch (err) {
+                console.log(err)
+            }
         }
     }
 

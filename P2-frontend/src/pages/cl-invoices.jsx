@@ -10,7 +10,7 @@ import { useEffect } from 'react';
 import getCookie from '../utils/getCookie.jsx';
 import { flInvoicesHooks } from '../hooks/fl-apiHooks.jsx';
 import { displayHooks } from '../hooks/cl-hooks.jsx';
-
+ 
 function ClInvoices() {
     const navbarHook = navbarHooks() 
     const showWebNav = navbarHook.showWebNav
@@ -51,6 +51,8 @@ function ClInvoices() {
     const setMerchDisp = clInvsHooks.setMerchDisp
     const viewSaved = clInvsHooks.viewSaved
     const setViewSaved = clInvsHooks.setViewSaved
+    const deleteAll = clInvsHooks.deleteAll
+    const setDeleteAll = clInvsHooks.setDeleteAll
 
     useEffect(() => {
         if (window.matchMedia('(prefers-color-scheme : dark)').matches) {
@@ -122,7 +124,11 @@ function ClInvoices() {
                     setDisplayItem(clInvsArr)
                     setSavedDisp(clPaidArr)
                     setAllDisp(clAllArr)
-                    setMerchDisp(clMerchArr)
+                    const clMerchant = Array.from(
+                        new Map(clMerchArr.map(obj => [JSON.stringify(obj), obj])).values()
+                    )
+                    console.log(clMerchArr, clMerchant)
+                    setMerchDisp(clMerchant)
                 }
             } catch (err) {
                 console.log(err)
@@ -149,6 +155,7 @@ function ClInvoices() {
         setShowNew(false)
         setShowSend(false)
         setShowMerch(false)
+        setDeleteAll(true)
     }
     const showMerchPg = () => {
         setShowMerch(true)
@@ -175,7 +182,7 @@ function ClInvoices() {
             <div className="clInvs-page-container">
                 <InvSubPages title1={'INVOICE'} title2={'BILLED TO'} title3={'AMOUNT'} title4={'STAT'} display={displayItem} darkMode={darkMode} showPage={showNew} subPageInfo={'See more info'} subPageInfoText={'New invoices info.'} infoText={"This page allows you to pay for invoices by clicking the invoice status."}/>
                 <InvSubPages view={viewSaved} title1={'INVOICE'} title2={'BILLED TO'} title3={'AMOUNT'} title4={'STAT'} display2={savedDisp} darkMode={darkMode} showPage={showSend} subPageInfo={'See more info'} subPageInfoText={'Saving invoices info.'} infoText={"Here you can view or print paid/saved invoices, to view click the invoice ID or to print click the invoice status."}/>
-                <InvSubPages title1={'INVOICE'} title2={'BILLED TO'} title3={'AMOUNT'} title4={'STAT'} display2={alldDisp} darkMode={darkMode} showPage={showAll} subPageInfo={'See more info'} subPageInfoText={'All invoices info.'} infoText={"All the invoices that comes to your account is saved here regardless if the invoice is paid or unpaid."}/>
+                <InvSubPages deleteAll={deleteAll} title1={'INVOICE'} title2={'BILLED TO'} title3={'AMOUNT'} title4={'STAT'} display2={alldDisp} darkMode={darkMode} showPage={showAll} subPageInfo={'See more info'} subPageInfoText={'All invoices info.'} infoText={"All the invoices that comes to your account is saved here regardless if the invoice is paid or unpaid. To delete an invoice click on its status, any invoice that's deleted here will be deleted entirely from your account."}/>
                 <InvSubPages title1={'NAME'} title2={'EMAIL'} title3={'PHONE'} title4={'COMP.'} display5={merchdDisp} darkMode={darkMode} showPage={showMerch} subPageInfo={'See more info'} subPageInfoText={'Merchants info.'} infoText={"All the freelancers that have sent you invoices contact information are saved here To view a freelancer's info click their name."}/>
             </div>
             </article>

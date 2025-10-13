@@ -73,3 +73,38 @@ export async function createPayIntent(req, res) {
     return res.status(200).json({message: 'invoice paid'})
     
 }
+
+export async function deleteInvoice(req, res) {
+    const clInvId = req.cookies.id
+    const paidId = req.cookies.paidId
+    const invId = req.body.data
+    const unpaidQuery = `SELECT * FROM usertables WHERE id = $1`
+    const unpaidValue = [clInvId]
+    const getInvs = await pool.query(unpaidQuery, unpaidValue)
+    const database = getInvs.rows[0].database
+    const unpaidArr = []
+    for (const [key, value] of Object.entries(database)) {
+        if (key === invId) {
+            unpaidArr.push(unpaidArr.length + 1)
+            delete database[key]
+        }
+    }
+    if (unpaidArr.length === 0) {
+        const paidQuery = `SELECT * FROM usertables WHERE id = $1`
+        const paidValue = [paidId]
+        const getPaidInvs = await pool.query(paidQuery, paidValue)
+        const paidDatabase = getPaidInvs.rows[0].database
+        for (const [key, value] of Object.entries(paidDatabase)) {
+            if (key === invId) {
+                delete paidDatabase[key]
+            }
+        }
+        const newQuery2 = `UPDATE usertables SET database = $1 WHERE id = $2 RETURNING *;`
+        const newValue2 = [paidDatabase, paidId]
+        const updatePaidDatabase = await pool.query(newQuery2, newValue2)
+    }
+    const newQuery = `UPDATE usertables SET database = $1 WHERE id = $2 RETURNING *;`
+    const newValue = [database, clInvId]
+    const updateDatabase = await pool.query(newQuery, newValue)
+    return res.status(200).json({message: 'invoice deleted'})
+}

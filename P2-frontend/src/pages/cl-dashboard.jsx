@@ -11,9 +11,10 @@ import ReportsGraphCard from '../components/reportsGraphCard.jsx';
 import { reportsHooks, sendInvHook} from '../hooks/fi-invoicesHooks.jsx';
 import getCookie from "../utils/getCookie.jsx";
 import { useEffect } from 'react';
-import { flInvoicesHooks } from '../hooks/fl-apiHooks.jsx';
+import { flInvoicesHooks, showAlertHooks } from '../hooks/fl-apiHooks.jsx';
 import InvSubPages from '../components/invoicesSubPages.jsx';
 import { displayHooks } from '../hooks/cl-hooks.jsx';
+import { displayNotifsHooks } from '../hooks/notifisHooks.jsx';
 
 
 function ClDashboard() {
@@ -51,6 +52,20 @@ function ClDashboard() {
     const deleteAll = clInvsHooks.deleteAll
     const setDeleteAll = clInvsHooks.setDeleteAll
 
+    const notificationHook = displayNotifsHooks()
+    const dispNotif = notificationHook.dispNotifs
+    const setDispNotifs = notificationHook.setDispNotifs
+    const dispNalert = notificationHook.dispNalert
+    const setDispNalert = notificationHook.setDispNalert
+
+    const showAlertHook = showAlertHooks()
+    const showAlert = showAlertHook.showAlert
+    const setShowAlert = showAlertHook.setShowAlert
+    const alertText = showAlertHook.alertText
+    const setAlertText = showAlertHook.setAlertText
+    const alertTitle = showAlertHook.alertTitle
+    const setAlertTitle = showAlertHook.setAlertTitle
+
     useEffect(() => {
         if (window.matchMedia('(prefers-color-scheme : dark)').matches) {
             setDarkMode(true)
@@ -85,7 +100,7 @@ function ClDashboard() {
                 headers: {'Content-Type': 'application/json'},
                 credentials: 'include',
             })
-
+ 
             if (!dataReq.ok) {
                 const data = await dataReq.json()
                 console.log(data)
@@ -162,75 +177,55 @@ function ClDashboard() {
                 const {earned, unpaid, overdue, paidReport} = data.data
                 setReports({earned, unpaid, overdue, paidReport})
             }
-
-            // const req2 = await fetch('http://localhost:6001/api/fl/draft', {
-            //     method: 'GET',
-            //     headers: {'Content-Type': 'application/json'},
-            //     credentials: 'include',
-            // })
-            // if (!req2.ok) {
-            //     const error = await req2.json()
-            //     console.log(error)
-            // } else {
-            //     const data = await req2.json()
-            //     const draftArr = []
-            //     const database = data.data.Draft
-            //     if (database) {
-            //         for (const [key, value] of Object.entries(database)) {
-            //             draftArr.push(value)
-            //         }
-            //         setShowDraft(draftArr)
-            //     }
-            // }
-            // try {
-            //     const notifReq = await fetch('http://localhost:6001/api/fl/notifications', {
-            //         method: 'GET',
-            //         headers: {'Content-Type': 'application/json'},
-            //         credentials: 'include',
-            //     })
-            //     if (!notifReq.ok) {
-            //         const error = await notifReq.json()
-            //         console.log(error)
-            //     } else {
-            //         const notifsDataArr = []
-            //         const notifsArr = []
-            //         const data = await notifReq.json()
-            //         const database = data.data
-            //         if (database) {
-            //             for (const [key, value] of Object.entries(database)) {
-            //                 notifsDataArr.push(value)
-            //             }
-            //             notifsDataArr.forEach((notifObj) => {
-            //                 const when = notifObj.when
-            //                 const timeAgo = (when) => {
-            //                     const now = new Date()
-            //                     const then = new Date(when)
-            //                     const diffMs = now - then
-            //                     const diffMins = Math.floor(diffMs / (1000 * 60))
-            //                     const diffHrs = Math.floor(diffMs / 60)
-            //                     const diffDays = Math.floor(diffMs / 24)
-            //                     if (diffMins < 1) {
-            //                         return 'Just now'
-            //                     }
-            //                     if (diffMins < 60) {
-            //                         return `${diffMins} min${diffMins > 1 ? 's' : ''} ago`
-            //                     }
-            //                     if (diffMins < 24) {
-            //                         return `${diffHrs} hr${diffHrs > 1 ? 's' : ''} ago`
-            //                     }
-            //                     return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`
-            //                 }
-            //                 const whenNotif = timeAgo(when)
-            //                 const newNotif = notifObj.notif 
-            //                 notifsArr.push({newNotif, whenNotif})
-            //                 setDispNalert(true)
-            //             })
-            //             setDispNotifs([...notifsArr])
-            //         }
-            //     }
-            // } catch (err) {
-            //     console.log(err)
-            // }
+            try {
+                const notifReq = await fetch('http://localhost:6001/api/cl/notifications', {
+                    method: 'GET',
+                    headers: {'Content-Type': 'application/json'},
+                    credentials: 'include',
+                })
+                if (!notifReq.ok) {
+                    const error = await notifReq.json()
+                    console.log(error)
+                } else {
+                    const notifsDataArr = []
+                    const notifsArr = []
+                    const data = await notifReq.json()
+                    const database = data.data
+                    if (database) {
+                        for (const [key, value] of Object.entries(database)) {
+                            notifsDataArr.push(value)
+                        }
+                        notifsDataArr.forEach((notifObj) => {
+                            const when = notifObj.when
+                            const timeAgo = (when) => {
+                                const now = new Date()
+                                const then = new Date(when)
+                                const diffMs = now - then
+                                const diffMins = Math.floor(diffMs / (1000 * 60))
+                                const diffHrs = Math.floor(diffMs / 60)
+                                const diffDays = Math.floor(diffMs / 24)
+                                if (diffMins < 1) {
+                                    return 'Just now'
+                                } 
+                                if (diffMins < 60) {
+                                    return `${diffMins} min${diffMins > 1 ? 's' : ''} ago`
+                                }
+                                if (diffMins < 24) {
+                                    return `${diffHrs} hr${diffHrs > 1 ? 's' : ''} ago`
+                                }
+                                return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`
+                            }
+                            const whenNotif = timeAgo(when)
+                            const newNotif = notifObj.notif 
+                            notifsArr.push({newNotif, whenNotif})
+                            setDispNalert(true)
+                        })
+                        setDispNotifs([...notifsArr])
+                    }
+                }
+            } catch (err) {
+                console.log(err)
+            }
         }
         refresh()
     }, [0])
@@ -244,7 +239,7 @@ function ClDashboard() {
 
     return (
         <div className="dashboard-page-container">
-            <Searchbar sideNav={sideNav} setSideNav={setSideNav} setShowWebNav={setShowWebNav} />
+            <Searchbar setAlertTitle={setAlertTitle} setShowAlert={setShowAlert} setAlertText={setAlertText} dispNalert={dispNalert} setDispNalert={setDispNalert} dispNotifs={dispNotif} sideNav={sideNav} setSideNav={setSideNav} setShowWebNav={setShowWebNav} />
             <header className="page-title-container">
                 <h1 className= {darkMode ? "page-titles" : 'page-titles dark'}>DASHBOARD</h1>
             </header>

@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon --env-file=.env server.js",
-    "test": "jest"
+    "test": "jest",
+    "start": "NODE_ENV=production node --env-file=.env.production server.js"
   },
   "keywords": [
     "freelancer",
@@ -30,5 +31,9 @@
     "winston": "^3.17.0"
   },
   "author": "Javon Martin",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^30.2.0",
+    "supertest": "^7.1.4"
+  }
 }

@@ -8,8 +8,9 @@ import { showDarkModeHook } from '../hooks/landingPageHooks.jsx';
 import LandingPgMenuCard from '../components/LandingPageMenu.jsx';
 import { useEffect } from 'react';
 import getCookie from '../utils/getCookie.jsx';
-import { flInvoicesHooks } from '../hooks/fl-apiHooks.jsx';
+import { flInvoicesHooks, showAlertHooks } from '../hooks/fl-apiHooks.jsx';
 import { displayHooks } from '../hooks/cl-hooks.jsx';
+import { displayNotifsHooks } from '../hooks/notifisHooks.jsx';
  
 function ClInvoices() {
     const navbarHook = navbarHooks() 
@@ -53,6 +54,20 @@ function ClInvoices() {
     const setViewSaved = clInvsHooks.setViewSaved
     const deleteAll = clInvsHooks.deleteAll
     const setDeleteAll = clInvsHooks.setDeleteAll
+
+    const notificationHook = displayNotifsHooks()
+    const dispNotif = notificationHook.dispNotifs
+    const setDispNotifs = notificationHook.setDispNotifs
+    const dispNalert = notificationHook.dispNalert
+    const setDispNalert = notificationHook.setDispNalert
+
+    const showAlertHook = showAlertHooks()
+    const showAlert = showAlertHook.showAlert
+    const setShowAlert = showAlertHook.setShowAlert
+    const alertText = showAlertHook.alertText
+    const setAlertText = showAlertHook.setAlertText
+    const alertTitle = showAlertHook.alertTitle
+    const setAlertTitle = showAlertHook.setAlertTitle
 
     useEffect(() => {
         if (window.matchMedia('(prefers-color-scheme : dark)').matches) {
@@ -166,7 +181,7 @@ function ClInvoices() {
 
     return (
         <div className='cl-invoices-page-container'>
-            <Searchbar sideNav={sideNav} setSideNav={setSideNav} setShowWebNav={setShowWebNav} />
+            <Searchbar setAlertTitle={setAlertTitle} setShowAlert={setShowAlert} setAlertText={setAlertText} dispNalert={dispNalert} setDispNalert={setDispNalert} dispNotifs={dispNotif} sideNav={sideNav} setSideNav={setSideNav} setShowWebNav={setShowWebNav} />
             <header className="page-title-container">
                 <h1 className={darkMode ? "page-titles" : "page-titles dark"}>INVOICES</h1>
             </header>

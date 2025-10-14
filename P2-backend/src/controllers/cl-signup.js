@@ -49,6 +49,9 @@ export default async function ClSignup(req, res) {
         const query2 = `INSERT INTO company (name, street, city, state, zip, card, cardexp, cvc) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`
         const value2 = [company1, street, city, state, zip, card, cardexp, cvc]
         const sendToDb2 = await pool.query(query2, value2)
+        const notifQuery = `INSERT INTO notifications (id, notifs) VALUES ($1, $2) RETURNING *`
+        const notifValue = [id, []]
+        const createNotifDb = await pool.query(notifQuery, notifValue) 
     } catch (err) {
         console.error(err)
         return res.json({errors: "Server error"})

@@ -69,8 +69,15 @@ export async function createPayIntent(req, res) {
         const updateQuery = `UPDATE usertables SET database = $1 WHERE id = $2 RETURNING *`
         const updateValue = [database3, updateInv.flInvID]
         const update = await pool.query(updateQuery, updateValue)
+
+        const when = new Date().toISOString()
+        const notif = `Invoice #${invId} sent.`
+        const index = Math.floor(Math.random() * 3000)
+        const notifQuery = `UPDATE notifications SET notifs = notifs || jsonb_build_object($1::text, $2::jsonb) WHERE id = $3 RETURNING *`
+        const notifValue = [index, JSON.stringify({notif, when}), id]
+        const sendNotifToDb = await pool.query(notifQuery, notifValue)
     }
-    return res.status(200).json({message: 'invoice paid'})
+    return res.status(200).json({message: {message: 'invoice paid', notif: notif, when: when}})
     
 }
 
@@ -123,6 +130,7 @@ export function saveReports2(req, res) {
         } else {
             reports.push({earned, unpaid, overdue, paidReport})
         }
+        
         return res.status(200).json({message: 'reports saved'})
     } else if (post === undefined) {
         if (reports.length === 0) {

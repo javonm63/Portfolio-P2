@@ -10,6 +10,7 @@ import { createPayIntent, deleteInvoice, loadClInvs, saveReports2 } from "../con
 import refreshToken from "../utils/refreshToken.js"
 import { editClProfile, getClAppSettings, makeClProfile } from '../controllers/cl-settings.js'
 import { clLogout } from "../controllers/cl-logout.js"
+import { clearNotifs, getNotifs } from '../controllers/notifications.js'
 
 
 
@@ -26,6 +27,9 @@ Server.delete('/invoices', authentUser('client'), deleteInvoice)
 Server.post('/pay', authentUser('client'), createPayIntent)
 // REPORTS API
 Server.post('/reports', authentUser('client'), saveReports2)
+// NOTIFACTIONS API 
+Server.get('/notifications', authentUser('client'), getNotifs)
+Server.delete('/notifications', authentUser('client'), clearNotifs)
 // SETTINGS API 
 Server.get('/settings', authentUser('client'), getClAppSettings)
 Server.post('/settings', authentUser('client'), flValidateProfileData, validateHelper, makeClProfile)

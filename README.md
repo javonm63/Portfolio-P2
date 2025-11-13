@@ -1,76 +1,102 @@
 🧭 Overview
 
-FreelancerInnvoice.com (FLI.COM) is a free, full-stack invoice management web application designed for freelancers and their clients. The platform provides an all-in-one solution for creating, sending, receiving, paying, and tracking invoices — without costly subscriptions or unnecessary complexity.
+FreelancerInnvoice.com (FLI.COM) is a free, full-stack invoice management web application designed for freelancers and their clients.
 
-This version of FLI.COM is built using vanilla JavaScript on the frontend, with a focus on clean architecture, responsive design, and scalability for production deployment.
+The platform consists of two sides — Client and Freelancer — each equipped with its own tailored set of tools. Users can create, send, receive, pay, and track invoices with ease. The goal is to provide a powerful, reliable, and intuitive all-in-one platform for managing invoices and payments without any subscriptions or hidden costs.
+
+This version of FLI.COM was built entirely in vanilla JavaScript on the frontend to demonstrate full control over the logic, structure, and UI without relying on frameworks.
 
 🎯 Project Goal
 
-The primary goal of this project was to design, develop, and deploy a full-stack application with:
+The goal for this project was to design, develop, and deploy a production-ready full-stack web application that:
 
-A production-ready frontend and secure backend/database
+Solves the problem of finding a free, user-friendly invoice management tool
 
-A REST API that supports authentication, CRUD operations, and payment flow
+Includes all essential features for freelancers and clients alike
 
-A custom domain deployment with real-world scalability
+Features a secure REST API and scalable backend architecture
 
-A solution to a real problem: the lack of accessible, free online invoice management tools
+Is hosted on its own custom domain
+
+Experiments with a frontend UI inspired by Apple’s iOS 26 “liquid glass” design language
 
 💡 The Problem
 
 Have you ever tried to make an invoice online?
-Most platforms require expensive monthly subscriptions or limit functionality behind paywalls.
+Most platforms hide even the most basic features behind expensive monthly subscriptions.
 
-FreelancerInnvoice.com eliminates this problem by offering a completely free, easy-to-use platform where freelancers and clients can manage invoices, payments, and financial records seamlessly — all in one place.
+FreelancerInnvoice.com was created to change that — offering a completely free, secure, and intuitive solution for making, sending, receiving, and paying invoices online.
+
+Whether you’re an independent freelancer or a small business owner, FLI.COM helps you manage your workflow without barriers or fees.
 
 🚀 Key Features
 👤 Account Management
 
-Signup/Login as Freelancer or Client
+Signup/Login for Freelancer or Client accounts
 
-Secure authentication and role-based features
+Role-based dashboard and access control
 
-💸 Invoicing
+💸 Invoice Operations
 
-Create, draft, print, and delete invoices
+Create, print, draft, and delete invoices
 
-Send invoices through FLI.com or directly via email
+Send invoices through FLI.com or email
 
 Receive and pay invoices securely
 
-📊 Financial Tracking
+📊 Analytics & Reporting
 
-Track daily, weekly, and monthly spending or earnings
+Track daily, weekly, and monthly earnings or spending
 
-View real-time invoice stats and summaries
+Get alerts when an invoice is paid
 
-Get alerts when payments are received
+Monitor invoice activity and performance
 
-📅 Organization
+📅 Smart Organization
 
-Sort invoices by due date, paid status, or creation date
+Sort invoices by due date, paid/unpaid status, or creation date
 
-Send payment reminders to clients automatically
+Send automated reminders to clients
+
+🔮 Future Updates
+
+At its current stage, FLI.COM already exceeds its initial goals — delivering a complete, production-ready invoicing platform.
+
+However, future improvements will be guided by real user feedback and usage data as the platform grows. Planned updates include:
+
+Enhanced analytics and visual reporting
+
+Invoice PDF export and sharing
+
+Integration with popular payment gateways (Stripe, PayPal)
+
+Dark mode and adaptive UI
+
+Multi-language support
 
 🛠️ Tech Stack
 
-Frontend: Vanilla JavaScript, HTML5, CSS3
-Backend: Node.js / Express.js
+Frontend: HTML5, CSS3, Vanilla JavaScript
+Backend: Node.js, Express.js
 Database: PostgreSQL
-Hosting: Render (Backend), Custom Domain (Frontend)
+Hosting: Render (Backend) + Custom Domain (Frontend)
 Version Control: Git + GitHub
 
 🌐 Live Demo
 
-🔗 Visit FreelancerInnvoice.com
+🔗 Visit www.FreelancerInnvoice.com
 
-(If not live yet, you can replace this with “Coming Soon” or localhost link.)
+🧠 What Makes This Project Stand Out
 
-📸 Screenshots
+Fully custom-built frontend with no frameworks — every element coded from scratch
 
-(Add these when ready)
+RESTful API architecture designed for scalability and security
 
-Dashboard	Invoice Builder	Reports
+End-to-end functionality: invoice creation, payments, and analytics
+
+Custom domain deployment and real-world production workflow
+
+Designed for future scalability and real user adoption
 
 👨‍💻 Author
 
@@ -79,5 +105,5 @@ Javon M. — Front-End Developer
 
 🪪 License
 
-This project is open-source and available under the MIT License
+This project is open-source under the MIT License
 .
